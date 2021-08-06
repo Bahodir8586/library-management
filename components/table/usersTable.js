@@ -1,24 +1,59 @@
 import React, {useEffect, useState} from 'react';
+import Link from "next/link";
 
 const UsersTable = () => {
+	//FIXME: fix this
+	const role = "admin"
+	const [data, setData] = useState([
+										 {
+											 id: 1,
+											 image: "/url",
+											 fullName: "Abdullayev Bahodir",
+											 email: "bahodira213@gmail.com",
+											 active: true,
+										 },
+										 {
+											 id: 2,
+											 image: "/url",
+											 fullName: "Nosirov Mirfayz",
+											 email: "mirfayzrak@gmail.com",
+											 active: true,
+										 },
+										 {
+											 id: 3,
+											 image: "/url",
+											 fullName: "O'ralov Shahzod",
+											 email: "shahzodprogrammer@gmail.com",
+											 active: false,
+										 },
+										 {
+											 id: 4,
+											 image: "/url",
+											 fullName: "Qobilov Xurshidbek",
+											 email: "sherlockboy12@gmail.com",
+											 active: true,
+										 }
+									 ])
 	const [filter, setFilter] = useState({
-		 value: "all",
-		 options: [
-			 {value: "all", name: "All users"},
-			 {value: "blocked", name: "Blocked users"},
-			 {value: "active", name: "Active users"},
-			 {value: "debtor", name: "Debtor users"},
-			 {value: "noDebtor", name: "Debt-free users"},
-		 ]
-	})
+											 value: "all",
+											 options: [
+												 {value: "all", name: "All users"},
+												 {value: "blocked", name: "Blocked users"},
+												 {value: "active", name: "Active users"},
+												 {value: "debtor", name: "Debtor users"},
+												 {value: "noDebtor", name: "Debt-free users"},
+											 ]
+										 })
 	const [searchBy, setSearchBy] = useState({
-		 value: "email",
-		 options: [
-			 {value: "email", name: "Email"},
-			 {value: "fullName", name: "Full name"},
-		 ]
-	})
+												 value: "email",
+												 options: [
+													 {value: "email", name: "Email"},
+													 {value: "fullName", name: "Full name"},
+												 ]
+											 })
 	const [searchText, setSearchText] = useState("")
+	const [pageNumber,setPageNumber]=useState(1)
+	const [haveNextPage, setHaveNextPage]=useState(true)
 
 	const filterChangeHandler = (e) => {
 		const newFilter = {...filter};
@@ -33,12 +68,41 @@ const UsersTable = () => {
 	}
 
 	const search = (e) => {
-		console.log(filter.value, searchText, searchBy.value)
+		console.log(filter.value, searchText, searchBy.value, pageNumber)
+	//	TODO: handle search function there. Use above properties
+	}
+
+	const toPreviousPage=()=>{
+		if (pageNumber === 1) {
+			return;
+		}
+		let pageNum = pageNumber - 1;
+		setPageNumber(pageNum);
+		window.scrollTo(0, 0);
+	}
+
+	const toNextPage=()=>{
+		if (!haveNextPage) {
+			return;
+		}
+		let pageNum = pageNumber + 1;
+		setPageNumber(pageNum);
+		window.scrollTo(0, 0);
+	}
+
+	const blockUserHandler=(id)=>{
+		console.log(id)
+	//	TODO: handle block function there. Apply writing message to the user there
+	}
+
+	const unblockUserHandler=(id)=>{
+		console.log(id)
+	//	TODO: handle unblock function there. Apply writing message to the user there
 	}
 
 	useEffect(() => {
 		search()
-	}, [filter.value, searchBy.value])
+	}, [filter.value, searchBy.value, pageNumber])
 
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
@@ -90,204 +154,87 @@ const UsersTable = () => {
 							<thead>
 							<tr>
 								<th scope="col"
-									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
 									User
 								</th>
 								<th scope="col"
-									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-									Role
+									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+									Email
 								</th>
 								<th scope="col"
-									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-									Created at
+									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+									Status
 								</th>
 								<th scope="col"
-									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-									status
-								</th>
-								<th scope="col"
-									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+									Action
 								</th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<div className="flex items-center">
-										<div className="flex-shrink-0">
-											<a href="#" className="block relative">
-												<img alt="profil" src="/images/person/8.jpg"
-													 className="mx-auto object-cover rounded-full h-10 w-10 "/>
-											</a>
-										</div>
-										<div className="ml-3">
-											<p className="text-gray-900 whitespace-no-wrap">
-												Jean marc
-											</p>
-										</div>
-									</div>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										Admin
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										12/09/2020
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-										className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden="true"
-											  className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                                        </span>
-                                        <span className="relative">
-                                            active
-                                        </span>
-                                    </span>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<a href="#" className="text-indigo-600 hover:text-indigo-900">
-										Edit
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<div className="flex items-center">
-										<div className="flex-shrink-0">
-											<a href="#" className="block relative">
-												<img alt="profil" src="/images/person/9.jpg"
-													 className="mx-auto object-cover rounded-full h-10 w-10 "/>
-											</a>
-										</div>
-										<div className="ml-3">
-											<p className="text-gray-900 whitespace-no-wrap">
-												Marcus coco
-											</p>
-										</div>
-									</div>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										Designer
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										01/10/2012
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-										className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden="true"
-											  className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                                        </span>
-                                        <span className="relative">
-                                            active
-                                        </span>
-                                    </span>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<a href="#" className="text-indigo-600 hover:text-indigo-900">
-										Edit
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<div className="flex items-center">
-										<div className="flex-shrink-0">
-											<a href="#" className="block relative">
-												<img alt="profil" src="/images/person/10.jpg"
-													 className="mx-auto object-cover rounded-full h-10 w-10 "/>
-											</a>
-										</div>
-										<div className="ml-3">
-											<p className="text-gray-900 whitespace-no-wrap">
-												Ecric marc
-											</p>
-										</div>
-									</div>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										Developer
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										02/10/2018
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-										className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden="true"
-											  className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                                        </span>
-                                        <span className="relative">
-                                            active
-                                        </span>
-                                    </span>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<a href="#" className="text-indigo-600 hover:text-indigo-900">
-										Edit
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<div className="flex items-center">
-										<div className="flex-shrink-0">
-											<a href="#" className="block relative">
-												<img alt="profil" src="/images/person/6.jpg"
-													 className="mx-auto object-cover rounded-full h-10 w-10 "/>
-											</a>
-										</div>
-										<div className="ml-3">
-											<p className="text-gray-900 whitespace-no-wrap">
-												Julien Huger
-											</p>
-										</div>
-									</div>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										User
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<p className="text-gray-900 whitespace-no-wrap">
-										23/09/2010
-									</p>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-										className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden="true"
-											  className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                                        </span>
-                                        <span className="relative">
-                                            active
-                                        </span>
-                                    </span>
-								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-									<a href="#" className="text-indigo-600 hover:text-indigo-900">
-										Edit
-									</a>
-								</td>
-							</tr>
+							{data.map(el =>
+										  <tr key={el.id}>
+											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+												  <Link href={`/${role}/students/${el.id}`}>
+													  <div className="flex items-center cursor-pointer">
+														  <div className="flex-shrink-0">
+															  <img alt={el.fullName} src={el.image}
+																   className="mx-auto object-cover rounded-full h-10 w-10 "/>
+														  </div>
+														  <div className="ml-3">
+															  <p className="text-gray-900 whitespace-no-wrap">
+																  {el.fullName}
+															  </p>
+														  </div>
+													  </div>
+												  </Link>
+											  </td>
+											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap">
+													  {el.email}
+												  </p>
+											  </td>
+											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+												  {el.active ?
+													  <span
+														  className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+							<span aria-hidden="true"
+								  className="absolute inset-0 bg-green-200 opacity-50 rounded-full"/>
+							<span className="relative">
+								active
+							</span>
+						</span> :
+													  <span
+														  className="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
+							<span aria-hidden="true"
+								  className="absolute inset-0 bg-red-200 opacity-50 rounded-full"/>
+							<span className="relative">
+								blocked
+							</span>
+						</span>}
+											  </td>
+											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+												  {el.active ?
+													  <button onClick={() => {
+														  blockUserHandler(el.id)
+													  }} type="button"
+															  className="mx-auto py-2 px-7 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+														  Block
+													  </button>
+													  : <button onClick={() => {
+														  unblockUserHandler(el.id)
+													  }} type="button"
+																className="mx-auto py-2 px-4 flex justify-center items-center  bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+														  Unblock
+													  </button>}
+											  </td>
+										  </tr>
+							)}
 							</tbody>
 						</table>
 						<div className="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
 							<div className="flex items-center">
-								<button type="button"
+								<button onClick={toPreviousPage} type="button"
 										className="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">
 									<svg width="9" fill="currentColor" height="8" className="" viewBox="0 0 1792 1792"
 										 xmlns="http://www.w3.org/2000/svg">
@@ -298,9 +245,9 @@ const UsersTable = () => {
 								</button>
 								<button type="button"
 										className="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">
-									1
+									{pageNumber}
 								</button>
-								<button type="button"
+								<button onClick={toNextPage}type="button"
 										className="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
 									<svg width="9" fill="currentColor" height="8" className="" viewBox="0 0 1792 1792"
 										 xmlns="http://www.w3.org/2000/svg">
