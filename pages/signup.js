@@ -1,143 +1,75 @@
 import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{'Copyright © '}
-			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
-	},
-	form: {
-		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-}));
+import Link from "next/link"
 
 export default function SignUp() {
-	const classes = useStyles();
-	const [firstName,setFirstName]=useState("")
-	const [lastName,setLastName]=useState("")
-	const [email,setEmail]=useState("")
-	const [password,setPassword]=useState("")
+
+	const [firstName, setFirstName] = useState("")
+	const [lastName, setLastName] = useState("")
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
 
 
-	const handleSubmit=(e)=>{
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(firstName, lastName, email, password)
 		//	Handle registration request there
 	}
 
 	return (
-		<Container component="main" maxWidth="xs">
-			<CssBaseline/>
-			<div className={classes.paper}>
-				<Avatar className={classes.avatar}>
-					<LockOutlinedIcon/>
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Sign up
-				</Typography>
-				<form className={classes.form} noValidate onSubmit={(e)=>handleSubmit(e)}>
-					<TextField
-						autoComplete="fname"
-						name="firstName"
-						variant="outlined"
-						required
-						fullWidth
-						id="firstName"
-						label="First Name"
-						margin="normal"
-						onChange={(e)=>setFirstName(e.target.value)}
-						autoFocus
-					/>
-					<TextField
-						autoComplete="lname"
-						name="lastName"
-						variant="outlined"
-						required
-						fullWidth
-						id="lastName"
-						label="Last Name"
-						margin="normal"
-						onChange={(e)=>setLastName(e.target.value)}
-					/>
-					<TextField
-						autoComplete="email"
-						name="email"
-						variant="outlined"
-						required
-						fullWidth
-						id="email"
-						label="Email Address"
-						margin="normal"
-						onChange={(e)=>setEmail(e.target.value)}
-					/>
-					<TextField
-						autoComplete="current-password"
-						name="password"
-						variant="outlined"
-						required
-						fullWidth
-						label="Password"
-						id="password"
-						margin="normal"
-						type="password"
-						onChange={(e)=>setPassword(e.target.value)}
-					/>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-					>
-						Sign Up
-					</Button>
-					<Grid container justifyContent="flex-end">
-						<Grid item>
-							<Link href="/signin" variant="body2">
-								Already have an account? Sign in
-							</Link>
-						</Grid>
-					</Grid>
-				</form>
+		<div
+			className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+			<div className="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
+				Create a new account
 			</div>
-			<Box mt={5}>
-				<Copyright/>
-			</Box>
-		</Container>
+			<div className="p-6 mt-8">
+				<form onSubmit={(e) => handleSubmit(e)}>
+					<div className="flex gap-4 mb-2">
+						<div className=" relative ">
+							<input type="text" id="create-account-first-name"
+								   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+								   name="First name" placeholder="First name" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+						</div>
+						<div className=" relative ">
+							<input type="text" id="create-account-last-name"
+								   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+								   name="Last name" placeholder="Last name" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+						</div>
+					</div>
+					<div className="flex flex-col mb-2">
+						<div className=" relative ">
+							<input type="text" id="create-account-email"
+								   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+								   name="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+						</div>
+					</div>
+					<div className="flex flex-col mb-2">
+						<div className=" relative ">
+							<input type="text" id="create-account-pseudo"
+								   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+								   name="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+						</div>
+					</div>
+					<div className="flex w-full my-4">
+						<button type="submit"
+								className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+							Login
+						</button>
+					</div>
+				</form>
+				<div>
+					<div className="flex items-center justify-center mt-6">
+						<Link href={"/signin"}>
+							<a
+								className="inline-flex items-center text-sm font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white hover:underline">
+                    <span className="ml-2">
+                        Already have an account ?
+                    </span>
+							</a>
+						</Link>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	);
 }
