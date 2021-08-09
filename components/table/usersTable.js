@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 
+import {toNextPage, toPreviousPage} from "../../utils/pagination";
+
 const UsersTable = () => {
 	//FIXME: fix this
 	const role = "admin"
@@ -72,24 +74,6 @@ const UsersTable = () => {
 	//	TODO: handle search function there. Use above properties
 	}
 
-	const toPreviousPage=()=>{
-		if (pageNumber === 1) {
-			return;
-		}
-		let pageNum = pageNumber - 1;
-		setPageNumber(pageNum);
-		window.scrollTo(0, 0);
-	}
-
-	const toNextPage=()=>{
-		if (!haveNextPage) {
-			return;
-		}
-		let pageNum = pageNumber + 1;
-		setPageNumber(pageNum);
-		window.scrollTo(0, 0);
-	}
-
 	const blockUserHandler=(id)=>{
 		console.log(id)
 	//	TODO: handle block function there. Apply writing message to the user there
@@ -107,8 +91,8 @@ const UsersTable = () => {
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
 			<div className="py-8">
-				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-					<h2 className="text-2xl leading-tight w-1/4">
+				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
+					<h2 className="text-6xl leading-tight w-1/4">
 						Users
 					</h2>
 					<div className="text-end w-3/4">
@@ -175,7 +159,7 @@ const UsersTable = () => {
 							{data.map(el =>
 										  <tr key={el.id}>
 											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-												  <Link href={`/${role}/students/${el.id}`}>
+												  <Link href={`/${role}/users/${el.id}`}>
 													  <div className="flex items-center cursor-pointer">
 														  <div className="flex-shrink-0">
 															  <img alt={el.fullName} src={el.image}
@@ -234,7 +218,7 @@ const UsersTable = () => {
 						</table>
 						<div className="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
 							<div className="flex items-center">
-								<button onClick={toPreviousPage} type="button"
+								<button onClick={()=>setPageNumber(toPreviousPage(pageNumber))} type="button"
 										className="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">
 									<svg width="9" fill="currentColor" height="8" className="" viewBox="0 0 1792 1792"
 										 xmlns="http://www.w3.org/2000/svg">
@@ -247,7 +231,7 @@ const UsersTable = () => {
 										className="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">
 									{pageNumber}
 								</button>
-								<button onClick={toNextPage}type="button"
+								<button onClick={()=>setPageNumber(toNextPage(pageNumber,haveNextPage))}type="button"
 										className="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
 									<svg width="9" fill="currentColor" height="8" className="" viewBox="0 0 1792 1792"
 										 xmlns="http://www.w3.org/2000/svg">

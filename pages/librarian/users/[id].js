@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
 
-const Student = () => {
+const User = () => {
 	return (
 		<Layout>
 
@@ -9,4 +9,4 @@ const Student = () => {
 	);
 };
 
-	export default Student;
+	export default User;

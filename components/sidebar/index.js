@@ -9,7 +9,7 @@ const Sidebar = () => {
 			role: "admin",
 			links: [
 				{url: "/admin/librarians", name: "Librarians"},
-				{url: "/admin/students", name: "Students"},
+				{url: "/admin/users", name: "Users"},
 				{url: "/admin/books", name: "Books"},
 				{url: "/admin/orders", name: "Orders"},
 			]
@@ -19,7 +19,7 @@ const Sidebar = () => {
 			links: [
 				{url:"/librarian/profile", name:"Profile"},
 				{url: "/librarian/applications", name: "Applications"},
-				{url: "/librarian/students", name: "Students"},
+				{url: "/librarian/users", name: "Users"},
 				{url: "/librarian/books", name: "Books"},
 				{url: "/librarian/orders", name: "Orders"},
 			]
