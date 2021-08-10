@@ -15,3 +15,10 @@ export const toPreviousPage=(pageNumber)=>{
 	window.scrollTo(0, 0);
 	return pageNum
 }
+
+export const isPaginated=(response)=>{
+	if (!response.data.next_page_url) {
+		return false
+	}
+	return true
+}

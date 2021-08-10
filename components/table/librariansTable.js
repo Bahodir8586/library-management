@@ -1,45 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
+import WarningModal from "../modals/warningModal";
 
 const LibrariansTable = () => {
-	const router=useRouter()
+	const router = useRouter()
 	const [data, setData] = useState([
 										 {
 											 id: 1,
 											 image: "/url",
 											 fullName: "Abdullayev Bahodir",
 											 username: "Abdullayev123",
-											 finishedOrders:412,
-											 allOrders:419,
-											 inDebtOrders:1,
+											 finishedOrders: 412,
+											 allOrders: 419,
+											 inDebtOrders: 1,
 										 },
 										 {
 											 id: 2,
 											 image: "/url",
 											 fullName: "Nosirov Mirfayz",
 											 username: "Nosirov446",
-											 finishedOrders:0,
-											 allOrders:19,
-											 inDebtOrders:6,
+											 finishedOrders: 0,
+											 allOrders: 19,
+											 inDebtOrders: 6,
 										 },
 										 {
 											 id: 3,
 											 image: "/url",
 											 fullName: "O'ralov Shahzod",
 											 username: "ShahzodLibrarian",
-											 finishedOrders:93,
-											 allOrders:125,
-											 inDebtOrders:6,
+											 finishedOrders: 93,
+											 allOrders: 125,
+											 inDebtOrders: 6,
 										 },
 										 {
 											 id: 4,
 											 image: "/url",
 											 fullName: "Qobilov Xurshidbek",
 											 username: "Kabilov",
-											 finishedOrders:18,
-											 allOrders:35,
-											 inDebtOrders:0,
+											 finishedOrders: 18,
+											 allOrders: 35,
+											 inDebtOrders: 0,
 										 }
 									 ])
 	const [sort, setSort] = useState({
@@ -52,6 +53,8 @@ const LibrariansTable = () => {
 										 ]
 									 })
 	const [searchText, setSearchText] = useState("")
+	const [selectedLibrarian, setSelectedLibrarian] = useState({})
+	const [showDeleteModal, setShowDeleteModal] = useState(false)
 
 	const sortChangeHandler = (e) => {
 		const newSort = {...sort};
@@ -61,19 +64,20 @@ const LibrariansTable = () => {
 
 	const editLibrarianHandler = (id) => {
 		console.log(id)
-		router.push(`/admin/librarians/${id}`).then().catch(error=>{
+		router.push(`/admin/librarians/${id}`).then().catch(error => {
 			console.log(error)
 			router.reload()
 		})
 		//	TODO: Go to edit page
 	}
 
-	const deleteLibrarianHandler = (id) => {
-		console.log(id)
+	const deleteLibrarianHandler = () => {
+		setShowDeleteModal(false)
+		console.log(selectedLibrarian.id)
 		//	TODO: Go to delete page
 	}
 	const search = (e) => {
-		console.log(searchText,sort.value)
+		console.log(searchText, sort.value)
 		//	TODO: handle search function there. Use above properties
 	}
 
@@ -83,6 +87,16 @@ const LibrariansTable = () => {
 
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
+			<WarningModal
+				title={"Are you sure"}
+				show={showDeleteModal}
+				onConfirm={() => deleteLibrarianHandler()}
+				onCancel={()=>{
+					setShowDeleteModal(false)
+					setSelectedLibrarian(false)
+				}}>
+				Do you want to delete librarian {selectedLibrarian.id}
+			</WarningModal>
 			<div className="py-8">
 				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
 					<h2 className="text-6xl leading-tight w-1/6">
@@ -91,7 +105,7 @@ const LibrariansTable = () => {
 					<div className={"w-1/6 text-center"}>
 						<button
 							className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-green-200"
-							type="button" onClick={()=>router.push("/admin/librarians/add")}>
+							type="button" onClick={() => router.push("/admin/librarians/add")}>
 							Add librarian
 						</button>
 					</div>
@@ -201,9 +215,9 @@ const LibrariansTable = () => {
 												  className="mx-3 py-2 px-9 flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
 											  Edit
 										  </button>
-
 										  <button onClick={() => {
-											  deleteLibrarianHandler(el.id)
+											  setSelectedLibrarian(el)
+											  setShowDeleteModal(true)
 										  }} type="button"
 												  className="mx-3 py-2 px-7 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
 											  Delete

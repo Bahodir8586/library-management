@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import {toNextPage, toPreviousPage} from "../../utils/pagination";
+import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
+import axios from "../../utils/axios";
 
 const BooksTable = () => {
 	const role = "admin"
-	const router=useRouter()
+	const router = useRouter()
 	const [data, setData] = useState([
 										 {
 											 id: 1,
@@ -49,7 +50,7 @@ const BooksTable = () => {
 											 publishedYear: "2020",
 											 count: "16",
 											 originalCount: "20",
-											 categories: [ {id: 2, name: "fantastic"}, {id: 4, name: "romantic"}]
+											 categories: [{id: 2, name: "fantastic"}, {id: 4, name: "romantic"}]
 										 }
 									 ])
 
@@ -106,11 +107,19 @@ const BooksTable = () => {
 	const search = (e) => {
 		console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
 		//	TODO: handle search function there. Use above properties
+		axios.get(
+			`/api/admin/search/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
+			 .then(response => {
+				 setHaveNextPage(isPaginated(response));
+				 setData(response.data)
+			 }).catch(error => {
+			 	console.log(error)
+		})
 	}
 
 	const editBookHandler = (id) => {
 		console.log(id)
-		router.push(`/${role}/books/${id}`).then().catch(error=>{
+		router.push(`/${role}/books/${id}`).then().catch(error => {
 			console.log(error)
 			router.reload()
 		})
@@ -282,13 +291,16 @@ const BooksTable = () => {
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
 												  <p className="text-gray-900 whitespace-no-wrap">
-													  <span className={"text-green-600 text-lg font-medium"}>{el.count}</span> / {el.originalCount}
+													  <span
+														  className={"text-green-600 text-lg font-medium"}>{el.count}</span> / {el.originalCount}
 												  </p>
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-												  <div className="text-gray-900 flex flex-wrap items-center justify-center">
+												  <div
+													  className="text-gray-900 flex flex-wrap items-center justify-center">
 													  {el.categories.map(
-														  category => <span key={category.id} className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "}>{category.name}</span>)}
+														  category => <span key={category.id}
+																			className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "}>{category.name}</span>)}
 												  </div>
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center flex justify-center">
