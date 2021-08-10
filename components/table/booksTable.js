@@ -291,18 +291,18 @@ const BooksTable = () => {
 														  category => <span key={category.id} className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "}>{category.name}</span>)}
 												  </div>
 											  </td>
-											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center flex">
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center flex justify-center">
 												  <button onClick={() => {
 													  editBookHandler(el.id)
 												  }} type="button"
-														  className="mx-3 py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+														  className="mx-3 py-2 px-9 flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
 													  Edit
 												  </button>
 
 												  <button onClick={() => {
 													  deleteBookHandler(el.id)
 												  }} type="button"
-														  className="mx-3 py-2 px-7 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+														  className="mx-3 py-2 px-7 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
 													  Delete
 												  </button>
 											  </td>
