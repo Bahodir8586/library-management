@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import {useRouter} from "next/router";
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
+import {useRouter} from "next/router";
 
-const OrdersTable = () => {
+const ApplicationsTable = () => {
 	const router = useRouter()
 	const [data, setData] = useState([
 										 {
@@ -14,15 +14,11 @@ const OrdersTable = () => {
 											 },
 											 book: {
 												 id: 13,
-												 name: "Anna Karenina"
+												 name: "Boy ota, kambag'al ota",
+												 count:5
 											 },
-											 librarian: {
-												 id: 1,
-												 name: "Nosirov445"
-											 },
-											 givenDate: "12.08.2021",
-											 returnDate: "26.08.2021",
-											 status: "onProcess",
+											 wantedGetDate: "22.08.2021",
+											 duration: 14,
 										 },
 										 {
 											 id: 2,
@@ -32,15 +28,11 @@ const OrdersTable = () => {
 											 },
 											 book: {
 												 id: 125,
-												 name: "Urush va Tinchlik"
+												 name: "Zukkolar va landovurlar",
+												 count:1
 											 },
-											 librarian: {
-												 id: 2,
-												 name: "Aliyeva01"
-											 },
-											 givenDate: "25.07.2021",
-											 returnDate: "02.08.2021",
-											 status: "finished",
+											 wantedGetDate: "23.08.2021",
+											 duration: 10,
 										 },
 										 {
 											 id: 3,
@@ -50,15 +42,11 @@ const OrdersTable = () => {
 											 },
 											 book: {
 												 id: 16,
-												 name: "Qora Lola"
+												 name: "Molxona",
+												 count:30
 											 },
-											 librarian: {
-												 id: 2,
-												 name: "Aliyeva01"
-											 },
-											 givenDate: "08.08.2021",
-											 returnDate: "15.08.2021",
-											 status: "inDebt",
+											 wantedGetDate: "25.08.2021",
+											 duration: 20,
 										 },
 										 {
 											 id: 4,
@@ -68,15 +56,11 @@ const OrdersTable = () => {
 											 },
 											 book: {
 												 id: 46,
-												 name: "Harry Potter"
+												 name: "1984",
+												 count:14
 											 },
-											 librarian: {
-												 id: 1,
-												 name: "Nosirov445"
-											 },
-											 givenDate: "09.08.2021",
-											 returnDate: "23.08.2021",
-											 status: "onProcess",
+											 wantedGetDate: "21.08.2021",
+											 duration: 14,
 										 },
 									 ])
 	const [searchBy, setSearchBy] = useState({
@@ -84,31 +68,16 @@ const OrdersTable = () => {
 												 options: [
 													 {value: "book", name: "Book name"},
 													 {value: "user", name: "User name"},
-													 {value: "librarian", name: "Librarian name"},
 												 ]
 											 })
-	const [filter, setFilter] = useState({
-											 value: "all",
-											 options: [
-												 {value: "all", name: "All"},
-												 {value: "onProcess", name: "On Process"},
-												 {value: "finished", name: "Finished"},
-												 {value: "inDebt", name: "In Debt Orders"}
-											 ]
-										 })
 	const [searchText, setSearchText] = useState("")
 	const [pageNumber, setPageNumber]=useState(1)
 	const [haveNextPage, setHaveNextPage]=useState(true)
 
 	useEffect(() => {
 		search()
-	}, [filter.value, searchBy.value, pageNumber])
+	}, [searchBy.value, pageNumber])
 
-	const filterChangeHandler = (e) => {
-		const newFilter = {...filter};
-		newFilter.value = e.target.value;
-		setFilter(newFilter)
-	}
 	const searchByChangeHandler = (e) => {
 		const newSearchBy = {...searchBy};
 		newSearchBy.value = e.target.value;
@@ -116,7 +85,14 @@ const OrdersTable = () => {
 	}
 
 	const search = () => {
-		console.log(filter.value, searchBy.value, searchText)
+		console.log(searchBy.value, searchText)
+	}
+
+	const giveBookHandler=(id)=>{
+	//	TODO: handle giving the book to user function
+	}
+	const notToGiveBookHandler=(id)=>{
+	//	TODO: open modal to write the comment and cancel application
 	}
 
 	return (
@@ -124,7 +100,7 @@ const OrdersTable = () => {
 			<div className="py-8">
 				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
 					<h2 className="text-6xl leading-tight w-1/6">
-						Orders
+						Applications
 					</h2>
 					<div className="text-end w-3/4">
 						<form
@@ -133,16 +109,6 @@ const OrdersTable = () => {
 								e.preventDefault();
 								search()
 							}}>
-							<div className=" relative w-1/4 px-4">
-								<label className="text-gray-700 mr-3">
-									Search by:
-								</label>
-								<select onChange={(e) => searchByChangeHandler(e)}
-										className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-									{searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
-																		key={el.value}>{el.name}</option>)}
-								</select>
-							</div>
 
 							<div className=" relative w-1/3">
 								<label className="text-gray-700 mr-3">
@@ -156,12 +122,12 @@ const OrdersTable = () => {
 
 							<div className=" relative w-1/4 px-4">
 								<label className="text-gray-700 mr-3">
-									Filter:
+									Search by:
 								</label>
-								<select onChange={(e) => filterChangeHandler(e)}
+								<select onChange={(e) => searchByChangeHandler(e)}
 										className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-									{filter.options.map(el => <option className={"py-2 px-4"} value={el.value}
-																	  key={el.value}>{el.name}</option>)}
+									{searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
+																		key={el.value}>{el.name}</option>)}
 								</select>
 							</div>
 
@@ -190,25 +156,25 @@ const OrdersTable = () => {
 								</th>
 								<th scope="col"
 									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-									Librarian
+									Count
 								</th>
 								<th scope="col"
 									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-									Given Date
+									Book Wanted Get Date
 								</th>
 								<th scope="col"
 									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-									Return Date
+									Duration
 								</th>
 								<th scope="col"
 									className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-									Status
+									Actions
 								</th>
 							</tr>
 							</thead>
 							<tbody>
 							{data.map(el =>
-										  <tr key={el.id} className={el.status==="onProcess"?"bg-green-50":el.status==="inDebt"?"bg-red-50":"bg-yellow-50"}>
+										  <tr key={el.id} className={"bg-white"}>
 											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
 												  <Link href={`/admin/users/${el.user.id}`}>
 													  <div className="flex items-center cursor-pointer justify-center">
@@ -228,44 +194,34 @@ const OrdersTable = () => {
 												  </Link>
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-												  <Link href={`/admin/librarians/${el.librarian.id}`}>
-													  <div className="flex items-center cursor-pointer justify-center">
-														  <p className="text-gray-900 whitespace-no-wrap text-center">
-															  {el.librarian.name}
-														  </p>
-													  </div>
-												  </Link>
-											  </td>
-											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
 												  <p className="text-gray-900 whitespace-no-wrap">
-													  {el.givenDate}
+													  {el.book.count}
 												  </p>
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
 												  <p className="text-gray-900 whitespace-no-wrap">
-													  {el.returnDate}
+													  {el.wantedGetDate}
+												  </p>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap">
+													  {el.duration} (days)
 												  </p>
 											  </td>
 											  <td className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">
-												  {el.status === "onProcess" ?
-													  <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-															<span aria-hidden="true" className="absolute inset-0 bg-green-200 opacity-50 rounded-full"/>
-															<span className="relative">
-																On Process
-															</span>
-													  </span> : el.status === "inDebt" ?
-													  <span className="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
-															<span aria-hidden="true" className="absolute inset-0 bg-red-200 opacity-50 rounded-full"/>
-															<span className="relative">
-																In Debt
-															</span>
-													  </span> :
-													  <span className="relative inline-block px-3 py-1 font-semibold text-yellow-600 leading-tight">
-															<span aria-hidden="true" className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"/>
-															<span className="relative">
-																Finished
-															</span>
-													  </span>}
+												  <button onClick={() => {
+													  giveBookHandler(el.id)
+												  }} type="button"
+														  className="mx-auto py-2 px-5 flex justify-center items-center  bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+													  Allow
+												  </button>
+												  <button onClick={() => {
+													  notToGiveBookHandler(el.id)
+												  }} type="button"
+														  className="mx-auto py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+													  Refuse
+												  </button>
+
 											  </td>
 										  </tr>
 							)}
@@ -305,4 +261,4 @@ const OrdersTable = () => {
 	);
 };
 
-export default OrdersTable;
+export default ApplicationsTable;

@@ -8,6 +8,7 @@ const Sidebar = () => {
 		{
 			role: "admin",
 			links: [
+				{url: "/admin/profile", name: "Profile"},
 				{url: "/admin/librarians", name: "Librarians"},
 				{url: "/admin/users", name: "Users"},
 				{url: "/admin/books", name: "Books"},
@@ -33,7 +34,7 @@ const Sidebar = () => {
 			]
 		}
 	]
-	const [role, setRole] = useState("admin")
+	const [role, setRole] = useState("user")
 	const [currentRoute,setCurrentRoute]=useState(`/${role}/profile`)
 
 	useEffect(()=>{
