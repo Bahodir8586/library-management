@@ -11,7 +11,7 @@ const withAuth = (WrappedComponent) => {
 			const accessToken = localStorage.getItem("accessToken");
 			// if no accessToken was found,then we redirect to "/" page.
 			if (!accessToken) {
-				Router.replace("/");
+				// Router.replace("/");
 			} else {
 				// we call the api that verifies the token.
 				// TODO: apply roles of users
@@ -23,12 +23,12 @@ const withAuth = (WrappedComponent) => {
 					} else {
 						// If the token was fraud we first remove it from localStorage and then redirect to "/"
 						localStorage.removeItem("accessToken");
-						Router.replace("/");
+						// Router.replace("/");
 					}
 				}).catch(error => {
 					console.log(error)
 					localStorage.removeItem("accessToken");
-					Router.replace("/");
+					// Router.replace("/");
 				})
 			}
 		}, []);
@@ -36,7 +36,7 @@ const withAuth = (WrappedComponent) => {
 		if (verified) {
 			return <WrappedComponent {...props} />;
 		} else {
-			return null;
+			return <WrappedComponent {...props} />;
 		}
 	};
 };
