@@ -1,36 +1,33 @@
-import React, {useState} from 'react';
-import axios from "../../utils/axios";
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 
-const AddLibrarian = () => {
-	const router=useRouter()
-	const [username, setUsername] = useState("")
-	const [fullName, setFullName] = useState("")
-	const [password, setPassword] = useState("")
+const AddBook = () => {
+	const router = useRouter()
 	const [image, setImage] = useState(undefined)
 	const [imgSrc, setImgSrc] = useState(undefined)
+	const [name, setName] = useState("");
+	const [author, setAuthor] = useState("")
+	const [ISBN, setISBN] = useState("")
+	const [publishedYear, setPublishedYear] = useState();
+	const [description, setDescription] = useState("")
+	const [count, setCount] = useState("")
+	const [selectedCategories, setSelectedCategories] = useState([])
+	const [categories, setCategories] = useState([{id: 3, name: "politics"}, {id: 2, name: "fantastic"}])
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(username, fullName, password, image)
-		const submitData=new FormData();
-		submitData.append("fullName",fullName);
-		submitData.append("username",username);
-		submitData.append("password",password);
-		submitData.append("image", image)
-		axios.post(`/admin/librarians/add`,submitData).then(response => {
-			console.log(response)
-			router.push("/admin/librarians")
-		}).catch(error => {
-			console.log(error)
-		})
-	}
+	useEffect(() => {
+		//	TODO: get the list of all categories there
+	}, [])
 
 	const handleImageUpload = (e) => {
 		const img = e.target.files[0];
 		const url = URL.createObjectURL(img);
+		console.log(url)
 		setImgSrc(url);
 		setImage(img);
+	}
+
+	const handleSubmit=(e)=>{
+		e.preventDefault();
 	}
 
 	return (
@@ -46,14 +43,14 @@ const AddLibrarian = () => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<input
 									type="file"
-									id="imgLibrarian"
+									id="imgBook"
 									className="invisible"
 									accept="image/*"
 									value={image}
 									onChange={(e) => handleImageUpload(e)}
 								/>
 								<div className=" relative text-center">
-									<label htmlFor={"imgLibrarian"}
+									<label htmlFor={"imgBook"}
 										   className="inline-flex py-2 px-4 flex justify-center items-center mx-auto bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer rounded-lg ">
 										<svg width="20" height="20" fill="currentColor" className="mr-2"
 											 viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
@@ -70,23 +67,31 @@ const AddLibrarian = () => {
 					<div className="space-y-6 bg-white">
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0">
 							<h2 className="max-w-sm mx-auto md:w-1/3">
-								Personal info
+								Basic info
 							</h2>
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div>
 									<div className=" relative ">
 										<input type="text"
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-											   placeholder="Full Name" value={fullName}
-											   onChange={(e) => setFullName(e.target.value)}/>
+											   placeholder="Name" value={name}
+											   onChange={(e) => setName(e.target.value)}/>
 									</div>
 								</div>
 								<div>
 									<div className=" relative ">
 										<input type="text"
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-											   placeholder="Username" value={username}
-											   onChange={(e) => setUsername(e.target.value)}/>
+											   placeholder="Author" value={author}
+											   onChange={(e) => setAuthor(e.target.value)}/>
+									</div>
+								</div>
+								<div>
+									<div className=" relative ">
+										<input type="text"
+											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+											   placeholder="ISBN" value={ISBN}
+											   onChange={(e) => setISBN(e.target.value)}/>
 									</div>
 								</div>
 							</div>
@@ -94,14 +99,40 @@ const AddLibrarian = () => {
 						<hr/>
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0">
 							<h2 className="max-w-sm mx-auto md:w-1/3">
-								Password
+								Additional info
 							</h2>
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
-								<div className=" relative ">
-									<input type="password"
-										   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-										   placeholder="Password" value={password}
-										   onChange={(e) => setPassword(e.target.value)}/>
+								<div className={"flex"}>
+									<div className=" relative pr-2">
+										<input type="text"
+											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+											   placeholder="Published Year" value={publishedYear}
+											   onChange={(e) => setPublishedYear(e.target.value)}/>
+									</div>
+									<div className=" relative pl-2">
+										<input type="text"
+											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+											   placeholder="Copy of Books" value={count}
+											   onChange={(e) => setCount(e.target.value)}/>
+									</div>
+								</div>
+								<div>
+									<div className=" relative ">
+										{/*TODO: Apply multiselect there*/}
+										<select value={selectedCategories[0]}
+												onChange={(e) => setSelectedCategories(e.target.value)}
+												className="capitalize rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+											{categories.map(el => <option key={el.id} value={el.id}>{el.name}</option>)}
+										</select>
+									</div>
+								</div>
+								<div>
+									<div className=" relative ">
+										<textarea
+											className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+											placeholder="Description" value={description} rows={5}
+											onChange={(e) => setDescription(e.target.value)}/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -109,16 +140,14 @@ const AddLibrarian = () => {
 						<div className="w-full px-4 pb-4 ml-auto text-gray-500 md:w-1/3">
 							<button type="submit" onClick={(e) => handleSubmit(e)}
 									className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-								Save
+								Add Book
 							</button>
 						</div>
 					</div>
 				</form>
 			</section>
 		</div>
-
-
 	);
 };
 
-export default AddLibrarian;
+export default AddBook;
