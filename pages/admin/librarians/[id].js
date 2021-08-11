@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
+import withAuth from "../../../HOCs/withAuth";
 
 const Librarian = () => {
 	return (
@@ -9,4 +10,4 @@ const Librarian = () => {
 	);
 };
 
-	export default Librarian;
+	export default withAuth(Librarian);

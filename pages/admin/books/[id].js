@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
+import withAuth from "../../../HOCs/withAuth";
 
 const Book = () => {
 	return (
@@ -9,4 +10,4 @@ const Book = () => {
 	);
 };
 
-	export default Book;
+	export default withAuth(Book) ;

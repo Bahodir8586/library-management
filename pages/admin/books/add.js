@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
 import AddBook from "../../../components/forms/addBook";
+import withAuth from "../../../HOCs/withAuth";
 
 const Add = () => {
 	return (
@@ -10,4 +11,4 @@ const Add = () => {
 	);
 };
 
-export default Add;
+export default withAuth(Add);

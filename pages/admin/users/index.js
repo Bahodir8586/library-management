@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
 import UsersTable from "../../../components/table/usersTable";
+import withAuth from "../../../HOCs/withAuth";
 
 const Students = () => {
 	return (
@@ -10,4 +11,4 @@ const Students = () => {
 	);
 };
 
-export default Students;
+export default withAuth(Students);
