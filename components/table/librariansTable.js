@@ -194,17 +194,17 @@ const LibrariansTable = () => {
 										  </p>
 									  </td>
 									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap">
+										  <p className="text-gray-900 whitespace-no-wrap text-green-600 font-medium text-lg">
 											  {el.finishedOrders}
 										  </p>
 									  </td>
 									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap">
+										  <p className="text-gray-900 whitespace-no-wrap text-yellow-600 text-lg">
 											  {el.allOrders}
 										  </p>
 									  </td>
 									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap">
+										  <p className="text-gray-900 whitespace-no-wrap text-red-600 font-medium text-lg">
 											  {el.inDebtOrders}
 										  </p>
 									  </td>

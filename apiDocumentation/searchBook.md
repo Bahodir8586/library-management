@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/admin/search/books
+  /api/admin/books/search
 
 * **Method**
 
@@ -65,5 +65,5 @@
       OR
 
     * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{ error : "Unable to send SMS.", phone: "998xxxxxxxxx" }`
+      **Content:** `{ error : "Unable to process the data }`
 
