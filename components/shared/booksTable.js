@@ -73,6 +73,7 @@ const BooksTable = () => {
 	const [filter, setFilter] = useState({
 											 value: "all",
 											 options: [
+												 {value: "all", name: "All"},
 												 {value: "romantic", name: "Romantic"},
 												 {value: "detective", name: "Detective"},
 												 {value: "politics", name: "Politics"},
@@ -81,7 +82,6 @@ const BooksTable = () => {
 										 })
 	const [fromYear, setFromYear] = useState(undefined)
 	const [toYear, setToYear] = useState(undefined)
-	const [onlyAvailable, setOnlyAvailable] = useState(false)
 
 	const [pageNumber, setPageNumber] = useState(1)
 	const [haveNextPage, setHaveNextPage] = useState(true)
@@ -188,7 +188,7 @@ const BooksTable = () => {
 							<div className={"pt-4 relative w-1/4 px-4"}>
 								{/*	 To Year Range*/}
 							</div>
-							<div className={"pt-4 relative w-1/6 px-4"}>
+							<div className={"pt-4 relative w-1/4 px-4"}>
 								<label className={"text-gray-700 mr-3"}>
 									Filter:
 								</label>
@@ -198,18 +198,7 @@ const BooksTable = () => {
 																	  key={el.value}>{el.name}</option>)}
 								</select>
 							</div>
-							<div className={"pt-4 relative w-1/4 px-4 flex items-center justify-around"}>
-								<div className="mt-4">
-									<span className="text-gray-700 font-medium">Only available</span>
-									<div className="relative inline-block w-10 ml-2 align-middle select-none">
-										<input type="checkbox" name="onlyAvailable" id="onlyAvailable"
-											   onChange={() => setOnlyAvailable(!onlyAvailable)}
-											   className="checked:bg-purple-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-										<label htmlFor="onlyAvailable"
-											   className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer">
-										</label>
-									</div>
-								</div>
+							<div className={"pt-4 relative w-1/6 px-4 flex items-center justify-around"}>
 								<div className={"text-center mt-4"}>
 									<button
 										className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
