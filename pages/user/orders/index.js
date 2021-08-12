@@ -1,9 +1,9 @@
 import React from 'react';
-import Layout from "../../../components/layout/layout";
+import Layout from "../../../components/layout";
 import withAuth from "../../../HOCs/withAuth";
 import OrdersTable from "../../../components/user/ordersTable";
 
-const Index = () => {
+const Orders = () => {
 	return (
 		<Layout>
 			<OrdersTable/>
@@ -11,4 +11,4 @@ const Index = () => {
 	);
 };
 
-export default withAuth(Index);
+export default withAuth(Orders);
