@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from "../../../components/layout/layout";
-import LibrariansTable from "../../../components/table/librariansTable";
+import LibrariansTable from "../../../components/admin/librariansTable";
 import withAuth from "../../../HOCs/withAuth";
 
 const Librarians = () => {

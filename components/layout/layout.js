@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from "../sidebar";
-import Header from "../header/header";
+import Sidebar from "./index";
+import Header from "./header";
 
 const Layout = (props) => {
 	return (

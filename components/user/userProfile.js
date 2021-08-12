@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import * as path from "path";
 
 const UserProfile = () => {
 	const [imgSrc, setImgSrc]=useState(undefined)
@@ -28,7 +27,7 @@ const UserProfile = () => {
 
 	return (
 		<div className={"w-full text-center"}>
-			<section className="h-screen bg-gray-100 bg-opacity-50 py-8">
+			<section className="bg-gray-100 bg-opacity-50 py-8">
 				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4" onSubmit={(e)=>handleSubmit(e)}>
 					<div className="p-4 bg-gray-100 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0 ">
