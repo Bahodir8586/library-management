@@ -1,12 +1,12 @@
-**Delete librarian for admin**
+**Delete category for admin**
 ----
     Returns Success or Fail status message.
 
-## Delete librarian
+## Delete category
 
 * **URL**
 
-  /api/admin/librarians/
+  /api/categories
 
 * **Method**
 
@@ -28,7 +28,7 @@
 
     * **Code:** 200 <br/>
       **Content:** Successfully deleted
-    
+
 ----
 
 
@@ -36,7 +36,7 @@
 * **Error Response:**
 
     * **Code:** 404 NOT FOUND <br />
-      **Content:** `{ error : "Librarian is not found!" }`
+      **Content:** `{ error : "Category is not found!" }`
 
       OR
 

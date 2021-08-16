@@ -1,12 +1,12 @@
-**Add librarian API for admin**
+**Create category API for admin**
 ----
     Returns Success or Fail status message.
 
-## Add librarian
+## Create category
 
 * **URL**
 
-  /api/admin/librarians
+  /api/categories
 
 * **Method**
 
@@ -18,24 +18,17 @@
 
 * **URL Params**
 
-    None
-
-* **Headers**
-
-    **Content-type:** multipart/form-data
+  None
 
 * **Data Params**
 
-  `username=[string]` <br/>
-  `fullName=[string]` <br/>
-  `password=[string]` <br/>
-  `image=[file]` <br/>
+  `name=[string]` <br/>
 
 * **Success Response:**
 
     * **Code:** 200 <br/>
       **Content:** Successfully added
-    
+
 ----
 
 * **Error Response:**

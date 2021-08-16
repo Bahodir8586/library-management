@@ -1,16 +1,16 @@
-**Delete librarian for admin**
+**Edit category API for admin**
 ----
     Returns Success or Fail status message.
 
-## Delete librarian
+## Edit category
 
 * **URL**
 
-  /api/admin/librarians/
+  /api/categories
 
 * **Method**
 
-  `DELETE`
+  `PATCH`
 
 * **Bearer Token**
 
@@ -20,31 +20,31 @@
 
   `id=[numeric|id]` <br/>
 
+
 * **Data Params**
 
-  None
+  `name=[string]` <br/>
 
 * **Success Response:**
 
     * **Code:** 200 <br/>
-      **Content:** Successfully deleted
-    
+      **Content:** Successfully edited
+
 ----
 
-
-
 * **Error Response:**
-
     * **Code:** 404 NOT FOUND <br />
-      **Content:** `{ error : "Librarian is not found!" }`
+      **Content:** `{ error : "Category is not found" }`
 
       OR
-
     * **Code:** 401 UNAUTHORIZED <br />
       **Content:** `{ error : "Unauthorized" }`
 
       OR
+    * **Code:** 422 VALIDATION <br />
+      **Content:** `{ error : "Data is not valid." }`
 
+      OR
     * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{ error : "Unable to process the data }`
+      **Content:** `{ error : "Unable to edit category" }`
 

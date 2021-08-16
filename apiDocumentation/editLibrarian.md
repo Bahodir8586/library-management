@@ -54,5 +54,5 @@
      
       OR
      * **Code:** 500 SERVER ERROR <br />
-       **Content:** `{ error : "Unable to add new librarian" }`
+       **Content:** `{ error : "Unable to edit librarian" }`
 
