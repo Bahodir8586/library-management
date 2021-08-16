@@ -49,7 +49,7 @@ const LibrariansTable = () => {
 											 {value: "alphabet", name: "A-Z"},
 											 {value: "numberOfOrders", name: "Number of Orders"},
 											 {value: "finishingRate", name: "Finished Orders Rate"},
-											 {value: "inDebt", name: "In Debt Orders"}
+											 {value: "inDebtOrders", name: "In Debt Orders"}
 										 ]
 									 })
 	const [searchText, setSearchText] = useState("")
