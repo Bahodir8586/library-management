@@ -20,7 +20,7 @@
   
   `filter=[string|category]` <br/>
   `searchText=[string]` <br/>
-  `sort=[alphabet|publishedDate]` <br/>
+  `sort=[alphabet|publishedYear]` <br/>
   `searchBy=[name|author|isbn]` <br/>
   `fromYear=[numeric]` <br/>
   `toYear=[numeric]` <br/>

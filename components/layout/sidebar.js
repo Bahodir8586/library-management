@@ -18,7 +18,7 @@ const Sidebar = () => {
 		{
 			role: "librarian",
 			links: [
-				{url:"/librarian/profile", name:"Profile"},
+				{url: "/librarian/profile", name:"Profile"},
 				{url: "/librarian/applications", name: "Applications"},
 				{url: "/librarian/users", name: "Users"},
 				{url: "/librarian/books", name: "Books"},

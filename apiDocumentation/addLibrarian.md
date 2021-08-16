@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/admin/librarians/add
+  /api/admin/librarians
 
 * **Method**
 
