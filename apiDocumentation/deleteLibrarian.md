@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/admin/librarians/
+  /api/admin/librarians/${id}
 
 * **Method**
 
@@ -18,7 +18,7 @@
 
 * **URL Params**
 
-  `id=[numeric|id]` <br/>
+  None
 
 * **Data Params**
 

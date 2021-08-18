@@ -1,12 +1,12 @@
-**Delete category for admin**
+**Delete user for admin**
 ----
     Returns Success or Fail status message.
 
-## Delete category
+## Delete user
 
 * **URL**
 
-  /api/categories/${id}
+  /api/admin/users/${id}
 
 * **Method**
 
@@ -36,7 +36,7 @@
 * **Error Response:**
 
     * **Code:** 404 NOT FOUND <br />
-      **Content:** `{ error : "Category is not found!" }`
+      **Content:** `{ error : "User is not found!" }`
 
       OR
 
@@ -47,4 +47,3 @@
 
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{ error : "Unable to process the data }`
-

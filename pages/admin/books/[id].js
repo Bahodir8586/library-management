@@ -10,4 +10,4 @@ const Book = () => {
 	);
 };
 
-	export default withAuth(Book) ;
+export default withAuth(Book);

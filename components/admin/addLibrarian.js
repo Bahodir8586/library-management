@@ -115,8 +115,6 @@ const AddLibrarian = () => {
 				</form>
 			</section>
 		</div>
-
-
 	);
 };
 
