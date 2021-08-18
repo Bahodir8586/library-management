@@ -34,7 +34,7 @@ const Sidebar = () => {
 			]
 		}
 	]
-	const [role, setRole] = useState("admin")
+	const [role, setRole] = useState("librarian")
 	const [currentRoute,setCurrentRoute]=useState(`/${role}/profile`)
 
 	useEffect(()=>{
