@@ -16,21 +16,20 @@ const withAuth = (WrappedComponent) => {
 				//FIXME: remove this
 				setVerified(true)
 				// we call the api that verifies the token.
-				// TODO: apply roles of users
-				axios.get(`/api/verifyToken`, {headers: {"Authorization": `Bearer ${accessToken}`}}).then(response => {
+				axios.get(`https://systemm-library.herokuapp.com/api/verifyToken`, {headers: {"Authorization": `Bearer ${accessToken}`}}).then(response => {
 					console.log(response)
 					if (response.data.verified && Router.asPath.split("/")[1]===response.data.role) {
 						// if token was verified we set the state.
-						// setVerified(response.data.verified);
+						setVerified(response.data.verified);
 					} else {
 						// If the token was fraud we first remove it from localStorage and then redirect to "/"
-						// localStorage.removeItem("accessToken");
-						// Router.replace("/");
+						localStorage.removeItem("accessToken");
+						Router.replace("/");
 					}
 				}).catch(error => {
 					console.log(error)
-					// localStorage.removeItem("accessToken");
-					// Router.replace("/");
+					localStorage.removeItem("accessToken");
+					Router.replace("/");
 				})
 			}
 		}, []);
