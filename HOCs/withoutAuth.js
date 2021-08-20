@@ -2,45 +2,51 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-const withAuth = (WrappedComponent) => {
+//FIXME: fix this entire file
+// 1) Check if there is no token: allow to enter login page
+// 2) If there is token check is it valid or invalid
+// 3) If token is valid do not allow to enter login page
+// 4) If token is invalid allow user to enter login page
+const withoutAuth = (WrappedComponent) => {
 	return (props) => {
-		const Router = useRouter();
-		const [verified, setVerified] = useState(false);
+		const router = useRouter();
+		const [allowed, setAllowed]=useState(false)
 
 		useEffect(() => {
 			const accessToken = localStorage.getItem("accessToken");
-			// if no accessToken was found,then we redirect to "/" page.
+			// if no accessToken was found,then we allow to enter login page.
 			if (!accessToken) {
-				Router.replace("/");
+				setAllowed(true);
 			} else {
-				//FIXME: remove this
-				setVerified(true)
 				// we call the api that verifies the token.
 				// TODO: apply roles of users
 				axios.get(`/api/verifyToken`, {headers: {"Authorization": `Bearer ${accessToken}`}}).then(response => {
 					console.log(response)
-					if (response.data.verified && Router.asPath.split("/")[1]===response.data.role) {
+					if (response.data.verified) {
 						// if token was verified we set the state.
-						// setVerified(response.data.verified);
+						setAllowed(false)
+						router.replace("/admin/profile")
 					} else {
 						// If the token was fraud we first remove it from localStorage and then redirect to "/"
-						// localStorage.removeItem("accessToken");
-						// Router.replace("/");
+						localStorage.removeItem("accessToken");
+						setAllowed(true)
 					}
 				}).catch(error => {
+					//FIXME: fix this later
 					console.log(error)
 					// localStorage.removeItem("accessToken");
-					// Router.replace("/");
+					setAllowed(false)
+					router.replace("/admin/profile")
 				})
 			}
 		}, []);
 
-		if (verified) {
+		if (allowed) {
 			return <WrappedComponent {...props} />;
 		} else {
-			return null;
+			return null
 		}
 	};
 };
 
-export default withAuth;
+export default withoutAuth;

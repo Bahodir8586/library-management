@@ -1,57 +1,16 @@
 import React, {useState} from 'react';
-import Link from "next/link"
-import axios from "axios";
-import {useRouter} from "next/router";
-import withoutAuth from "../HOCs/withoutAuth";
 
-const SignIn = () => {
-	const router = useRouter()
-	const [email, setEmail] = useState("")
+const Signin = (props) => {
+	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		console.log(email, password)
-		axios.post(`https://systemm-library.herokuapp.com/api/auth/admin/login`, {username, password})
-			 .then(response => {
-				 console.log(response)
-				 localStorage.setItem("accessToken", response.data.token)
-				 router.push("/user/profile")
-			 }).catch(error => {
-			console.log(error.response)
-		})
-	}
-
 	return (
-
 		<div
 			className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
 			<div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
 				Login To Your Account
 			</div>
-			<div className="flex gap-4 item-center">
-				<button type="button"
-						className="py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-					<svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792"
-						 xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z">
-						</path>
-					</svg>
-					Facebook
-				</button>
-				<button type="button"
-						className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-					<svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792"
-						 xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z">
-						</path>
-					</svg>
-					Google
-				</button>
-			</div>
 			<div className="mt-8">
-				<form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+				<form onSubmit={(e) => props.handleSubmit(e,username, password)} autoComplete="off">
 					<div className="flex flex-col mb-2">
 						<div className="flex relative ">
                     <span
@@ -63,9 +22,10 @@ const SignIn = () => {
                             </path>
                         </svg>
                     </span>
-							<input type="text" id="sign-in-email"
+							<input type="text"
 								   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-								   placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+								   placeholder="Your email" value={username}
+								   onChange={(e) => setUsername(e.target.value)}/>
 						</div>
 					</div>
 					<div className="flex flex-col mb-6">
@@ -79,21 +39,10 @@ const SignIn = () => {
                                 </path>
                             </svg>
                         </span>
-							<input type="password" id="sign-in-email"
+							<input type="password"
 								   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 								   placeholder="Your password" value={password}
 								   onChange={(e) => setPassword(e.target.value)}/>
-						</div>
-					</div>
-					<div className="flex items-center mb-6 -mt-4">
-						<div className="flex ml-auto">
-							{/*FIXME: fix this later*/}
-							<Link href={"/signup"}>
-								<a
-									className="inline-flex text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white">
-									Forgot Your Password?
-								</a>
-							</Link>
 						</div>
 					</div>
 					<div className="flex w-full">
@@ -104,18 +53,8 @@ const SignIn = () => {
 					</div>
 				</form>
 			</div>
-			<div className="flex items-center justify-center mt-6">
-				<Link href={"/signup"}>
-					<a
-						className="inline-flex items-center text-sm font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white hover:underline">
-                    <span className="ml-2">
-                        You don&#x27;t have an account?
-                    </span>
-					</a>
-				</Link>
-			</div>
 		</div>
-
 	);
-}
-export default  withoutAuth(SignIn)
+};
+
+export default Signin;
