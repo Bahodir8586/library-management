@@ -34,8 +34,9 @@ const Sidebar = () => {
 			]
 		}
 	]
-	const [role, setRole] = useState("librarian")
-	const [currentRoute,setCurrentRoute]=useState(`/${role}/profile`)
+
+	const role=router.asPath.split("/")[1]
+	const [currentRoute,setCurrentRoute]=useState(`${role}/profile`)
 
 	useEffect(()=>{
 		setCurrentRoute(router.asPath)

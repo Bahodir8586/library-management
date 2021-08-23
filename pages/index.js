@@ -11,7 +11,9 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico"/>
 			</Head>
 			<div>
-				<Link href={"/signin"}>Login</Link>
+				<Link href={"/signin"}>User</Link>
+				<Link href={"/admin/signin"}>Admin</Link>
+				<Link href={"/librarian/signin"}>Librarian</Link>
 			</div>
 		</div>
 	)

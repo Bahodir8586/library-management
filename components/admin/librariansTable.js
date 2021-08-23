@@ -3,7 +3,10 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import WarningModal from "../modals/warningModal";
 
-const LibrariansTable = () => {
+
+
+const LibrariansTable = ({librarians}) => {
+	console.log(librarians)
 	const router = useRouter()
 	const [data, setData] = useState([
 										 {
