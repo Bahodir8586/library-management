@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
 import WarningModal from "../modals/warningModal";
+import axios from "../../utils/axios";
 
-
-
-const LibrariansTable = ({librarians}) => {
-	console.log(librarians)
+const LibrariansTable = (props) => {
 	const router = useRouter()
 	const [data, setData] = useState([
 										 {
@@ -58,43 +56,52 @@ const LibrariansTable = ({librarians}) => {
 	const [searchText, setSearchText] = useState("")
 	const [selectedLibrarian, setSelectedLibrarian] = useState({})
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
-
 	const sortChangeHandler = (e) => {
 		const newSort = {...sort};
 		newSort.value = e.target.value;
 		setSort(newSort)
 	}
 
+	useEffect(()=>{
+		search()
+	},[sort.value])
+
+	const search = () => {
+		axios.get(`/admin/librarians/?sort=${sort.value}&searchText=${searchText}`).then((response) => {
+			console.log(response.data)
+			setData(response.data)
+		}).catch((error) => {
+			console.log(error)
+		})
+	}
 	const editLibrarianHandler = (id) => {
 		console.log(id)
 		router.push(`/admin/librarians/${id}`).then().catch(error => {
 			console.log(error)
 			router.reload()
 		})
-		//	TODO: Go to edit page
 	}
-
-	const deleteLibrarianHandler = () => {
-		setShowDeleteModal(false)
-		console.log(selectedLibrarian.id)
-		//	TODO: Go to delete page
+	const deleteLibrarianHandler = (id) => {
+		console.log(id)
+		axios.delete(`/admin/librarians/${id}`).then(response => {
+			console.log(response)
+			//	TODO: show success alert and reload the page
+		}).catch(error => {
+			console.log(error)
+			//	TODO: show fail alert
+		})
 	}
-	const search = (e) => {
-		console.log(searchText, sort.value)
-		//	TODO: handle search function there. Use above properties
-	}
-
-	useEffect(() => {
-		search()
-	}, [sort.value])
 
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
 			<WarningModal
 				title={"Are you sure"}
 				show={showDeleteModal}
-				onConfirm={() => deleteLibrarianHandler()}
-				onCancel={()=>{
+				onConfirm={() => {
+					setShowDeleteModal(false)
+					deleteLibrarianHandler(selectedLibrarian.id)
+				}}
+				onCancel={() => {
 					setShowDeleteModal(false)
 					setSelectedLibrarian(false)
 				}}>
@@ -175,58 +182,58 @@ const LibrariansTable = ({librarians}) => {
 							</thead>
 							<tbody>
 							{data.map(el =>
-								  <tr key={el.id}>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <Link href={`/admin/librarians/${el.id}`}>
-											  <div className="flex items-center cursor-pointer">
-												  <div className="flex-shrink-0">
-													  <img alt={el.fullName} src={el.image}
-														   className="mx-auto object-cover rounded-full h-10 w-10 "/>
-												  </div>
-												  <div className="ml-3">
-													  <p className="text-gray-900 whitespace-no-wrap">
-														  {el.fullName}
-													  </p>
-												  </div>
-											  </div>
-										  </Link>
-									  </td>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap">
-											  {el.username}
-										  </p>
-									  </td>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap text-green-600 font-medium text-lg">
-											  {el.finishedOrders}
-										  </p>
-									  </td>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap text-yellow-600 text-lg">
-											  {el.allOrders}
-										  </p>
-									  </td>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
-										  <p className="text-gray-900 whitespace-no-wrap text-red-600 font-medium text-lg">
-											  {el.inDebtOrders}
-										  </p>
-									  </td>
-									  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center flex justify-center">
-										  <button onClick={() => {
-											  editLibrarianHandler(el.id)
-										  }} type="button"
-												  className="mx-3 py-2 px-9 flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-											  Edit
-										  </button>
-										  <button onClick={() => {
-											  setSelectedLibrarian(el)
-											  setShowDeleteModal(true)
-										  }} type="button"
-												  className="mx-3 py-2 px-7 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-											  Delete
-										  </button>
-									  </td>
-								  </tr>
+										  <tr key={el.id}>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
+												  <Link href={`/admin/librarians/${el.id}`}>
+													  <div className="flex items-center cursor-pointer">
+														  <div className="flex-shrink-0">
+															  <img alt={el.fullName} src={el.image}
+																   className="mx-auto object-cover rounded-full h-10 w-10 "/>
+														  </div>
+														  <div className="ml-3">
+															  <p className="text-gray-900 whitespace-no-wrap">
+																  {el.fullName}
+															  </p>
+														  </div>
+													  </div>
+												  </Link>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap">
+													  {el.username}
+												  </p>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap text-green-600 font-medium text-lg">
+													  {el.finishedOrders}
+												  </p>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap text-yellow-600 text-lg">
+													  {el.allOrders}
+												  </p>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center">
+												  <p className="text-gray-900 whitespace-no-wrap text-red-600 font-medium text-lg">
+													  {el.inDebtOrders}
+												  </p>
+											  </td>
+											  <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm text-center flex justify-center">
+												  <button onClick={() => {
+													  editLibrarianHandler(el.id)
+												  }} type="button"
+														  className="mx-3 py-2 px-9 flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+													  Edit
+												  </button>
+												  <button onClick={() => {
+													  setSelectedLibrarian(el)
+													  setShowDeleteModal(true)
+												  }} type="button"
+														  className="mx-3 py-2 px-7 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+													  Delete
+												  </button>
+											  </td>
+										  </tr>
 							)}
 							</tbody>
 						</table>
