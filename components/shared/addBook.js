@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useRouter} from "next/router";
 
-const AddBook = () => {
+const AddBook = ({categories, addBook}) => {
 	const router = useRouter()
 	const [image, setImage] = useState(undefined)
 	const [imgSrc, setImgSrc] = useState(undefined)
@@ -12,11 +12,6 @@ const AddBook = () => {
 	const [description, setDescription] = useState("")
 	const [count, setCount] = useState("")
 	const [selectedCategories, setSelectedCategories] = useState([])
-	const [categories, setCategories] = useState([{id: 3, name: "politics"}, {id: 2, name: "fantastic"}])
-
-	useEffect(() => {
-		//	TODO: get the list of all categories there
-	}, [])
 
 	const handleImageUpload = (e) => {
 		const img = e.target.files[0];
@@ -28,6 +23,7 @@ const AddBook = () => {
 
 	const handleSubmit=(e)=>{
 		e.preventDefault();
+		addBook(image,name,author,ISBN,publishedYear,description,count,selectedCategories)
 	}
 
 	return (

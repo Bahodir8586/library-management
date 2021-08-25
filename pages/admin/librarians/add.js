@@ -3,10 +3,8 @@ import Layout from "../../../components/layout";
 import AddLibrarian from "../../../components/admin/addLibrarian";
 import withAuth from "../../../HOCs/withAuth";
 import axios from "../../../utils/axios";
-import {useRouter} from "next/router";
 
 const Add = () => {
-	const router=useRouter()
 	const handleSubmit = (e,username, fullName, password, image) => {
 		e.preventDefault();
 		console.log(username, fullName, password, image)
@@ -17,9 +15,12 @@ const Add = () => {
 		submitData.append("image", image)
 		axios.post(`/admin/librarians`,submitData).then(response => {
 			console.log(response)
-			router.push("/admin/librarians")
+			//TODO: show success message then redirect to table page
+
+			// router.push("/admin/librarians")
 		}).catch(error => {
 			console.log(error)
+			//	TODO: show error message and reload the page
 		})
 	}
 	return (

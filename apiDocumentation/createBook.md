@@ -33,6 +33,7 @@
   `count=[numeric]` <br/>
   `description=[string]` <br/>
   `image=[file]` <br/>
+  `categories=[array]` <br/>
 
 * **Success Response:**
 

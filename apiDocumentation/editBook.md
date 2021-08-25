@@ -33,6 +33,7 @@
   `count=[numeric]` <br/>
   `description=[string]` <br/>
   `image=[file]` <br/>
+  `categories=[array]` <br/>
 
 * **Success Response:**
 
@@ -54,5 +55,5 @@
       OR
 
     * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{ error : "Unable to add new book" }`
+      **Content:** `{ error : "Unable to update the book" }`
 
