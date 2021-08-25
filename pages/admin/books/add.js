@@ -3,11 +3,16 @@ import Layout from "../../../components/layout";
 import AddBook from "../../../components/shared/addBook";
 import withAuth from "../../../HOCs/withAuth";
 import axios from "../../../utils/axios";
+import SuccessModal from "../../../components/modals/successModal";
+import {useRouter} from "next/router";
 
 const Add = () => {
+	const router=useRouter()
 	const [categories, setCategories] = useState([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [isError, setIsError] = useState(false)
+	const [showSuccessModal, setShowSuccessModal] = useState(false)
+	const [successText, setSuccessText] = useState("")
 
 	const addBook = (image, name, author, ISBN, publishedYear, description, count, selectedCategories) => {
 		const submitData = new FormData();
@@ -21,9 +26,8 @@ const Add = () => {
 		submitData.append("image", image)
 		axios.post(`/admin/books`, submitData).then(response => {
 			console.log(response)
-			//TODO: show success message then redirect to table page
-
-			// router.push("/admin/books")
+			setSuccessText(`${name} book successfully added to database`)
+			setShowSuccessModal(true)
 		}).catch(error => {
 			console.log(error)
 			//	TODO: show error message and reload the page
@@ -32,19 +36,25 @@ const Add = () => {
 
 
 	useEffect(() => {
-		//	TODO: get the list of all categories there
+		// get the list of all categories there
 		setIsLoading(true)
+		setIsError(false)
 		axios.get("/categories").then(response => {
 			console.log(response)
 			setCategories(response.data)
 			setIsLoading(false)
 		}).catch(error => {
 			console.log(error)
+			setIsError(true)
 			setIsLoading(false)
 		})
 	}, [])
 	return (
 		<Layout>
+			<SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
+				setShowSuccessModal(false)
+				router.push("/admin/books");
+			}} text={successText}/>
 			{isLoading ? <div>Loading</div> :
 				isError ? <div>Error</div> :
 					<AddBook categories={categories}

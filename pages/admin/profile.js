@@ -92,7 +92,7 @@ const Profile = () => {
 
 	return (
 		<Layout>
-			<SuccessModal  show={showSuccessModal} title={"Congratulations"} onConfirm={()=>setShowSuccessModal(false)} text />
+			<SuccessModal  show={showSuccessModal} title={"Congratulations"} onConfirm={()=>setShowSuccessModal(false)} text={successText} />
 			<AdminProfile name={name} categories={categories}
 						  handleSubmit={(e, username, oldPassword, newPassword, confirmNewPassword) => handleSubmit(e,
 																													username,
