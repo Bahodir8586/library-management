@@ -5,6 +5,7 @@ import withAuth from "../../../HOCs/withAuth";
 import axios from "../../../utils/axios";
 import SuccessModal from "../../../components/modals/successModal";
 import {useRouter} from "next/router";
+import Spinner from "../../../components/loaders/spinner/spinner";
 
 const Add = () => {
 	const router=useRouter()
@@ -55,7 +56,7 @@ const Add = () => {
 				setShowSuccessModal(false)
 				router.push("/admin/books");
 			}} text={successText}/>
-			{isLoading ? <div>Loading</div> :
+			{isLoading ? <Spinner/> :
 				isError ? <div>Error</div> :
 					<AddBook categories={categories}
 							 addBook={(image, name, author, ISBN, publishedYear, description, count, selectedCategories) =>

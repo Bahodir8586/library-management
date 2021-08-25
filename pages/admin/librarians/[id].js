@@ -4,6 +4,7 @@ import withAuth from "../../../HOCs/withAuth";
 import {useRouter} from "next/router";
 import axios from "../../../utils/axios";
 import EditLibrarian from "../../../components/admin/editLibrarian";
+import Spinner from "../../../components/loaders/spinner/spinner";
 
 const Librarian = () => {
 	const router = useRouter()
@@ -41,7 +42,7 @@ const Librarian = () => {
 	}
 	return (
 		<Layout>
-			{isLoading ? <div>Loading</div> : isError ? <div>Error</div> : <EditLibrarian
+			{isLoading ? <Spinner/> : isError ? <div>Error</div> : <EditLibrarian
 				handleSubmit={(e, username, fullName, image) => handleSubmit(e, username, fullName, image)}
 				data={data}/>}
 
