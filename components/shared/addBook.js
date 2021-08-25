@@ -71,7 +71,7 @@ const AddBook = () => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div>
 									<div className=" relative ">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Name" value={name}
 											   onChange={(e) => setName(e.target.value)}/>
@@ -79,7 +79,7 @@ const AddBook = () => {
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Author" value={author}
 											   onChange={(e) => setAuthor(e.target.value)}/>
@@ -87,7 +87,7 @@ const AddBook = () => {
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="ISBN" value={ISBN}
 											   onChange={(e) => setISBN(e.target.value)}/>
@@ -103,13 +103,13 @@ const AddBook = () => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div className={"flex"}>
 									<div className=" relative pr-2">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Published Year" value={publishedYear}
 											   onChange={(e) => setPublishedYear(e.target.value)}/>
 									</div>
 									<div className=" relative pl-2">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Copy of Books" value={count}
 											   onChange={(e) => setCount(e.target.value)}/>
@@ -127,7 +127,7 @@ const AddBook = () => {
 								</div>
 								<div>
 									<div className=" relative ">
-										<textarea
+										<textarea autoComplete={"off"}
 											className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											placeholder="Description" value={description} rows={5}
 											onChange={(e) => setDescription(e.target.value)}/>

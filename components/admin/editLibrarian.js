@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useRouter} from "next/router";
 
 const EditLibrarian = ({handleSubmit, data}) => {
-	const router = useRouter()
 	const [username, setUsername] = useState(data.username)
 	const [fullName, setFullName] = useState(data.fullName)
 	const [image, setImage] = useState(undefined)
@@ -57,7 +56,7 @@ const EditLibrarian = ({handleSubmit, data}) => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div>
 									<div className=" relative ">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Full Name" value={fullName}
 											   onChange={(e) => setFullName(e.target.value)}/>
@@ -65,7 +64,7 @@ const EditLibrarian = ({handleSubmit, data}) => {
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text"
+										<input type="text" autoComplete={"off"}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Username" value={username}
 											   onChange={(e) => setUsername(e.target.value)}/>

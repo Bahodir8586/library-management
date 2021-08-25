@@ -10,7 +10,7 @@
 
 * **Method**
 
-  `PATCH`
+  `POST`
 
 * **Bearer Token**
 

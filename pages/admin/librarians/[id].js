@@ -9,14 +9,15 @@ const Librarian = () => {
 	const router = useRouter()
 	const id = router.asPath.split("/")[3]
 	const [data,setData]=useState({})
+
 	useEffect(()=>{
 		axios.get(`/admin/librarians/${id}`).then(response=>{
+			console.log(response)
 			setData(response.data)
 		}).catch((error)=>{
 			console.log(error)
 		})
 	},[router.asPath])
-
 
 	const handleSubmit = (e, username, fullName, image) => {
 		e.preventDefault();

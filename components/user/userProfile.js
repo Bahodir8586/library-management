@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 
 const UserProfile = () => {
-	const [imgSrc, setImgSrc]=useState(undefined)
-	const [image,setImage]=useState(undefined)
-	const [fullName, setFullName]=useState('Abdullayev Bahodir');
-	const [username, setUsername]=useState("Abdullayev_8586");
-	const [email,setEmail]=useState("bahodira213@gmail.com")
-	const [oldPassword, setOldPassword]=useState("")
-	const [newPassword, setNewPassword]=useState("")
-	const [confirmNewPassword, setConfirmNewPassword]=useState("")
+	const [imgSrc, setImgSrc] = useState(undefined)
+	const [image, setImage] = useState(undefined)
+	const [fullName, setFullName] = useState('Abdullayev Bahodir');
+	const [username, setUsername] = useState("Abdullayev_8586");
+	const [email, setEmail] = useState("bahodira213@gmail.com")
+	const [oldPassword, setOldPassword] = useState("")
+	const [newPassword, setNewPassword] = useState("")
+	const [confirmNewPassword, setConfirmNewPassword] = useState("")
 
-	const cancelChangesHandler=(e)=>{
+	const cancelChangesHandler = (e) => {
 		e.preventDefault()
 	}
 
-	const handleSubmit=(e)=>{
+	const handleSubmit = (e) => {
 		e.preventDefault();
 	}
 
@@ -28,7 +28,7 @@ const UserProfile = () => {
 	return (
 		<div className={"w-full text-center"}>
 			<section className="bg-gray-100 bg-opacity-50 py-8">
-				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4" onSubmit={(e)=>handleSubmit(e)}>
+				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4" onSubmit={(e) => handleSubmit(e)}>
 					<div className="p-4 bg-gray-100 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0 ">
 							<div className="max-w-sm mx-auto md:w-1/3">
@@ -66,21 +66,24 @@ const UserProfile = () => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div>
 									<div className=" relative ">
-										<input type="text" value={fullName} onChange={(e)=>setFullName(e.target.value)}
+										<input type="text" autoComplete={"off"} value={fullName}
+											   onChange={(e) => setFullName(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Full Name"/>
 									</div>
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text" value={username} onChange={(e)=>setUsername(e.target.value)}
+										<input type="text" autoComplete={"off"} value={username}
+											   onChange={(e) => setUsername(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Username"/>
 									</div>
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text" value={email} onChange={(e)=>setEmail(e.target.value)}
+										<input type="text" autoComplete={"off"} value={email}
+											   onChange={(e) => setEmail(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Email"/>
 									</div>
@@ -95,21 +98,24 @@ const UserProfile = () => {
 							<div className="max-w-sm mx-auto space-y-5 md:w-2/3">
 								<div>
 									<div className=" relative ">
-										<input type="text" value={oldPassword} onChange={(e)=>setOldPassword(e.target.value)}
+										<input type="text" autoComplete={"off"} value={oldPassword}
+											   onChange={(e) => setOldPassword(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Old Password"/>
 									</div>
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text" value={newPassword} onChange={(e)=>setNewPassword(e.target.value)}
+										<input type="text" autoComplete={"off"} value={newPassword}
+											   onChange={(e) => setNewPassword(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="New Password"/>
 									</div>
 								</div>
 								<div>
 									<div className=" relative ">
-										<input type="text" value={confirmNewPassword} onChange={(e)=>setConfirmNewPassword(e.target.value)}
+										<input type="text" autoComplete={"off"} value={confirmNewPassword}
+											   onChange={(e) => setConfirmNewPassword(e.target.value)}
 											   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
 											   placeholder="Confirm new Password"/>
 									</div>
@@ -118,11 +124,11 @@ const UserProfile = () => {
 						</div>
 						<hr/>
 						<div className="w-full px-4 pb-4 ml-auto text-gray-500 md:w-1/2 flex justify-end">
-							<button type="button" onClick={(e)=>cancelChangesHandler(e)}
+							<button type="button" onClick={(e) => cancelChangesHandler(e)}
 									className="mx-2 py-2 px-4  bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 focus:ring-offset-pink-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
 								Cancel
 							</button>
-							<button type="submit" onClick={(e)=>handleSubmit(e)}
+							<button type="submit" onClick={(e) => handleSubmit(e)}
 									className="py-2 px-6  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
 								Save
 							</button>
