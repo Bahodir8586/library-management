@@ -3,6 +3,8 @@ import Link from "next/link";
 import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
 import axios from "../../utils/axios";
+import WarningModal from "../modals/warningModal";
+import SuccessModal from "../modals/successModal";
 
 const BooksTable = () => {
 	const role = "admin"
@@ -86,18 +88,21 @@ const BooksTable = () => {
 	const [pageNumber, setPageNumber] = useState(1)
 	const [haveNextPage, setHaveNextPage] = useState(true)
 
+	const [showDeleteModal, setShowDeleteModal] = useState(false)
+	const [selectedBook, setSelectedBook] = useState({})
+	const [showSuccessModal, setShowSuccessModal] = useState(false)
+	const [successText, setSuccessText] = useState("")
+
 	const filterChangeHandler = (e) => {
 		const newFilter = {...filter};
 		newFilter.value = e.target.value;
 		setFilter(newFilter)
 	}
-
 	const sortChangeHandler = (e) => {
 		const newSort = {...sort};
 		newSort.value = e.target.value;
 		setSort(newSort)
 	}
-
 	const searchByChangeHandler = (e) => {
 		const newSearchBy = {...searchBy};
 		newSearchBy.value = e.target.value;
@@ -106,14 +111,13 @@ const BooksTable = () => {
 
 	const search = (e) => {
 		console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
-		//	TODO: handle search function there. Use above properties
 		axios.get(
 			`/api/admin/books/search?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
 			 .then(response => {
 				 setHaveNextPage(isPaginated(response));
 				 setData(response.data)
 			 }).catch(error => {
-			 	console.log(error)
+			console.log(error)
 		})
 	}
 
@@ -123,12 +127,22 @@ const BooksTable = () => {
 			console.log(error)
 			router.reload()
 		})
-		//	TODO: Go to edit page
 	}
 
 	const deleteBookHandler = (id) => {
-		console.log(id)
-		//	TODO: Go to delete page
+		axios.delete(`/admin/books/${id}`).then(response=>{
+			console.log(response)
+			setSuccessText("Book successfully deleted")
+			setShowSuccessModal(true)
+		}).catch(error=>{
+			console.log(error)
+		//	TODO: show fail modal and reload the page
+		})
+	}
+
+	const finishDelete=()=>{
+		setShowDeleteModal(false)
+		setSelectedBook({})
 	}
 
 	useEffect(() => {
@@ -137,6 +151,22 @@ const BooksTable = () => {
 
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
+			<WarningModal
+				title={"Are you sure"}
+				show={showDeleteModal}
+				onConfirm={() => {
+					deleteBookHandler(selectedBook.id)
+					finishDelete()
+				}}
+				onCancel={() => {
+					finishDelete()
+				}}>
+				Do you want to delete librarian {selectedBook.name}
+			</WarningModal>
+			<SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
+				search()
+				setShowSuccessModal(false)
+			}} text={successText}/>
 			<div className="py-8">
 				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full">
 					<div className={"w-1/12"}>
@@ -299,9 +329,9 @@ const BooksTable = () => {
 														  className="mx-3 py-2 px-9 flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
 													  Edit
 												  </button>
-
 												  <button onClick={() => {
-													  deleteBookHandler(el.id)
+													  setSelectedBook(el)
+													  setShowDeleteModal(true)
 												  }} type="button"
 														  className="mx-3 py-2 px-7 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
 													  Delete

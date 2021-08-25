@@ -4,8 +4,10 @@ import AddLibrarian from "../../../components/admin/addLibrarian";
 import withAuth from "../../../HOCs/withAuth";
 import axios from "../../../utils/axios";
 import SuccessModal from "../../../components/modals/successModal";
+import {useRouter} from "next/router";
 
 const Add = () => {
+	const router=useRouter()
 	const [showSuccessModal, setShowSuccessModal] = useState(false)
 	const [successText, setSuccessText] = useState("")
 	const handleSubmit = (e, username, fullName, password, image) => {

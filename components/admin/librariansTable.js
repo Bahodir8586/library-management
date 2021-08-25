@@ -3,6 +3,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import WarningModal from "../modals/warningModal";
 import axios from "../../utils/axios";
+import SuccessModal from "../modals/successModal";
 
 const LibrariansTable = (props) => {
 	const router = useRouter()
@@ -56,15 +57,18 @@ const LibrariansTable = (props) => {
 	const [searchText, setSearchText] = useState("")
 	const [selectedLibrarian, setSelectedLibrarian] = useState({})
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
+	const [showSuccessModal, setShowSuccessModal] = useState(false)
+	const [successText, setSuccessText] = useState("")
+
 	const sortChangeHandler = (e) => {
 		const newSort = {...sort};
 		newSort.value = e.target.value;
 		setSort(newSort)
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		search()
-	},[sort.value])
+	}, [sort.value])
 
 	const search = () => {
 		axios.get(`/admin/librarians/?sort=${sort.value}&searchText=${searchText}`).then((response) => {
@@ -85,11 +89,16 @@ const LibrariansTable = (props) => {
 		console.log(id)
 		axios.delete(`/admin/librarians/${id}`).then(response => {
 			console.log(response)
-			//	TODO: show success alert and reload the page
+			setShowSuccessModal(true)
+			setSuccessText(`Librarian successfully deleted`)
 		}).catch(error => {
 			console.log(error)
 			//	TODO: show fail alert
 		})
+	}
+	const finishDelete=()=>{
+		setShowDeleteModal(false)
+		setSelectedLibrarian({})
 	}
 
 	return (
@@ -98,15 +107,18 @@ const LibrariansTable = (props) => {
 				title={"Are you sure"}
 				show={showDeleteModal}
 				onConfirm={() => {
-					setShowDeleteModal(false)
 					deleteLibrarianHandler(selectedLibrarian.id)
+					finishDelete()
 				}}
 				onCancel={() => {
-					setShowDeleteModal(false)
-					setSelectedLibrarian(false)
+					finishDelete()
 				}}>
 				Do you want to delete librarian {selectedLibrarian.id}
 			</WarningModal>
+			<SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
+				search()
+				setShowSuccessModal(false)
+			}} text={successText}/>
 			<div className="py-8">
 				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
 					<h2 className="text-6xl leading-tight w-1/6">
