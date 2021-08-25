@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/categories
+  /api/admin/categories
 
 * **Method**
 

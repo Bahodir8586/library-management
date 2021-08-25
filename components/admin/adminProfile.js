@@ -1,14 +1,78 @@
 import React, {useState} from 'react';
+import Image from "next/image"
+import WarningModal from "../modals/warningModal";
+import SweetAlert from "react-bootstrap-sweetalert";
 
-const AdminProfile = ({name,categories, handleSubmit, addCategory}) => {
+const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory, deleteCategory}) => {
 	const [username, setUsername] = useState(name)
 	const [oldPassword, setOldPassword] = useState("")
 	const [newPassword, setNewPassword] = useState("")
 	const [confirmNewPassword, setConfirmNewPassword] = useState("")
 	const [newCategory, setNewCategory] = useState("")
+	const [selectedCategory, setSelectedCategory] = useState({})
+	const [showDeleteModal, setShowDeleteModal] = useState(false)
+	const [showEditModal, setShowEditModal] = useState(false)
+	const [newName, setNewName] = useState("")
+
+	const editCategoryHandler = (category) => {
+		//	TODO: show modal and get updated value from modal. If confirms then call edit function from props
+		setShowEditModal(true)
+		setSelectedCategory(category)
+		setNewName(category.name)
+	}
+	const deleteCategoryHandler = (category) => {
+		//	TODO: show modal and if confirms call delete function from props
+		setShowDeleteModal(true)
+		setSelectedCategory(category)
+	}
+
+	const finishEdit=()=>{
+		setShowEditModal(false)
+		setSelectedCategory({})
+		setNewName("")
+	}
+
+	const finishDelete=()=>{
+		setShowDeleteModal(false)
+		setSelectedCategory({})
+	}
+
 
 	return (
 		<div className={"w-full text-center"}>
+			<SweetAlert
+				warning
+				showCancel
+				show={showEditModal}
+				title={"Edit category"}
+				confirmBtnCssClass="px-8 py-3 border border-green-600 bg-green-600 text-white rounded text-xl cursor-pointer hover:bg-green-700 transition duration-200"
+				confirmBtnText="Save"
+				cancelBtnCssClass="px-6 py-3 border border-red-600 bg-white text-red-600 rounded text-xl cursor-pointer hover:bg-gray-100 transition duration-200"
+				onConfirm={() => {
+					editCategory(selectedCategory.id, newName)
+					finishEdit()
+				}}
+				onCancel={() => {
+					finishEdit()
+				}}
+			>
+				<input type="text" autoComplete={"off"}
+					   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+					   placeholder="Category name" value={newName}
+					   onChange={(e) => setNewName(e.target.value)}/>
+			</SweetAlert>
+			<WarningModal
+				title={"Are you sure"}
+				show={showDeleteModal}
+				onConfirm={() => {
+					deleteCategory(selectedCategory.id)
+					finishDelete()
+				}}
+				onCancel={() => {
+					finishDelete()
+				}}>
+				Do you want to delete category {selectedCategory.name}
+			</WarningModal>
 			<section className="bg-gray-100 bg-opacity-50 py-8 flex">
 				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4"
 					  onSubmit={(e) => handleSubmit(e, username, oldPassword, newPassword, confirmNewPassword)}>
@@ -76,8 +140,9 @@ const AdminProfile = ({name,categories, handleSubmit, addCategory}) => {
 							<h1 className={"text-center text-2xl text-medium text-black w-full"}>Categories</h1>
 						</div>
 					</div>
-					<div className="space-y-6 bg-white">
-						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0">
+					<div className="bg-white">
+						<div
+							className="my-4 items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0">
 							<h2 className="max-w-sm mx-auto md:w-1/3">
 								New Category
 							</h2>
@@ -89,7 +154,10 @@ const AdminProfile = ({name,categories, handleSubmit, addCategory}) => {
 											   placeholder="Category name" value={newCategory}
 											   onChange={(e) => setNewCategory(e.target.value)}/>
 									</div>
-									<button type="submit" onClick={(e) => addCategory(e, newCategory)}
+									<button type="submit" onClick={(e) => {
+										addCategory(e, newCategory)
+										setNewCategory("")
+									}}
 											className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
 										+
 									</button>
@@ -98,10 +166,18 @@ const AdminProfile = ({name,categories, handleSubmit, addCategory}) => {
 							</div>
 						</div>
 						<hr/>
-						<ul className="divide-y divide-gray-200">
-							{categories.map((el) => (
-								<li key={el.id} className="px-4 py-4 sm:px-0">
-									{el.name}
+						<ul className="divide-y divide-gray-200 overflow-y-auto h-80"
+							style={{marginTop: 0 + "px!important"}}>
+							{categories.map((el, index) => (
+								<li key={el.id} className="px-4 py-4 flex justify-between">
+									<div className={"w-1/6"}>{index + 1}</div>
+									<div className={"w-2/3"}>{el.name}</div>
+									<div className={"w-1/12 cursor-pointer"} onClick={() => editCategoryHandler(el)}>
+										<Image src={"/svgs/edit.svg"} width={24} height={24}/>
+									</div>
+									<div className={"w-1/12 cursor-pointer"} onClick={() => deleteCategoryHandler(el)}>
+										<Image src={"/svgs/delete.svg"} width={24} height={24}/>
+									</div>
 								</li>
 							))}
 						</ul>
