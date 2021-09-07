@@ -73,10 +73,10 @@ const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory
 				}}>
 				Do you want to delete category {selectedCategory.name}
 			</WarningModal>
-			<section className="bg-gray-100 bg-opacity-50 py-8 flex">
-				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4"
+			<section className="bg-gray-100 bg-opacity-50 py-8 flex flex-wrap">
+				<form className="container max-w-2xl mx-auto shadow-md md:w-3/4 mb-8"
 					  onSubmit={(e) => handleSubmit(e, username, oldPassword, newPassword, confirmNewPassword)}>
-					<div className="p-4 bg-gray-100 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
+					<div className="p-4 bg-gray-500 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0 ">
 							<h1 className={"text-center text-2xl text-medium text-black w-full"}>Welcome <span
 								className={"text-bold text-3xl text-purple-700"}>{username}</span></h1>
@@ -135,7 +135,7 @@ const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory
 					</div>
 				</form>
 				<div className="container max-w-2xl mx-auto shadow-md md:w-3/4">
-					<div className="p-4 bg-gray-100 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
+					<div className="p-4 bg-gray-500 border-t-2 border-indigo-400 rounded-lg bg-opacity-5">
 						<div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0 ">
 							<h1 className={"text-center text-2xl text-medium text-black w-full"}>Categories</h1>
 						</div>
