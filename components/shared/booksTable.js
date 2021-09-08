@@ -5,6 +5,8 @@ import {useRouter} from "next/router";
 import axios from "../../utils/axios";
 import WarningModal from "../modals/warningModal";
 import SuccessModal from "../modals/successModal";
+import InputRange from "./inputRange/inputRange";
+import FailModal from "../modals/failModal";
 
 const BooksTable = () => {
     const role = "admin"
@@ -82,8 +84,8 @@ const BooksTable = () => {
             {value: "fantastic", name: "Fantastic"}
         ]
     })
-    const [fromYear, setFromYear] = useState(undefined)
-    const [toYear, setToYear] = useState(undefined)
+    const [fromYear, setFromYear] = useState(1950)
+    const [toYear, setToYear] = useState(2010)
 
     const [pageNumber, setPageNumber] = useState(1)
     const [haveNextPage, setHaveNextPage] = useState(true)
@@ -92,6 +94,8 @@ const BooksTable = () => {
     const [selectedBook, setSelectedBook] = useState({})
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [successText, setSuccessText] = useState("")
+    const [showFailModal, setShowFailModal] = useState(false)
+    const [errorText, setErrorText] = useState("")
 
     const filterChangeHandler = (e) => {
         const newFilter = {...filter};
@@ -136,7 +140,9 @@ const BooksTable = () => {
             setShowSuccessModal(true)
         }).catch(error => {
             console.log(error)
-            //	TODO: show fail modal and reload the page
+            setShowFailModal(true)
+            setErrorText("Something went wrong. Please try again later")
+            //	TODO: show different error messages
         })
     }
 
@@ -167,6 +173,9 @@ const BooksTable = () => {
                 search()
                 setShowSuccessModal(false)
             }} text={successText}/>
+            <FailModal show={showFailModal} title={"Error"} onConfirm={() => {
+                setShowFailModal(false)
+            }} text={errorText}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full">
                     <div className={"w-1/12"}>
@@ -213,10 +222,28 @@ const BooksTable = () => {
                                 </select>
                             </div>
                             <div className={"pt-4 relative w-1/4 px-4"}>
-                                {/*	From Year Range */}
+                                <label className="text-gray-700 mr-3">
+                                    From: {fromYear}
+                                </label>
+                                <InputRange min={0} max={121} step={1} initValue={50} onChange={(val) => {
+                                    setFromYear(1900 + (+(val)))
+                                }}/>
+                                <div className="flex justify-between mt-2 text-xs text-gray-600">
+                                    <span className="w-8 text-left">1900</span>
+                                    <span className="w-8 text-right">2021</span>
+                                </div>
                             </div>
                             <div className={"pt-4 relative w-1/4 px-4"}>
-                                {/*	 To Year Range*/}
+                                <label className="text-gray-700 mr-3">
+                                    To: {toYear}
+                                </label>
+                                <InputRange min={0} max={121} step={1} initValue={110} onChange={(val) => {
+                                    setToYear(1900 + (+(val)))
+                                }}/>
+                                <div className="flex justify-between mt-2 text-xs text-gray-600">
+                                    <span className="w-8 text-left">1900</span>
+                                    <span className="w-8 text-right">2021</span>
+                                </div>
                             </div>
                             <div className={"pt-4 relative w-1/4 px-4"}>
                                 <label className={"text-gray-700 mr-3"}>
@@ -258,15 +285,15 @@ const BooksTable = () => {
                                     ISBN
                                 </th>
                                 <th scope="col"
-                                    className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+                                    className="px-5 py-3 bg-white border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
                                     Published year
                                 </th>
                                 <th scope="col"
-                                    className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+                                    className="px-5 py-3 bg-white border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
                                     Count
                                 </th>
                                 <th scope="col"
-                                    className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
+                                    className="px-5 py-3 bg-white border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
                                     Categories
                                 </th>
                                 <th scope="col"
@@ -277,7 +304,9 @@ const BooksTable = () => {
                             </thead>
                             <tbody>
                             {data.map(el =>
-                                <tr key={el.id} className={"text-sm bg-white border-b border-gray-200 py-3 h-20"}>
+                                <tr key={el.id}
+                                    className={"text-sm bg-white border-b border-gray-200 py-3 h-20"}>
+
                                     <td className="px-5 text-center">
                                         <Link href={`/${role}/books/${el.id}`}>
                                             <div className="flex items-center cursor-pointer">

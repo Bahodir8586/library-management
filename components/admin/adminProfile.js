@@ -15,13 +15,11 @@ const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory
 	const [newName, setNewName] = useState("")
 
 	const editCategoryHandler = (category) => {
-		//	TODO: show modal and get updated value from modal. If confirms then call edit function from props
 		setShowEditModal(true)
 		setSelectedCategory(category)
 		setNewName(category.name)
 	}
 	const deleteCategoryHandler = (category) => {
-		//	TODO: show modal and if confirms call delete function from props
 		setShowDeleteModal(true)
 		setSelectedCategory(category)
 	}
