@@ -46,22 +46,22 @@
 
 * **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
+
+      **Code:** 404 NOT FOUND <br />
       **Content:** `{ error : "User not found!" }`
 
       OR
   
-    * **Code:** 401 UNAUTHORIZED <br />
+      **Code:** 401 UNAUTHORIZED <br />
       **Content:** `{ error : "Unauthorized!" }`
 
       OR
 
-    * **Code:** 422 VALIDATION <br />
+      **Code:** 422 VALIDATION <br />
       **Content:** `{ error : "Data is not valid." }`
 
       OR
 
-    * **Code:** 500 SERVER ERROR <br />
+      **Code:** 500 SERVER ERROR <br />
       **Content:** `{ error : "Unable to process the data }`
 
-    

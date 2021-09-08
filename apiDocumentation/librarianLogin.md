@@ -34,20 +34,21 @@
 
 * **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
+
+      **Code:** 404 NOT FOUND <br />
       **Content:** `{ error : "Credentials do not match" }`
 
       OR
-    * **Code:** 400 BAD REQUEST <br />
+      **Code:** 400 BAD REQUEST <br />
       **Content:** `{ error : "Bad Request" }`
 
       OR
 
-    * **Code:** 422 VALIDATION <br />
+      **Code:** 422 VALIDATION <br />
       **Content:** `{ error : "Data is not valid." }`
 
       OR
 
-    * **Code:** 500 SERVER ERROR <br />
+      **Code:** 500 SERVER ERROR <br />
       **Content:** `{ error : "Unable to process the data" }`
 

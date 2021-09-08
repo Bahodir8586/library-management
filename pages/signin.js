@@ -6,12 +6,12 @@ import withoutAuth from "../HOCs/withoutAuth";
 
 const SignIn = () => {
 	const router = useRouter()
-	const [email, setEmail] = useState("")
+	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log(email, password)
-		axios.post(`https://systemm-library.herokuapp.com/api/auth/admin/login`, {username, password})
+		console.log(username, password)
+		axios.post(`https://systemm-library.herokuapp.com/api/auth/user/login`, {username, password})
 			 .then(response => {
 				 console.log(response)
 				 localStorage.setItem("accessToken", response.data.token)
@@ -65,7 +65,7 @@ const SignIn = () => {
                     </span>
 							<input type="text" id="sign-in-email"
 								   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-								   placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+								   placeholder="Your email" value={username} onChange={(e) => setUsername(e.target.value)}/>
 						</div>
 					</div>
 					<div className="flex flex-col mb-6">
