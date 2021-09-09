@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 const UsersTable = () => {
 	//FIXME: fix this
@@ -56,6 +57,9 @@ const UsersTable = () => {
 	const [searchText, setSearchText] = useState("")
 	const [pageNumber,setPageNumber]=useState(1)
 	const [haveNextPage, setHaveNextPage]=useState(true)
+	const [message, setMessage]=useState("")
+	const [showMessageModal, setShowMessageModal]=useState(false)
+	const [selectedUser, setSelectedUser]=useState(null)
 
 	const filterChangeHandler = (e) => {
 		const newFilter = {...filter};
@@ -84,12 +88,37 @@ const UsersTable = () => {
 	//	TODO: handle unblock function there. Apply writing message to the user there
 	}
 
+	const finishBlock=()=>{
+		setMessage("")
+		setShowMessageModal(false)
+	}
+
 	useEffect(() => {
 		search()
 	}, [filter.value, searchBy.value, pageNumber])
 
 	return (
 		<div className="container mx-auto px-4 sm:px-8 w-full">
+			<SweetAlert
+				showCancel
+				show={showMessageModal}
+				title={"Reason for block"}
+				confirmBtnCssClass="px-8 py-3 border border-red-600 bg-red-600 text-white rounded text-xl cursor-pointer hover:bg-red-700 transition duration-200"
+				confirmBtnText="Block"
+				cancelBtnCssClass="px-6 py-3 border border-red-600 bg-white text-red-600 rounded text-xl cursor-pointer hover:bg-gray-100 transition duration-200"
+				onConfirm={() => {
+					blockUserHandler(selectedUser)
+					finishBlock()
+				}}
+				onCancel={() => {
+					finishBlock()
+				}}
+			>
+				<textarea autoComplete={"off"} rows={5}
+					   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-3/4 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+					   placeholder="Message to user" value={message}
+					   onChange={(e) => setMessage(e.target.value)}/>
+			</SweetAlert>
 			<div className="py-8">
 				<div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
 					<h2 className="text-6xl leading-tight w-1/4">
@@ -200,7 +229,8 @@ const UsersTable = () => {
 											  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
 												  {el.active ?
 													  <button onClick={() => {
-														  blockUserHandler(el.id)
+														  setSelectedUser(el.id)
+														  setShowMessageModal(true)
 													  }} type="button"
 															  className="mx-auto py-2 px-7 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
 														  Block

@@ -3,7 +3,7 @@ import React from 'react';
 export default function Page404 () {
 	return (
 		<div className="bg-indigo-900 relative overflow-hidden h-screen">
-			<img src="/images/books/book_1.jpg" className="absolute h-full w-full object-cover"/>
+			<img src="/images/books/book_1.jpg" alt={"Book"} className="absolute h-full w-full object-cover"/>
 			<div className="inset-0 bg-black opacity-25 absolute">
 			</div>
 			<div className="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-32 xl:py-40">
