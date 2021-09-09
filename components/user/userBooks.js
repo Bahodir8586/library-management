@@ -97,7 +97,7 @@ const UserBooks = () => {
         console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
         //	TODO: handle search function there. Use above properties
         axios.get(
-            `/api/admin/books/search?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&onlyAvailable=${onlyAvailable}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
+            `/api/user/books/search?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&onlyAvailable=${onlyAvailable}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
                 setHaveNextPage(isPaginated(response));
             }).catch(error => {
