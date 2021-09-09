@@ -1,26 +1,32 @@
 import React, {useState} from 'react';
 import Link from "next/link"
 import axios from "axios";
+import {useRouter} from "next/router";
 
 export default function SignUp() {
-
+    const router=useRouter()
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [username,setUsername]=useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [passwordConfirmation, setPasswordConfirmation]=useState("")
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(firstName, lastName, email, password)
         axios.post(`https://systemm-library.herokuapp.com/api/auth/user/register`, {
-            firstName,
-            lastName,
+            name:`${firstName} ${lastName}`,
+            username: username,
             email,
-            password
+            password,
+            password_confirmation: passwordConfirmation
         })
             .then(response => {
                 console.log(response)
+                localStorage.setItem("accessToken",response.data.token)
+                router.push("/user/profile")
             }).catch(error => {
             console.log(error.response)
         })
@@ -36,13 +42,13 @@ export default function SignUp() {
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="flex gap-4 mb-2">
                         <div className=" relative ">
-                            <input type="text" id="create-account-first-name"
+                            <input type="text"
                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                    name="First name" placeholder="First name" value={firstName}
                                    onChange={(e) => setFirstName(e.target.value)}/>
                         </div>
                         <div className=" relative ">
-                            <input type="text" id="create-account-last-name"
+                            <input type="text"
                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                    name="Last name" placeholder="Last name" value={lastName}
                                    onChange={(e) => setLastName(e.target.value)}/>
@@ -50,7 +56,7 @@ export default function SignUp() {
                     </div>
                     <div className="flex flex-col mb-2">
                         <div className=" relative ">
-                            <input type="text" id="create-account-email"
+                            <input type="text"
                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                    name="email" placeholder="Email" value={email}
                                    onChange={(e) => setEmail(e.target.value)}/>
@@ -58,10 +64,26 @@ export default function SignUp() {
                     </div>
                     <div className="flex flex-col mb-2">
                         <div className=" relative ">
-                            <input type="password" id="create-account-pseudo"
+                            <input type="text"
+                                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                   name="username" placeholder="Username" value={username}
+                                   onChange={(e) => setUsername(e.target.value)}/>
+                        </div>
+                    </div>
+                    <div className="flex flex-col mb-2">
+                        <div className=" relative ">
+                            <input type="password"
                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                    name="password" placeholder="Password" value={password}
                                    onChange={(e) => setPassword(e.target.value)}/>
+                        </div>
+                    </div>
+                    <div className="flex flex-col mb-2">
+                        <div className=" relative ">
+                            <input type="password"
+                                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                   name="password" placeholder="Password Confirmation" value={passwordConfirmation}
+                                   onChange={(e) => setPasswordConfirmation(e.target.value)}/>
                         </div>
                     </div>
                     <div className="flex w-full my-4">

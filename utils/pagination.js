@@ -17,8 +17,5 @@ export const toPreviousPage=(pageNumber)=>{
 }
 
 export const isPaginated=(response)=>{
-	if (!response.data.next_page_url) {
-		return false
-	}
-	return true
+	return response.data.next_page_url;
 }

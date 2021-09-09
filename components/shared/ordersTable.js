@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
+import {changer} from "../../utils/filterChangers";
 
 const OrdersTable = () => {
 	const router = useRouter()
@@ -104,17 +105,6 @@ const OrdersTable = () => {
 		search()
 	}, [filter.value, searchBy.value, pageNumber])
 
-	const filterChangeHandler = (e) => {
-		const newFilter = {...filter};
-		newFilter.value = e.target.value;
-		setFilter(newFilter)
-	}
-	const searchByChangeHandler = (e) => {
-		const newSearchBy = {...searchBy};
-		newSearchBy.value = e.target.value;
-		setSearchBy(newSearchBy)
-	}
-
 	const search = () => {
 		console.log(filter.value, searchBy.value, searchText)
 	}
@@ -137,7 +127,7 @@ const OrdersTable = () => {
 								<label className="text-gray-700 mr-3">
 									Search by:
 								</label>
-								<select onChange={(e) => searchByChangeHandler(e)}
+								<select onChange={(e) => setSearchBy(changer(searchBy,e.target.value))}
 										className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
 									{searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
 																		key={el.value}>{el.name}</option>)}
@@ -158,7 +148,7 @@ const OrdersTable = () => {
 								<label className="text-gray-700 mr-3">
 									Filter:
 								</label>
-								<select onChange={(e) => filterChangeHandler(e)}
+								<select onChange={(e) => setFilter(changer,e.target.value)}
 										className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
 									{filter.options.map(el => <option className={"py-2 px-4"} value={el.value}
 																	  key={el.value}>{el.name}</option>)}

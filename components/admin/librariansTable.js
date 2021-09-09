@@ -6,6 +6,7 @@ import axios from "../../utils/axios";
 import SuccessModal from "../modals/successModal";
 import Spinner from "../loaders/spinner/spinner";
 import FailModal from "../modals/failModal";
+import {changer} from "../../utils/filterChangers";
 
 const LibrariansTable = (props) => {
     const router = useRouter()
@@ -63,14 +64,8 @@ const LibrariansTable = (props) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [successText, setSuccessText] = useState("")
-    const [showFailModal, setShowFailModal]=useState(false)
-    const [errorText, setErrorText]=useState("")
-
-    const sortChangeHandler = (e) => {
-        const newSort = {...sort};
-        newSort.value = e.target.value;
-        setSort(newSort)
-    }
+    const [showFailModal, setShowFailModal] = useState(false)
+    const [errorText, setErrorText] = useState("")
 
     useEffect(() => {
         search()
@@ -156,7 +151,7 @@ const LibrariansTable = (props) => {
                                 search()
                             }}>
                             <div className=" relative w-1/4 px-4">
-                                <select onChange={(e) => sortChangeHandler(e)}
+                                <select onChange={(e) => setSort(changer(sort, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {sort.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                     key={el.value}>{el.name}</option>)}

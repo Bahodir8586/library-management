@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
+import {changer} from "../../utils/filterChangers";
 
 const ApplicationsTable = () => {
 	const router = useRouter()
@@ -78,12 +79,6 @@ const ApplicationsTable = () => {
 		search()
 	}, [searchBy.value, pageNumber])
 
-	const searchByChangeHandler = (e) => {
-		const newSearchBy = {...searchBy};
-		newSearchBy.value = e.target.value;
-		setSearchBy(newSearchBy)
-	}
-
 	const search = () => {
 		console.log(searchBy.value, searchText)
 	}
@@ -124,7 +119,7 @@ const ApplicationsTable = () => {
 								<label className="text-gray-700 mr-3">
 									Search by:
 								</label>
-								<select onChange={(e) => searchByChangeHandler(e)}
+								<select onChange={(e) => setSearchBy(changer(searchBy,e.target.value))}
 										className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
 									{searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
 																		key={el.value}>{el.name}</option>)}

@@ -7,6 +7,7 @@ import WarningModal from "../modals/warningModal";
 import SuccessModal from "../modals/successModal";
 import InputRange from "./inputRange/inputRange";
 import FailModal from "../modals/failModal";
+import {changer} from "../../utils/filterChangers";
 
 const BooksTable = () => {
     const role = "admin"
@@ -97,22 +98,6 @@ const BooksTable = () => {
     const [showFailModal, setShowFailModal] = useState(false)
     const [errorText, setErrorText] = useState("")
 
-    const filterChangeHandler = (e) => {
-        const newFilter = {...filter};
-        newFilter.value = e.target.value;
-        setFilter(newFilter)
-    }
-    const sortChangeHandler = (e) => {
-        const newSort = {...sort};
-        newSort.value = e.target.value;
-        setSort(newSort)
-    }
-    const searchByChangeHandler = (e) => {
-        const newSearchBy = {...searchBy};
-        newSearchBy.value = e.target.value;
-        setSearchBy(newSearchBy)
-    }
-
     const search = (e) => {
         console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
         axios.get(
@@ -196,7 +181,7 @@ const BooksTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     Search by:
                                 </label>
-                                <select onChange={(e) => searchByChangeHandler(e)}
+                                <select onChange={(e) => setSearchBy(changer(searchBy, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                         key={el.value}>{el.name}</option>)}
@@ -215,7 +200,7 @@ const BooksTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     Sort by:
                                 </label>
-                                <select onChange={(e) => sortChangeHandler(e)}
+                                <select onChange={(e) => setSort(changer(sort, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {sort.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                     key={el.value}>{el.name}</option>)}
@@ -249,7 +234,7 @@ const BooksTable = () => {
                                 <label className={"text-gray-700 mr-3"}>
                                     Filter:
                                 </label>
-                                <select onChange={(e) => filterChangeHandler(e)}
+                                <select onChange={(e) => setFilter(changer(filter, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {filter.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                       key={el.value}>{el.name}</option>)}

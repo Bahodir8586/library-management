@@ -22,10 +22,11 @@
 
 * **Data Params**
 
-  `firstName=[string]` <br/>
-  `lastName=[string]` <br/>
+  `name=[string]` <br/>
+  `username=[string]` <br/>
   `email=[string]` <br/>
   `password=[string]` <br/>
+  `password_confirm=[string]` <br/>
 
 * **Success Response:**
 
