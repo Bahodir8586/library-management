@@ -9,54 +9,54 @@ import {changer} from "../../utils/filterChangers"
 const UserBooks = () => {
     const router = useRouter()
     const [data, setData] = useState([{
-        id: 1,
-        image: "/url",
-        name: "Omma psixologiyasi",
-        author: "Jackie Chan",
-        publishedYear: 2012,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
-        count: 20
-    }, {
-        id: 2,
-        image: "/url",
-        name: "Yolg'onlar shahri",
-        author: "Antuan Grizmann",
-        publishedYear: 2020,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit ame torem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
-        count: 0
-    }, {
-        id: 3,
-        image: "/url",
-        name: "Steve Jobs",
-        author: "Anna Marie",
-        publishedYear: 2020,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, l",
-        count: 15
-    }, {
-        id: 4,
-        image: "/url",
-        name: "Steve Jobs",
-        author: "Anna Marie",
-        publishedYear: 2020,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, l",
-        count: 3
-    }, {
-        id: 5,
-        image: "/url",
-        name: "Yolg'onlar shahri",
-        author: "Antuan Grizmann",
-        publishedYear: 2020,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit ame torem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
-        count: 8,
-    }, {
-        id: 6,
-        image: "/url",
-        name: "Omma psixologiyasi",
-        author: "Jackie Chan",
-        publishedYear: 2012,
-        description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
-        count: 0
-    }])
+            id: 1,
+            image: "/url",
+            name: "Omma psixologiyasi",
+            author: "Jackie Chan",
+            publishedYear: 2012,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
+            count: 20
+        }, {
+            id: 2,
+            image: "/url",
+            name: "Yolg'onlar shahri",
+            author: "Antuan Grizmann",
+            publishedYear: 2020,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit ame torem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
+            count: 0
+        }, {
+            id: 3,
+            image: "/url",
+            name: "Steve Jobs",
+            author: "Anna Marie",
+            publishedYear: 2020,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, l",
+            count: 15
+        }, {
+            id: 4,
+            image: "/url",
+            name: "Steve Jobs",
+            author: "Anna Marie",
+            publishedYear: 2020,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, l",
+            count: 3
+        }, {
+            id: 5,
+            image: "/url",
+            name: "Yolg'onlar shahri",
+            author: "Antuan Grizmann",
+            publishedYear: 2020,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit ame torem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
+            count: 8,
+        }, {
+            id: 6,
+            image: "/url",
+            name: "Omma psixologiyasi",
+            author: "Jackie Chan",
+            publishedYear: 2012,
+            description: "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
+            count: 0
+        }])
     const [filter, setFilter] = useState({
         value: "all",
         options: [
@@ -95,11 +95,11 @@ const UserBooks = () => {
 
     const search = (e) => {
         console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
-        //	TODO: handle search function there. Use above properties
         axios.get(
             `/api/user/books/search?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&onlyAvailable=${onlyAvailable}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
                 setHaveNextPage(isPaginated(response));
+                setData(response.data)
             }).catch(error => {
             console.log(error)
         })

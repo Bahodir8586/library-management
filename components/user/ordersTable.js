@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {toNextPage, toPreviousPage} from "../../utils/pagination";
+import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {changer} from "../../utils/filterChangers";
 import axios from "../../utils/axios";
 import Spinner from "../loaders/spinner/spinner";
+import OrderDetailModal from "../modals/orderDetailModal";
 
 const OrdersTable = () => {
     const router = useRouter()
@@ -90,8 +91,10 @@ const OrdersTable = () => {
     const [pageNumber, setPageNumber] = useState(1)
     const [haveNextPage, setHaveNextPage] = useState(true)
     const [searchText, setSearchText] = useState("")
+    const [selectedOrder, setSelectedOrder] = useState({})
 
     const [isLoading, setIsLoading] = useState(false)
+    const [showDetailedModal, setShowDetailedModal] = useState(false)
 
     useEffect(() => {
         search()
@@ -104,6 +107,7 @@ const OrdersTable = () => {
             .then(response => {
                 console.log(response)
                 setData(response.data)
+                setHaveNextPage(isPaginated(response))
                 setIsLoading(false)
             }).catch(error => {
             console.log(error)
@@ -114,6 +118,10 @@ const OrdersTable = () => {
 
     return (
         <div className="container mx-auto px-4 sm:px-8 w-full">
+            <OrderDetailModal show={showDetailedModal} order={selectedOrder} onConfirm={() => {
+                setShowDetailedModal(false)
+                setSelectedOrder({})
+            }}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
                     <h2 className="text-6xl leading-tight w-1/6">
@@ -219,7 +227,11 @@ const OrdersTable = () => {
                                                 {el.returnDate}
                                             </p>
                                         </td>
-                                        <td className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">
+                                        <td onClick={() => {
+                                            setSelectedOrder(el)
+                                            // setShowDetailedModal(true)
+                                        }}
+                                            className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">
                                             {el.status === "onProcess" ?
                                                 <span
                                                     className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
