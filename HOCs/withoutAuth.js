@@ -23,7 +23,7 @@ const withoutAuth = (WrappedComponent) => {
 					if (response.data.verified) {
 						// if token was verified we set the state.
 						setAllowed(false)
-						router.asPath.push(`${response.data.role}/profile`)
+						router.push(`${response.data.role}/profile`)
 					} else {
 						// If the token was fraud we first remove it from localStorage and then allow user to enter login page
 						localStorage.removeItem("accessToken");

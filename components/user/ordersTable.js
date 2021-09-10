@@ -6,6 +6,7 @@ import {changer} from "../../utils/filterChangers";
 import axios from "../../utils/axios";
 import Spinner from "../loaders/spinner/spinner";
 import OrderDetailModal from "../modals/orderDetailModal";
+import LibrarianModal from "../modals/librarianModal";
 
 const OrdersTable = () => {
     const router = useRouter()
@@ -117,6 +118,10 @@ const OrdersTable = () => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [showDetailedModal, setShowDetailedModal] = useState(false)
+    const [showLibrarianModal, setShowLibrarianModal] = useState(false)
+    const [selectedLibrarian, setSelectedLibrarian] = useState({})
+    const [isError, setIsError] = useState(false)
+    const [isLibrarianLoading, setIsLibrarianLoading] = useState(false)
 
     useEffect(() => {
         search()
@@ -143,12 +148,31 @@ const OrdersTable = () => {
         console.log(id)
     }
 
+    const showLibrarian = (id) => {
+        setShowLibrarianModal(true)
+        setIsLibrarianLoading(true)
+        //    TODO: get the librarian information for user there
+        axios.get(`/user/librarian/${id}`).then(response => {
+            console.log(response)
+            setSelectedLibrarian(response.data)
+            setIsLibrarianLoading(false)
+        }).catch(error => {
+            console.log(error)
+            setIsError(true)
+            setIsLibrarianLoading(false)
+        })
+    }
+
     return (
         <div className="container mx-auto px-4 sm:px-8 w-full">
             <OrderDetailModal show={showDetailedModal} order={selectedOrder} onConfirm={() => {
                 setShowDetailedModal(false)
                 setSelectedOrder({})
             }} returnBook={(id) => returnBook(id)}/>
+            <LibrarianModal show={showLibrarianModal} librarian={selectedLibrarian} onConfirm={() => {
+                setShowLibrarianModal(false)
+                setSelectedLibrarian({})
+            }} isError={isError} isLoading={isLibrarianLoading}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
                     <h2 className="text-6xl leading-tight w-1/6">
@@ -227,7 +251,7 @@ const OrdersTable = () => {
                                             el.status === "denied" ? "bg-red-300" :
                                                 el.status === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                                            <Link href={`/admin/books/${el.book.id}`}>
+                                            <Link href={`/user/books/${el.book.id}`}>
                                                 <div className="flex items-center cursor-pointer justify-center">
                                                     <p className="text-gray-900 whitespace-no-wrap text-center">
                                                         {el.book.name}
@@ -236,13 +260,12 @@ const OrdersTable = () => {
                                             </Link>
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                                            <Link href={`/admin/librarians/${el.librarian.id}`}>
-                                                <div className="flex items-center cursor-pointer justify-center">
-                                                    <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                        {el.librarian.name}
-                                                    </p>
-                                                </div>
-                                            </Link>
+                                            <div className="flex items-center cursor-pointer justify-center"
+                                                 onClick={() => showLibrarian(el.librarian.id)}>
+                                                <p className="text-gray-900 whitespace-no-wrap text-center">
+                                                    {el.librarian.name}
+                                                </p>
+                                            </div>
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <p className="text-gray-900 whitespace-no-wrap">
