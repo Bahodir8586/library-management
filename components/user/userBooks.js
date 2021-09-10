@@ -209,11 +209,11 @@ const UserBooks = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
                 {data.map(
-                    el => <Link key={el.id} href={`user/books/${el.id}`}>
+                    el => <Link key={el.id} href={`/user/books/${el.id}`}>
                         <div className={`overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto`}>
                             <a href="#" className="w-full block h-full">
                                 {/*FIXME: fix this url*/}
-                                <img alt={el.name} src={`/images/books/book_1.jpg`}
+                                <img alt={el.name} src={el.image ?? `/images/books/book_1.jpg`}
                                      className="max-h-40 w-full object-cover"/>
                                 <div
                                     className={`dark:bg-gray-800 w-full p-4 ${el.count === 0 ? "bg-red-50" : "bg-white"}`}>

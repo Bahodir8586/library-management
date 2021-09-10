@@ -29,12 +29,12 @@
   `username=[string]` <br/>
   `oldPassword=[string]` <br/>
   `newPassword=[string]` <br/>
-  `newPasswordConfirm=[string]` <br/>
+  `confirmNewPassword=[string]` <br/>
 
 * **Success Response:**
 
     * **Code:** 200 <br/>
-      **Content:** Successfully edited
+      **Content:** Successfully updated
 
 ----
 

@@ -11,7 +11,6 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook}) => {
             confirmBtnText="OK"
             onConfirm={onConfirm}
         >
-            {/*    TODO: clear props. Do with map method. Show exact messages for every status message */}
             <div className={"border-b pb-3"}>
                 <div className={"px-4"}>
                     <div className={"flex text-left mb-2"}>

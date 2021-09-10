@@ -13,8 +13,6 @@ const withAuth = (WrappedComponent) => {
 			if (!accessToken) {
 				Router.replace("/");
 			} else {
-				//FIXME: remove this
-				setVerified(true)
 				// we call the api that verifies the token.
 				axios.get(`https://systemm-library.herokuapp.com/api/verifyToken`, {headers: {"Authorization": `Bearer ${accessToken}`}}).then(response => {
 					console.log(response)

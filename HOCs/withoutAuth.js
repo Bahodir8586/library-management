@@ -2,7 +2,6 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-// FIXME: fix this entire file
 // 1) Check if there is no token: allow to enter login page
 // 2) If there is token check is it valid or invalid
 // 3) If token is valid do not allow to enter login page
@@ -19,7 +18,6 @@ const withoutAuth = (WrappedComponent) => {
 				setAllowed(true);
 			} else {
 				// we call the api that verifies the token.
-				// TODO: apply roles of users
 				axios.get(`https://systemm-library.herokuapp.com/api/verifyToken`, {headers: {"Authorization": `Bearer ${accessToken}`}}).then(response => {
 					console.log(response)
 					if (response.data.verified) {
