@@ -13,10 +13,11 @@ const LibrarianModal = ({show, isLoading, isError, onConfirm, librarian}) => {
             confirmBtnText="OK"
             onConfirm={onConfirm}
         >
-            {/*{isLoading ? <Spinner/> : isError ?*/}
-            {/*    <div className={"text-red-600 font-medium"}>Something went wrong. Please try again later</div> :*/}
-            <LibrarianProfile image={image} name={name}/>
-            {/*}*/}
+            {isLoading ? <Spinner/> :
+                isError ?
+                    <div className={"text-red-600 font-medium"}>Something went wrong. Please try again later</div> :
+                    <LibrarianProfile image={image} name={name}/>
+            }
             {/*    TODO: show avatar and so on */}
         </SweetAlert>
     );
