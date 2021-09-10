@@ -29,17 +29,17 @@ const OrderDetailModal = (props) => {
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book given date:</div>
                         <div
-                            className={`w-full font-medium ${!props.order.returnedDate && "text-red-600 "}`}>{props.order.givenDate ?? "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!props.order.givenDate && "text-red-600 "}`}>{props.order.givenDate ? props.order.givenDate : props.order.status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book should return date</div>
                         <div
-                            className={`w-full font-medium ${!props.order.returnedDate && "text-red-600 "}`}>{props.order.wantedReturnDate ?? "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!props.order.wantedReturnDate && "text-red-600 "}`}>{props.order.wantedReturnDate ? props.order.wantedReturnDate : props.order.status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book returned date</div>
                         <div
-                            className={`w-full font-medium ${!props.order.returnedDate && "text-red-600 "}`}>{props.order.returnedDate ?? "Book is not returned yet"}</div>
+                            className={`w-full font-medium ${!props.order.returnedDate && "text-red-600 "}`}>{props.order.returnedDate ? props.order.returnedDate : props.order.status === "denied" ? "This order is not accepted " : props.order.status === "waiting" ? "Book is not given yet" : "Book is not returned yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Status</div>
