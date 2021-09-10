@@ -20,7 +20,6 @@ const SignIn=()=> {
 	}
 
 	return (
-
 		<Signin handleSubmit={(e, username, password) => handleSubmit(e, username, password)}/>
 	);
 }

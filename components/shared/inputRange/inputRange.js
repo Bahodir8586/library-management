@@ -24,8 +24,7 @@ const calculateWidthFromValue = (
     return result > truckWidth ? truckWidth : result;
 };
 
-const InputRange = (props) => {
-    const { initValue , min, max, step, onChange } = props;
+const InputRange = ({ initValue , min, max, step, onChange }) => {
     const [value, setValue] = useState(initValue);
     const [truckRef, truckWidth] = useResizedWidth();
     const [thumbRef, thumbWidth] = useResizedWidth();

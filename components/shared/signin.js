@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const Signin = (props) => {
+const Signin = ({handleSubmit}) => {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	return (
@@ -10,7 +10,7 @@ const Signin = (props) => {
 				Login To Your Account
 			</div>
 			<div className="mt-8">
-				<form onSubmit={(e) => props.handleSubmit(e,username, password)} autoComplete="off">
+				<form onSubmit={(e) => handleSubmit(e,username, password)} autoComplete="off">
 					<div className="flex flex-col mb-2">
 						<div className="flex relative ">
                     <span

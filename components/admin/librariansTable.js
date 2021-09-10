@@ -8,7 +8,7 @@ import Spinner from "../loaders/spinner/spinner";
 import FailModal from "../modals/failModal";
 import {changer} from "../../utils/filterChangers";
 
-const LibrariansTable = (props) => {
+const LibrariansTable = () => {
     const router = useRouter()
     const [data, setData] = useState([
         {

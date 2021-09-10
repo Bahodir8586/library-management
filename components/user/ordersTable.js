@@ -7,24 +7,6 @@ import axios from "../../utils/axios";
 import Spinner from "../loaders/spinner/spinner";
 import OrderDetailModal from "../modals/orderDetailModal";
 
-const mockOrder = {
-    id: 1,
-    book: {
-        id: 13,
-        name: "Anna Karenina"
-    },
-    librarian: {
-        id: 1,
-        name: "Nosirov445"
-    },
-    wantedGetDate: "08.09.2021",
-    givenDate: "10.08.2021",
-    wantedReturnDate: "25.08.2001",
-    returnedDate: "26.08.2021",
-    wantedDuration: "15",
-    status: "inDebt",
-}
-
 const OrdersTable = () => {
     const router = useRouter()
     const [data, setData] = useState([
@@ -44,7 +26,7 @@ const OrdersTable = () => {
             returnedDate: null,
             wantedDuration: "20",
             status: "denied",
-            created_at:"14.09.2001"
+            created_at: "14.09.2001"
         }, {
             id: 2,
             book: {
@@ -61,9 +43,9 @@ const OrdersTable = () => {
             returnedDate: "10.09.2021",
             wantedDuration: "7",
             status: "finished",
-            created_at:"03.09.2001"
+            created_at: "03.09.2001"
         }, {
-            id: 1,
+            id: 3,
             book: {
                 id: 13,
                 name: "Anna Karenina"
@@ -78,7 +60,7 @@ const OrdersTable = () => {
             returnedDate: null,
             wantedDuration: "15",
             status: "inDebt",
-            created_at:"07.09.2001"
+            created_at: "07.09.2001"
         },
         {
             id: 4,
@@ -96,7 +78,7 @@ const OrdersTable = () => {
             returnedDate: null,
             wantedDuration: "10",
             status: "waiting",
-            created_at:"08.09.2001"
+            created_at: "08.09.2001"
         },
         {
             id: 5,
@@ -114,7 +96,7 @@ const OrdersTable = () => {
             returnedDate: null,
             wantedDuration: "12",
             status: "onProcess",
-            created_at:"05.09.2001"
+            created_at: "05.09.2001"
         },
     ])
     const [filter, setFilter] = useState({
@@ -156,12 +138,17 @@ const OrdersTable = () => {
         })
     }
 
+    const returnBook = id => {
+        //    TODO: handle book return function there
+        console.log(id)
+    }
+
     return (
         <div className="container mx-auto px-4 sm:px-8 w-full">
             <OrderDetailModal show={showDetailedModal} order={selectedOrder} onConfirm={() => {
                 setShowDetailedModal(false)
                 setSelectedOrder({})
-            }}/>
+            }} returnBook={(id) => returnBook(id)}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
                     <h2 className="text-6xl leading-tight w-1/6">

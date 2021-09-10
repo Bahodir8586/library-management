@@ -1,55 +1,55 @@
 import React from 'react';
 import SweetAlert from "react-bootstrap-sweetalert";
 
-const OrderDetailModal = (props) => {
-    console.log(props.order)
+const OrderDetailModal = ({show, onConfirm, order,returnBook}) => {
+    const {id, book, librarian, wantedGetDate, givenDate, wantedReturnDate, returnedDate, status} = order
     return (
         <SweetAlert
-            show={props.show}
-            title={`Order № ${props.order.id}`}
+            show={show}
+            title={`Order № ${id}`}
             confirmBtnCssClass="px-6 py-3 bg-purple-600 text-white rounded text-xl cursor-pointer transition duration-200 hover:bg-purple-700"
             confirmBtnText="OK"
-            onConfirm={props.onConfirm}
+            onConfirm={onConfirm}
         >
             {/*    TODO: clear props. Do with map method. Show exact messages for every status message */}
             <div className={"border-b pb-3"}>
                 <div className={"px-4"}>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book name:</div>
-                        <div className={"w-full font-medium"}>{props.order.book?.name}</div>
+                        <div className={"w-full font-medium"}>{book?.name}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Librarian name</div>
-                        <div className={"w-full font-medium"}>{props.order.librarian?.name}</div>
+                        <div className={"w-full font-medium"}>{librarian?.name}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book wanted date:</div>
-                        <div className={"w-full font-medium"}>{props.order.wantedGetDate}</div>
+                        <div className={"w-full font-medium"}>{wantedGetDate}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book given date:</div>
                         <div
-                            className={`w-full font-medium ${!props.order.givenDate && "text-red-600 "}`}>{props.order.givenDate ? props.order.givenDate : props.order.status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!givenDate && "text-red-600 "}`}>{givenDate ? givenDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book should return date</div>
                         <div
-                            className={`w-full font-medium ${!props.order.wantedReturnDate && "text-red-600 "}`}>{props.order.wantedReturnDate ? props.order.wantedReturnDate : props.order.status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!wantedReturnDate && "text-red-600 "}`}>{order.wantedReturnDate ? wantedReturnDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book returned date</div>
                         <div
-                            className={`w-full font-medium ${!props.order.returnedDate && "text-red-600 "}`}>{props.order.returnedDate ? props.order.returnedDate : props.order.status === "denied" ? "This order is not accepted " : props.order.status === "waiting" ? "Book is not given yet" : "Book is not returned yet"}</div>
+                            className={`w-full font-medium ${!returnedDate && "text-red-600 "}`}>{returnedDate ? returnedDate : status === "denied" ? "This order is not accepted " : status === "waiting" ? "Book is not given yet" : "Book is not returned yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Status</div>
-                        <div className={"w-full font-medium capitalize"}>{props.order.status}</div>
+                        <div className={"w-full font-medium capitalize"}>{status}</div>
                     </div>
                 </div>
-                {props.order.status !== "finished" && props.order.status !== "denied" && props.order.status !== "waiting" &&
+                {status !== "finished" && status !== "denied" && status !== "waiting" &&
                 <div className={"mt-4"}>
                     <button
-                        className={"px-6 py-3 bg-green-600 text-white rounded text-xl cursor-pointer transition duration-200 hover:bg-green-700"}>Return
+                        className={"px-6 py-3 bg-green-600 text-white rounded text-xl cursor-pointer transition duration-200 hover:bg-green-700"} onClick={()=>returnBook(id)}>Return
                         book
                     </button>
                 </div>}
