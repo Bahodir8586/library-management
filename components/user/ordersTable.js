@@ -7,6 +7,24 @@ import axios from "../../utils/axios";
 import Spinner from "../loaders/spinner/spinner";
 import OrderDetailModal from "../modals/orderDetailModal";
 
+const mockOrder = {
+    id: 1,
+    book: {
+        id: 13,
+        name: "Anna Karenina"
+    },
+    librarian: {
+        id: 1,
+        name: "Nosirov445"
+    },
+    wantedGetDate: "08.09.2021",
+    givenDate: "10.08.2021",
+    wantedReturnDate: "25.08.2001",
+    returnedDate: "26.08.2021",
+    wantedDuration: "15",
+    status: "inDebt",
+}
+
 const OrdersTable = () => {
     const router = useRouter()
     const [data, setData] = useState([
@@ -20,9 +38,13 @@ const OrdersTable = () => {
                 id: 1,
                 name: "Nosirov445"
             },
-            givenDate: "12.08.2021",
-            returnDate: "26.08.2021",
+            wantedGetDate: "15.09.2021",
+            givenDate: null,
+            wantedReturnDate: null,
+            returnedDate: null,
+            wantedDuration: "20",
             status: "denied",
+            created_at:"14.09.2001"
         }, {
             id: 2,
             book: {
@@ -33,36 +55,50 @@ const OrdersTable = () => {
                 id: 2,
                 name: "Aliyeva01"
             },
-            givenDate: "25.07.2021",
-            returnDate: "02.08.2021",
+            wantedGetDate: "05.09.2021",
+            givenDate: "06.09.2021",
+            wantedReturnDate: "13.09.2021",
+            returnedDate: "10.09.2021",
+            wantedDuration: "7",
             status: "finished",
+            created_at:"03.09.2001"
         }, {
-            id: 3,
+            id: 1,
             book: {
-                id: 16,
-                name: "Qora Lola"
-            },
-            librarian: {
-                id: 2,
-                name: "Aliyeva01"
-            },
-            givenDate: "08.08.2021",
-            returnDate: "15.08.2021",
-            status: "inDebt",
-        }, {
-            id: 4,
-            book: {
-                id: 46,
-                name: "Harry Potter"
+                id: 13,
+                name: "Anna Karenina"
             },
             librarian: {
                 id: 1,
                 name: "Nosirov445"
             },
-            givenDate: "09.08.2021",
-            returnDate: "23.08.2021",
+            wantedGetDate: "08.09.2021",
+            givenDate: "10.08.2021",
+            wantedReturnDate: "25.08.2001",
+            returnedDate: null,
+            wantedDuration: "15",
+            status: "inDebt",
+            created_at:"07.09.2001"
+        },
+        {
+            id: 4,
+            book: {
+                id: 46,
+                name: "Sense and Sensibility"
+            },
+            librarian: {
+                id: 1,
+                name: "Nosirov445"
+            },
+            wantedGetDate: "08.09.2021",
+            givenDate: null,
+            wantedReturnDate: null,
+            returnedDate: null,
+            wantedDuration: "10",
             status: "waiting",
-        }, {
+            created_at:"08.09.2001"
+        },
+        {
             id: 5,
             book: {
                 id: 46,
@@ -72,9 +108,13 @@ const OrdersTable = () => {
                 id: 1,
                 name: "Nosirov445"
             },
-            givenDate: "09.08.2021",
-            returnDate: "23.08.2021",
+            wantedGetDate: "08.09.2021",
+            givenDate: "10.08.2021",
+            wantedReturnDate: "22.08.2021",
+            returnedDate: null,
+            wantedDuration: "12",
             status: "onProcess",
+            created_at:"05.09.2001"
         },
     ])
     const [filter, setFilter] = useState({
@@ -181,11 +221,11 @@ const OrdersTable = () => {
                                     </th>
                                     <th scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-                                        Given Date
+                                        Ordered at
                                     </th>
                                     <th scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
-                                        Return Date
+                                        Duration
                                     </th>
                                     <th scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-center text-sm uppercase font-normal">
@@ -219,17 +259,17 @@ const OrdersTable = () => {
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <p className="text-gray-900 whitespace-no-wrap">
-                                                {el.givenDate}
+                                                {el.created_at}
                                             </p>
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <p className="text-gray-900 whitespace-no-wrap">
-                                                {el.returnDate}
+                                                {el.wantedDuration} days
                                             </p>
                                         </td>
                                         <td onClick={() => {
                                             setSelectedOrder(el)
-                                            // setShowDetailedModal(true)
+                                            setShowDetailedModal(true)
                                         }}
                                             className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">
                                             {el.status === "onProcess" ?
