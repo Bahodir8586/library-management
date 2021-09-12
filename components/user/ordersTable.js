@@ -151,8 +151,7 @@ const OrdersTable = () => {
     const showLibrarian = (id) => {
         setShowLibrarianModal(true)
         setIsLibrarianLoading(true)
-        //    TODO: get the librarian information for user there
-        axios.get(`/user/librarian/${id}`).then(response => {
+        axios.get(`/user/librarians/${id}`).then(response => {
             console.log(response)
             setSelectedLibrarian(response.data)
             setIsLibrarianLoading(false)
