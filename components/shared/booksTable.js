@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Link from "next/link";
 import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
@@ -8,6 +8,7 @@ import SuccessModal from "../modals/successModal";
 import InputRange from "./inputRange/inputRange";
 import FailModal from "../modals/failModal";
 import {changer} from "../../utils/filterChangers";
+import debounce from "lodash.debounce"
 
 const BooksTable = () => {
     const role = "admin"
@@ -109,6 +110,11 @@ const BooksTable = () => {
             console.log(error)
         })
     }
+
+    const debouncedSearch = useCallback(
+        debounce(search, 3000),
+        [fromYear, toYear],
+    );
 
     const editBookHandler = (id) => {
         console.log(id)

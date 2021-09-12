@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "framer-motion": "^4.1.17",
+    "lodash.debounce": "^4.0.8",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-bootstrap-sweetalert": "^5.2.0",

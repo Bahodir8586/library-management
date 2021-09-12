@@ -24,6 +24,7 @@ const withoutAuth = (WrappedComponent) => {
 						// if token was verified we set the state.
 						setAllowed(false)
 						router.push(`${response.data.role}/profile`)
+					//	FIXME: if wants to get the access to admin with user token?
 					} else {
 						// If the token was fraud we first remove it from localStorage and then allow user to enter login page
 						localStorage.removeItem("accessToken");
