@@ -7,7 +7,7 @@ import SuccessModal from "../../components/modals/successModal";
 import FailModal from "../../components/modals/failModal";
 
 const Profile = () => {
-    const [name, setName] = useState("Abdullayev Bahodir")
+    const [name, setName] = useState("")
     const [categories, setCategories] = useState([])
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [successText, setSuccessText] = useState("")
@@ -27,7 +27,7 @@ const Profile = () => {
             return
         }
 
-        axios.patch(`/admin/`, {username, oldPassword, newPassword, confirmNewPassword}).then(response => {
+        axios.patch(`/admin`, {username, oldPassword, newPassword, confirmNewPassword}).then(response => {
             setShowSuccessModal(true)
             setSuccessText("Successfully updated")
         }).catch(error => {
@@ -42,7 +42,7 @@ const Profile = () => {
         // getting the name of admin
         axios.get(`admin`).then(response => {
             console.log(response.data)
-            setName(response.data)
+            setName(response.data.username)
         }).catch(error => {
             console.log(error)
         })

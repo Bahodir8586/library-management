@@ -114,8 +114,10 @@ const AddBook = ({categories, addBook}) => {
                                 <div>
                                     <div className=" relative ">
                                         {/*TODO: Apply multiselect there*/}
-                                        <select value={categories[0]}
-                                                onChange={(e) => setSelectedCategories([e.target.value])}
+                                        <select value={selectedCategories[0]}
+                                                onChange={(e) => {
+                                                    setSelectedCategories([e.target.value])
+                                                }}
                                                 className="capitalize rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                             {categories.map(el => <option key={el.id} value={el.id}>{el.name}</option>)}
                                         </select>

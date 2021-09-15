@@ -71,10 +71,10 @@ const UsersTable = () => {
 
     const search = () => {
         console.log(filter.value, searchText, searchBy.value, pageNumber)
-        axios.get(`/${role}/users/search?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`).then(response => {
+        axios.get(`/${role}/users?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`).then(response => {
             console.log(response)
             setHaveNextPage(isPaginated(response))
-            setData(response.data)
+            setData(response.data.data)
         }).catch(error => {
             console.log(error)
             //    TODO: do error handling there
