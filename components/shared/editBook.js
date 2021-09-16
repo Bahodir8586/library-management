@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {useRouter} from "next/router";
 
-const AddBook = ({categories, addBook}) => {
+const EditBook = ({categories,book, submit}) => {
     const router = useRouter()
     const [image, setImage] = useState(undefined)
-    const [imgSrc, setImgSrc] = useState(undefined)
-    const [name, setName] = useState("");
-    const [author, setAuthor] = useState("")
-    const [ISBN, setISBN] = useState("")
-    const [publishedYear, setPublishedYear] = useState(2010);
-    const [description, setDescription] = useState("")
-    const [count, setCount] = useState("")
-    const [selectedCategories, setSelectedCategories] = useState([])
+    const [imgSrc, setImgSrc] = useState(book.imgSrc)
+    const [name, setName] = useState(book.name);
+    const [author, setAuthor] = useState(book.author)
+    const [ISBN, setISBN] = useState(book.ISBN)
+    const [publishedYear, setPublishedYear] = useState(book.publishedYear);
+    const [description, setDescription] = useState(book.description)
+    const [count, setCount] = useState(book.count)
+    const [selectedCategories, setSelectedCategories] = useState([book.categories])
 
     const handleImageUpload = (e) => {
         const img = e.target.files[0];
@@ -23,7 +23,7 @@ const AddBook = ({categories, addBook}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addBook(image, name, author, ISBN, publishedYear, description, count, selectedCategories)
+        submit(image, name, author, ISBN, publishedYear, description, count, selectedCategories)
     }
 
     return (
@@ -137,7 +137,7 @@ const AddBook = ({categories, addBook}) => {
                         <div className="w-full px-4 pb-4 ml-auto text-gray-500 md:w-1/3">
                             <button type="submit" onClick={(e) => handleSubmit(e)}
                                     className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                Add Book
+                                Save changes
                             </button>
                         </div>
                     </div>
@@ -147,4 +147,4 @@ const AddBook = ({categories, addBook}) => {
     );
 };
 
-export default AddBook;
+export default EditBook;

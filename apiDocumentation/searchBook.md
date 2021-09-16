@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/admin/books/search
+  /api/admin/books/
 
 * **Method**
 

@@ -1,4 +1,4 @@
-**Search Book API for user**
+**Search Book API for admin and librarian**
 ----
     Returns json data.
 
@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/user/books/
+  /api/admin/books/${id}
 
 * **Method**
 
@@ -18,14 +18,7 @@
 
 * **URL Params**
 
-  `filter=[string|category]` <br/>
-  `searchText=[string]` <br/>
-  `sort=[alphabet|publishedYear]` <br/>
-  `onlyAvailable=[boolean]` <br/>
-  `searchBy=[name|author|isbn]` <br/>
-  `fromYear=[numeric]` <br/>
-  `toYear=[numeric]` <br/>
-  `page=[numeric|min:1]` <br/>
+  `id=[numeric]` <br/>
 
 * **Data Params**
 
@@ -41,12 +34,14 @@
   `image: "/url",` </br>
   `name: "Farg'ona tong otguncha",`</br>
   `author: "Qobilov Xurshidbek",`</br>
+  `ISBN: "100406105",`</br>
   `publishedYear: "2020",`</br>
-  `description: "Lorem Ipsum"`</br>
+  `description: "String",`</br>
   `count: "16",`</br>
+  `categories: [{id: 2, name: "fantastic"}, {id: 4, name: "romantic"}]`</br>
   `}` </br>
 
-  If no book found return [ ]
+  Send originalCount as Count
 ----
 
 
@@ -55,7 +50,7 @@
 
 
       **Code:** 404 NOT FOUND <br />
-      **Content:** `{ error : "Not found!" }`
+      **Content:** `{ error : "Book not found!" }`
 
       OR
 
