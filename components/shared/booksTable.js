@@ -102,10 +102,11 @@ const BooksTable = () => {
     const search = (e) => {
         console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
         axios.get(
-            `/api/admin/search/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
+            `/admin/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
+                console.log(response)
                 setHaveNextPage(isPaginated(response));
-                setData(response.data)
+                setData(response.data.data)
             }).catch(error => {
             console.log(error)
         })
@@ -378,7 +379,7 @@ const BooksTable = () => {
                                 </button>
                                 <button onClick={() => setPageNumber(toNextPage(pageNumber, haveNextPage))}
                                         type="button"
-                                        className="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
+                                        className="w-full p-4 border text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
                                     <svg width="9" fill="currentColor" height="8" className="" viewBox="0 0 1792 1792"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path

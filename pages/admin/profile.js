@@ -14,20 +14,27 @@ const Profile = () => {
     const [showFailModal, setShowFailModal] = useState(false)
     const [errorText, setErrorText] = useState("")
 
-    const handleSubmit = (e, username, oldPassword, newPassword, confirmNewPassword) => {
+    const handleSubmit = (e, username, oldPassword, newPassword, confirmPassword) => {
         e.preventDefault();
-        if (newPassword !== confirmNewPassword) {
-            setShowFailModal(true)
-            setErrorText("Two passwords are not equal")
-            return
+        let data={}
+        if(oldPassword || newPassword || confirmPassword){
+            if (newPassword !== confirmPassword) {
+                setShowFailModal(true)
+                setErrorText("Two passwords are not equal")
+                return
+            }
+            if (newPassword.length < 6) {
+                setShowFailModal(true)
+                setErrorText("Password should contain at least 6characters")
+                return
+            }
+            data={oldPassword, newPassword, confirmPassword}
         }
-        if (newPassword.length < 6) {
-            setShowFailModal(true)
-            setErrorText("Password should contain at least 6characters")
-            return
+        if(username){
+            data={...data, username}
         }
-
-        axios.patch(`/admin`, {username, oldPassword, newPassword, confirmNewPassword}).then(response => {
+        axios.patch(`/admin`, data).then(response => {
+            console.log(response)
             setShowSuccessModal(true)
             setSuccessText("Successfully updated")
         }).catch(error => {

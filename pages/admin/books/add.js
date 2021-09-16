@@ -41,7 +41,7 @@ const Add = () => {
         submitData.append("ISBN", ISBN);
         submitData.append("publishedYear", publishedYear);
         submitData.append("description", description);
-        submitData.append("count", count);
+        submitData.append("count", parseInt(count));
         submitData.append("count", JSON.stringify(selectedCategories));
         submitData.append("image", image)
         setIsLoading(true)
