@@ -10,55 +10,11 @@ import FailModal from "../modals/failModal";
 import {changer} from "../../utils/filterChangers";
 import debounce from "lodash.debounce"
 
-const BooksTable = () => {
-    const role = "admin"
+const BooksTable = ({books}) => {
+    console.log(books)
     const router = useRouter()
-    const [data, setData] = useState([
-        {
-            id: 1,
-            image: "/url",
-            name: "1984",
-            author: "Abdullayev Bahodir",
-            ISBN: "100006105",
-            publishedYear: "2016",
-            count: "47",
-            originalCount: "50",
-            categories: [{id: 2, name: "fantastic"}]
-        },
-        {
-            id: 2,
-            image: "/url",
-            name: "Jinoyat va Jazo",
-            author: "Kim Chen In",
-            ISBN: "100006335",
-            publishedYear: "1950",
-            count: "25",
-            originalCount: "25",
-            categories: [{id: 2, name: "fantastic"}]
-        },
-        {
-            id: 3,
-            image: "/url",
-            name: "Anna Karenina",
-            author: "Lev Tolstoy",
-            ISBN: "103006105",
-            publishedYear: "1920",
-            count: "3",
-            originalCount: "40",
-            categories: [{id: 1, name: "romantic"}]
-        },
-        {
-            id: 4,
-            image: "/url",
-            name: "Farg'ona tong otguncha",
-            author: "Qobilov Xurshidbek",
-            ISBN: "100406105",
-            publishedYear: "2020",
-            count: "16",
-            originalCount: "20",
-            categories: [{id: 4, name: "romantic"}]
-        }
-    ])
+    const role = router.asPath.split("/")[1]
+    const [data, setData] = useState(books)
 
     const [searchBy, setSearchBy] = useState({
         value: "name",
@@ -87,7 +43,7 @@ const BooksTable = () => {
         ]
     })
     const [fromYear, setFromYear] = useState(1950)
-    const [toYear, setToYear] = useState(2010)
+    const [toYear, setToYear] = useState(2021)
 
     const [pageNumber, setPageNumber] = useState(1)
     const [haveNextPage, setHaveNextPage] = useState(true)
@@ -99,8 +55,7 @@ const BooksTable = () => {
     const [showFailModal, setShowFailModal] = useState(false)
     const [errorText, setErrorText] = useState("")
 
-    const search = (e) => {
-        console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
+    const search = () => {
         axios.get(
             `/admin/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
@@ -118,7 +73,6 @@ const BooksTable = () => {
     );
 
     const editBookHandler = (id) => {
-        console.log(id)
         router.push(`/${role}/books/${id}`).then().catch(error => {
             console.log(error)
             router.reload()
@@ -229,7 +183,7 @@ const BooksTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     To: {toYear}
                                 </label>
-                                <InputRange min={0} max={121} step={1} initValue={110} onChange={(val) => {
+                                <InputRange min={0} max={121} step={1} initValue={121} onChange={(val) => {
                                     setToYear(1900 + (+(val)))
                                 }}/>
                                 <div className="flex justify-between mt-2 text-xs text-gray-600">
@@ -251,7 +205,7 @@ const BooksTable = () => {
                                 <div className={"text-center mt-4"}>
                                     <button
                                         className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
-                                        type="button" onClick={search}>
+                                        type="button" onClick={()=>search()}>
                                         Search
                                     </button>
                                 </div>

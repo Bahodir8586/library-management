@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Layout from "../../../components/layout";
 import AddBook from "../../../components/shared/addBook";
 import withAuth from "../../../HOCs/withAuth";
@@ -8,9 +8,20 @@ import {useRouter} from "next/router";
 import Spinner from "../../../components/loaders/spinner/spinner";
 import FailModal from "../../../components/modals/failModal";
 
-const Add = () => {
+export async function getStaticProps() {
+    const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
+        headers:{
+            "Content-type":"application/json",
+            "Authorization":"Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+        }
+    })
+    const data = await res.json()
+    console.log(data)
+    return {props: {categories:[...data]}}
+}
+
+const Add = ({categories}) => {
     const router = useRouter()
-    const [categories, setCategories] = useState([])
 
     const [isLoading, setIsLoading] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -59,19 +70,6 @@ const Add = () => {
         })
     }
 
-
-    useEffect(() => {
-        // get the list of all categories there
-        setIsLoading(true)
-        axios.get("/categories").then(response => {
-            console.log(response)
-            setCategories(response.data)
-            setIsLoading(false)
-        }).catch(error => {
-            console.log(error)
-            setIsLoading(false)
-        })
-    }, [])
     return (
         <Layout>
             <SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {

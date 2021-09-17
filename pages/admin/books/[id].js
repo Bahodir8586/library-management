@@ -8,28 +8,55 @@ import SuccessModal from "../../../components/modals/successModal";
 import FailModal from "../../../components/modals/failModal";
 import Spinner from "../../../components/loaders/spinner/spinner";
 
-const Book = () => {
+export async function getStaticPaths() {
+    const res = await fetch('https://systemm-library.herokuapp.com/api/admin/books', {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+        }
+    })
+    const json = await res.json()
+    const books = json.data
+    const paths = books?.map((book) => ({
+        params: {id: book.id.toString()},
+    }))
+    return {paths, fallback: false}
+}
+
+
+export async function getStaticProps({params}) {
+    const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+        }
+    })
+    const categories = await res.json()
+    const res2 = await fetch(`https://systemm-library.herokuapp.com/api/admin/books/${params.id}`, {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+        }
+    })
+    const book = await res2.json()
+    return {
+        props: {
+            categories: [...categories],
+            book: {...book}
+        }
+    }
+}
+
+const Book = ({categories, book}) => {
+    console.log(categories)
+    console.log(book)
     const router = useRouter()
     const id = router.asPath.split("/")[3]
-    const [data, setData] = useState({})
-    const [categories, setCategories] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [successText, setSuccessText] = useState("")
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [errorText, setErrorText] = useState("")
     const [showFailModal, setShowFailModal] = useState(false)
-
-    useEffect(() => {
-        setIsLoading(true)
-        axios.get(`/admin/books/${id}`).then(response => {
-            console.log(response)
-            setData(response.data)
-            setIsLoading(false)
-        }).catch((error) => {
-            console.log(error)
-            setIsLoading(false)
-        })
-    }, [router.asPath])
 
     const handleSubmit = (image, name, author, ISBN, publishedYear, description, count, selectedCategories) => {
         console.log(image, name, author, ISBN, publishedYear, description, count, selectedCategories)
@@ -42,7 +69,7 @@ const Book = () => {
         submitData.append("description", description);
         submitData.append("count", count)
         submitData.append("selectedCategories", JSON.stringify(selectedCategories))
-        if(!name|| !author|| !ISBN|| !publishedYear|| !description|| !count|| !selectedCategories){
+        if (!name || !author || !ISBN || !publishedYear || !description || !count || !selectedCategories) {
             setShowFailModal(true)
             setErrorText("Please fill all the fields")
             return
@@ -61,19 +88,6 @@ const Book = () => {
         })
     }
 
-    useEffect(() => {
-        // get the list of all categories there
-        setIsLoading(true)
-        axios.get("/categories").then(response => {
-            console.log(response)
-            setCategories(response.data)
-            setIsLoading(false)
-        }).catch(error => {
-            console.log(error)
-            setIsLoading(false)
-        })
-    }, [])
-
     return (
         <Layout>
             <SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
@@ -86,7 +100,7 @@ const Book = () => {
             }} text={errorText}/>
             {isLoading ? <Spinner/> : <EditBook
                 submit={(image, name, author, ISBN, publishedYear, description, count, selectedCategories) => handleSubmit(image, name, author, ISBN, publishedYear, description, count, selectedCategories)}
-                book={data} categories={categories}/>}
+                book={book} categories={categories}/>}
         </Layout>
     );
 };

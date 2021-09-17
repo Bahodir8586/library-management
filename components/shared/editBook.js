@@ -114,7 +114,7 @@ const EditBook = ({categories,book, submit}) => {
                                 <div>
                                     <div className=" relative ">
                                         {/*TODO: Apply multiselect there*/}
-                                        <select value={selectedCategories[0]}
+                                        <select value={selectedCategories[0]?.id}
                                                 onChange={(e) => {
                                                     setSelectedCategories([e.target.value])
                                                 }}

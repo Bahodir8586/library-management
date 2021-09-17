@@ -8,6 +8,8 @@ import Spinner from "../../../components/loaders/spinner/spinner";
 import FailModal from "../../../components/modals/failModal";
 import SuccessModal from "../../../components/modals/successModal";
 
+//TODO: get information of librarian like as book
+
 const Librarian = () => {
 	const router = useRouter()
 	const id = router.asPath.split("/")[3]

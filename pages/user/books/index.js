@@ -4,7 +4,6 @@ import withAuth from "../../../HOCs/withAuth";
 import UserBooks from "../../../components/user/userBooks";
 
 const Book = () => {
-
 	return (
 		<Index>
 			<UserBooks/>
