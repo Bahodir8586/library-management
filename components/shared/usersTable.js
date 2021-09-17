@@ -8,40 +8,14 @@ import LibrarianModal from "../modals/librarianModal";
 import UserModal from "../modals/userModal";
 import axios from "../../utils/axios";
 import {useRouter} from "next/router";
+import WarningModal from "../modals/warningModal";
+import SuccessModal from "../modals/successModal";
+import FailModal from "../modals/failModal";
 
 const UsersTable = () => {
-    const router = useRouter()
+    const router = useRouter();
     const role = router.asPath.split("/")[1]
-    const [data, setData] = useState([
-        {
-            id: 1,
-            image: "/url",
-            fullName: "Abdullayev Bahodir",
-            email: "bahodira213@gmail.com",
-            active: true,
-        },
-        {
-            id: 2,
-            image: "/url",
-            fullName: "Nosirov Mirfayz",
-            email: "mirfayzrak@gmail.com",
-            active: true,
-        },
-        {
-            id: 3,
-            image: "/url",
-            fullName: "O'ralov Shahzod",
-            email: "shahzodprogrammer@gmail.com",
-            active: false,
-        },
-        {
-            id: 4,
-            image: "/url",
-            fullName: "Qobilov Xurshidbek",
-            email: "sherlockboy12@gmail.com",
-            active: true,
-        }
-    ])
+    const [data, setData] = useState([])
     const [filter, setFilter] = useState({
         value: "all",
         options: [
@@ -68,10 +42,15 @@ const UsersTable = () => {
     const [showUserModal, setShowUserModal] = useState(false)
     const [isUserLoading, setIsUserLoading] = useState(false)
     const [isUserError, setIsUserError] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [successText, setSuccessText] = useState("")
+    const [showFailModal, setShowFailModal] = useState(false)
+    const [errorText, setErrorText] = useState("")
 
     const search = () => {
         console.log(filter.value, searchText, searchBy.value, pageNumber)
-        axios.get(`/${role}/users?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`).then(response => {
+        axios.get(`/users?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`).then(response => {
             console.log(response)
             setHaveNextPage(isPaginated(response))
             setData(response.data.data)
@@ -83,12 +62,44 @@ const UsersTable = () => {
 
     const blockUserHandler = (id) => {
         console.log(id)
-        //	TODO: handle block function there. Apply writing message to the user there
+        axios.post(`/librarian/users/block/${id}`, {message: message}).then(response => {
+            console.log(response)
+            setSuccessText("User successfully blocked")
+            setShowSuccessModal(true)
+        }).catch(error => {
+            console.log(error)
+            setErrorText("Something went wrong. Please try again later")
+            setShowFailModal(true)
+            //    TODO: show different error messages
+        })
+    }
+
+    const deleteUserHandler = (id) => {
+        console.log(id)
+        axios.delete(`admin/users/${id}`).then(response => {
+            console.log(response)
+            setSuccessText("User successfully deleted")
+            setShowSuccessModal(true)
+        }).catch(error => {
+            console.log(error)
+            setErrorText("Something went wrong. Please try again later")
+            setShowFailModal(true)
+            //    TODO: show different error messages
+        })
     }
 
     const unblockUserHandler = (id) => {
         console.log(id)
-        //	TODO: handle unblock function there. Apply writing message to the user there
+        axios.post(`/librarian/users/unblock/${id}`, {}).then(response => {
+            console.log(response)
+            setSuccessText("User successfully unblocked")
+            setShowSuccessModal(true)
+        }).catch(error => {
+            console.log(error)
+            setErrorText("Something went wrong. Please try again later")
+            setShowFailModal(true)
+            //    TODO: show different error messages
+        })
     }
 
     const finishBlock = () => {
@@ -99,7 +110,7 @@ const UsersTable = () => {
     const showUser = (id) => {
         setShowUserModal(true)
         setIsUserLoading(true)
-        axios.get(`/${role}/users/${id}`).then(response => {
+        axios.get(`/users/${id}`).then(response => {
             console.log(response)
             setSelectedUser(response.data)
             setIsUserLoading(false)
@@ -110,12 +121,38 @@ const UsersTable = () => {
         })
     }
 
+    const finishDelete = () => {
+        setShowDeleteModal(false)
+        setSelectedUser({})
+    }
+
     useEffect(() => {
         search()
     }, [filter.value, searchBy.value, pageNumber])
 
     return (
         <div className="container mx-auto px-4 sm:px-8 w-full">
+            <WarningModal
+                title={"Are you sure"}
+                show={showDeleteModal}
+                onConfirm={() => {
+                    deleteUserHandler(selectedUser.id)
+                    finishDelete()
+                }}
+                onCancel={() => {
+                    finishDelete()
+                }}>
+                Do you want to delete user {selectedUser.id}
+            </WarningModal>
+            <SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
+                search()
+                setShowSuccessModal(false)
+            }} text={successText}/>
+            <FailModal show={showFailModal} title={"Error"} onConfirm={() => {
+                // search()
+                setErrorText("")
+                setShowFailModal(false)
+            }} text={errorText}/>
             <SweetAlert
                 showCancel
                 show={showMessageModal}
@@ -247,19 +284,26 @@ const UsersTable = () => {
 						</span>}
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            {el.active ?
+                                            {role === "librarian" ? el.active ?
+                                                    <button onClick={() => {
+                                                        setSelectedUser(el)
+                                                        setShowMessageModal(true)
+                                                    }} type="button"
+                                                            className="mx-auto py-2 px-7 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                                        Block
+                                                    </button>
+                                                    : <button onClick={() => {
+                                                        unblockUserHandler(el.id)
+                                                    }} type="button"
+                                                              className="mx-auto py-2 px-4 flex justify-center items-center  bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                                                        Unblock
+                                                    </button> :
                                                 <button onClick={() => {
+                                                    setShowDeleteModal(true)
                                                     setSelectedUser(el)
-                                                    setShowMessageModal(true)
-                                                }} type="button"
+                                                }}
                                                         className="mx-auto py-2 px-7 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                                    Block
-                                                </button>
-                                                : <button onClick={() => {
-                                                    unblockUserHandler(el.id)
-                                                }} type="button"
-                                                          className="mx-auto py-2 px-4 flex justify-center items-center  bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                                                    Unblock
+                                                    Delete
                                                 </button>}
                                         </td>
                                     </tr>
