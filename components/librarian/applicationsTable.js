@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
-import {useRouter} from "next/router";
 import {changer} from "../../utils/filterChangers";
 import axios from "../../utils/axios";
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -9,7 +8,6 @@ import SuccessModal from "../modals/successModal";
 import FailModal from "../modals/failModal";
 
 const ApplicationsTable = () => {
-    const router = useRouter()
     const [data, setData] = useState([
         {
             id: 1,

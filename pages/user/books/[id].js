@@ -4,7 +4,6 @@ import withAuth from "../../../HOCs/withAuth";
 import Book from "../../../components/user/book";
 import axios from "../../../utils/axios";
 
-
 //TODO: get information there statically
 export async function getStaticPaths() {
     const res = await fetch('https://systemm-library.herokuapp.com/api/admin/books', {

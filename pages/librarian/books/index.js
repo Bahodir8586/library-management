@@ -1,14 +1,14 @@
 import React from 'react';
 import Layout from "../../../components/layout";
 import withAuth from "../../../HOCs/withAuth";
-import EditBook from "../../../components/shared/editBook";
+import BooksTable from "../../../components/shared/booksTable";
 
 
 
 const Books = () => {
 	return (
 		<Layout>
-			<EditBook/>
+			<BooksTable/>
 		</Layout>
 	);
 };
