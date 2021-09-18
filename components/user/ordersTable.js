@@ -28,7 +28,8 @@ const OrdersTable = () => {
             wantedDuration: "20",
             status: "denied",
             created_at: "14.09.2001"
-        }, {
+        },
+        {
             id: 2,
             book: {
                 id: 125,
@@ -45,7 +46,8 @@ const OrdersTable = () => {
             wantedDuration: "7",
             status: "finished",
             created_at: "03.09.2001"
-        }, {
+        },
+        {
             id: 3,
             book: {
                 id: 13,
@@ -146,6 +148,11 @@ const OrdersTable = () => {
     const returnBook = id => {
         //    TODO: handle book return function there
         console.log(id)
+        axios.patch(`/order/return/${id}`).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const showLibrarian = (id) => {
