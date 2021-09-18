@@ -7,6 +7,8 @@ import axios from "../../utils/axios";
 import Spinner from "../loaders/spinner/spinner";
 import OrderDetailModal from "../modals/orderDetailModal";
 import LibrarianModal from "../modals/librarianModal";
+import SuccessModal from "../modals/successModal";
+import FailModal from "../modals/failModal";
 
 const OrdersTable = () => {
     const router = useRouter()
@@ -124,6 +126,10 @@ const OrdersTable = () => {
     const [selectedLibrarian, setSelectedLibrarian] = useState({})
     const [isError, setIsError] = useState(false)
     const [isLibrarianLoading, setIsLibrarianLoading] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [successText, setSuccessText] = useState("")
+    const [showFailModal, setShowFailModal] = useState(false)
+    const [errorText, setErrorText] = useState("")
 
     useEffect(() => {
         search()
@@ -148,10 +154,16 @@ const OrdersTable = () => {
     const returnBook = id => {
         //    TODO: handle book return function there
         console.log(id)
+        setShowDetailedModal(false)
         axios.patch(`/order/return/${id}`).then(response => {
             console.log(response)
+            setShowSuccessModal(true)
+            setSuccessText("Book successfully returned")
         }).catch(error => {
             console.log(error)
+            setShowFailModal(true)
+            setErrorText("Something went wrong. Please try again later")
+            //    FIXME: show different error messages
         })
     }
 
@@ -179,6 +191,13 @@ const OrdersTable = () => {
                 setShowLibrarianModal(false)
                 setSelectedLibrarian({})
             }} isError={isError} isLoading={isLibrarianLoading}/>
+            <SuccessModal show={showSuccessModal} title={"Congratulations"} onConfirm={() => {
+                setShowSuccessModal(false)
+                search()
+            }} text={successText}/>
+            <FailModal show={showFailModal} title={"Error"} onConfirm={() => {
+                setShowFailModal(false)
+            }} text={errorText}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
                     <h2 className="text-6xl leading-tight w-1/6">
