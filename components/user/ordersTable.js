@@ -186,7 +186,7 @@ const OrdersTable = () => {
             <OrderDetailModal show={showDetailedModal} order={selectedOrder} onConfirm={() => {
                 setShowDetailedModal(false)
                 setSelectedOrder({})
-            }} returnBook={(id) => returnBook(id)}/>
+            }} returnBook={(id) => returnBook(id)} notUser={false}/>
             <LibrarianModal show={showLibrarianModal} librarian={selectedLibrarian} onConfirm={() => {
                 setShowLibrarianModal(false)
                 setSelectedLibrarian({})

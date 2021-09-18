@@ -1,7 +1,7 @@
 import React from 'react';
 import SweetAlert from "react-bootstrap-sweetalert";
 
-const OrderDetailModal = ({show, onConfirm, order,returnBook}) => {
+const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
     const {id, book, librarian, wantedGetDate, givenDate, wantedReturnDate, returnedDate, status} = order
     return (
         <SweetAlert
@@ -45,7 +45,7 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook}) => {
                         <div className={"w-full font-medium capitalize"}>{status}</div>
                     </div>
                 </div>
-                {status !== "finished" && status !== "denied" && status !== "waiting" &&
+                {status !== "finished" && status !== "denied" && status !== "waiting" &&!notUser &&
                 <div className={"mt-4"}>
                     <button
                         className={"px-6 py-3 bg-green-600 text-white rounded text-xl cursor-pointer transition duration-200 hover:bg-green-700"} onClick={()=>returnBook(id)}>Return
