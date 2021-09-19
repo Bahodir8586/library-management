@@ -19,7 +19,7 @@ const ApplicationsTable = () => {
                 id: 13,
                 name: "Boy ota, kambag'al ota",
             },
-            wantedGetDate: "22.08.2021",
+            wantedDate: "22.08.2021",
             duration: 14,
         },
         {
@@ -32,7 +32,7 @@ const ApplicationsTable = () => {
                 id: 125,
                 name: "Zukkolar va landovurlar",
             },
-            wantedGetDate: "23.08.2021",
+            wantedDate: "23.08.2021",
             duration: 10,
         },
         {
@@ -45,7 +45,7 @@ const ApplicationsTable = () => {
                 id: 16,
                 name: "Molxona",
             },
-            wantedGetDate: "25.08.2021",
+            wantedDate: "25.08.2021",
             duration: 20,
         },
         {
@@ -58,7 +58,7 @@ const ApplicationsTable = () => {
                 id: 46,
                 name: "1984",
             },
-            wantedGetDate: "21.08.2021",
+            wantedDate: "21.08.2021",
             duration: 14,
         },
     ])
@@ -265,7 +265,7 @@ const ApplicationsTable = () => {
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.wantedGetDate}
+                                            {el.wantedDate}
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">

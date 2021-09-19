@@ -2,7 +2,7 @@ import React from 'react';
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
-    const {id, book, librarian, wantedGetDate, givenDate, wantedReturnDate, returnedDate, status} = order
+    const {id, book, librarian, wantedDate, givenDate, mustReturnDate, returnedDate, status} = order
     return (
         <SweetAlert
             show={show}
@@ -23,7 +23,7 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book wanted date:</div>
-                        <div className={"w-full font-medium"}>{wantedGetDate}</div>
+                        <div className={"w-full font-medium"}>{wantedDate}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book given date:</div>
@@ -33,7 +33,7 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book should return date</div>
                         <div
-                            className={`w-full font-medium ${!wantedReturnDate && "text-red-600 "}`}>{order.wantedReturnDate ? wantedReturnDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!mustReturnDate && "text-red-600 "}`}>{order.mustReturnDate ? mustReturnDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book returned date</div>

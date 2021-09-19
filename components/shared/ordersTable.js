@@ -25,9 +25,9 @@ const OrdersTable = () => {
                 id: 1,
                 name: "Nosirov445"
             },
-            wantedGetDate: "05.09.2021",
+            wantedDate: "05.09.2021",
             givenDate: "06.09.2021",
-            wantedReturnDate: "13.09.2021",
+            mustReturnDate: "13.09.2021",
             returnedDate: "10.09.2021",
             wantedDuration: "7",
             status: "finished",
@@ -47,9 +47,9 @@ const OrdersTable = () => {
                 id: 2,
                 name: "Aliyeva01"
             },
-            wantedGetDate: "08.08.2021",
+            wantedDate: "08.08.2021",
             givenDate: "10.08.2021",
-            wantedReturnDate: "25.08.2001",
+            mustReturnDate: "25.08.2001",
             returnedDate: null,
             wantedDuration: "15",
             status: "inDebt",
@@ -69,9 +69,9 @@ const OrdersTable = () => {
                 id: 2,
                 name: "Aliyeva01"
             },
-            wantedGetDate: "08.09.2021",
+            wantedDate: "08.09.2021",
             givenDate: "10.08.2021",
-            wantedReturnDate: "22.08.2021",
+            mustReturnDate: "22.08.2021",
             returnedDate: null,
             wantedDuration: "12",
             status: "onProcess",
@@ -91,9 +91,9 @@ const OrdersTable = () => {
                 id: 1,
                 name: "Nosirov445"
             },
-            wantedGetDate: "08.09.2021",
+            wantedDate: "08.09.2021",
             givenDate: "10.08.2021",
-            wantedReturnDate: "22.08.2021",
+            mustReturnDate: "22.08.2021",
             returnedDate: null,
             wantedDuration: "12",
             status: "onProcess",
@@ -302,7 +302,7 @@ const OrdersTable = () => {
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.status === "finished" ? el.returnedDate : el.wantedReturnDate}
+                                            {el.status === "finished" ? el.returnedDate : el.mustReturnDate}
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center"

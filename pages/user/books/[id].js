@@ -38,9 +38,9 @@ export async function getStaticProps({params}) {
 
 const Books = ({book}) => {
 
-    const orderBook = (bookId, bookWantedGetDate, duration) => {
-        console.log(bookId, bookWantedGetDate, duration)
-        axios.post(`/order`, {bookId, bookWantedGetDate, duration}).then(response => {
+    const orderBook = (bookId, wantedDate, duration) => {
+        console.log(bookId, wantedDate, duration)
+        axios.post(`/order`, {bookId, wantedDate, duration}).then(response => {
             console.log(response)
         }).catch(error => {
             console.log(error)
