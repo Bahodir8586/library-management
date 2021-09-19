@@ -91,7 +91,7 @@ const ApplicationsTable = () => {
 
     const acceptOrderHandler = (id) => {
         setShowAcceptModal(false)
-        axios.patch(`/order/accept/${id}`).then(response => {
+        axios.post(`/librarian/order/accept/${id}`).then(response => {
             console.log(response)
             setSuccessText("Order successfully accepted")
             setShowSuccessModal(true)
@@ -111,7 +111,7 @@ const ApplicationsTable = () => {
     const rejectOrderHandler = (id) => {
         setShowRejectModal(false)
         console.log(id, message)
-        axios.patch(`/order/reject/${id}`, {message}).then(response => {
+        axios.patch(`/librarian/order/reject/${id}`, {message}).then(response => {
             console.log(response)
             setSuccessText("Order successfully rejected")
             setShowSuccessModal(true)

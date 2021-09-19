@@ -40,7 +40,7 @@ const Books = ({book}) => {
 
     const orderBook = (bookId, wantedDate, duration) => {
         console.log(bookId, wantedDate, duration)
-        axios.post(`/order`, {bookId, wantedDate, duration}).then(response => {
+        axios.post(`/user/order`, {bookId, wantedDate, duration}).then(response => {
             console.log(response)
         }).catch(error => {
             console.log(error)

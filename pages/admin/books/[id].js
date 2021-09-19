@@ -23,7 +23,6 @@ export async function getStaticPaths() {
     return {paths, fallback: false}
 }
 
-
 export async function getStaticProps({params}) {
     const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
         headers: {
