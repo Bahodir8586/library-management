@@ -6,6 +6,7 @@ import {changer} from "../../utils/filterChangers";
 import OrderDetailModal from "../modals/orderDetailModal";
 import LibrarianModal from "../modals/librarianModal";
 import axios from "../../utils/axios";
+import UserModal from "../modals/userModal";
 
 const OrdersTable = () => {
     const router = useRouter()
@@ -125,6 +126,10 @@ const OrdersTable = () => {
     const [selectedLibrarian, setSelectedLibrarian] = useState({})
     const [isError, setIsError] = useState(false)
     const [isLibrarianLoading, setIsLibrarianLoading] = useState(false)
+    const [selectedUser, setSelectedUser] = useState({})
+    const [showUserModal, setShowUserModal] = useState(false)
+    const [isUserLoading, setIsUserLoading] = useState(false)
+    const [isUserError, setIsUserError] = useState(false)
 
     useEffect(() => {
         search()
@@ -148,6 +153,20 @@ const OrdersTable = () => {
         })
     }
 
+    const showUser = (id) => {
+        setShowUserModal(true)
+        setIsUserLoading(true)
+        axios.get(`/users/${id}`).then(response => {
+            console.log(response)
+            setSelectedUser(response.data)
+            setIsUserLoading(false)
+        }).catch(error => {
+            console.log(error)
+            setIsUserError(true)
+            setIsUserLoading(false)
+        })
+    }
+
     return (
         <div className="container mx-auto px-4 sm:px-8 w-full">
             <OrderDetailModal show={showDetailedModal} order={selectedOrder} onConfirm={() => {
@@ -158,6 +177,10 @@ const OrdersTable = () => {
                 setShowLibrarianModal(false)
                 setSelectedLibrarian({})
             }} isError={isError} isLoading={isLibrarianLoading}/>
+            <UserModal show={showUserModal} user={selectedUser} onConfirm={() => {
+                setShowUserModal(false)
+                setSelectedUser({})
+            }} isError={isUserError} isLoading={isUserLoading}/>
             <div className="py-8">
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full items-center">
                     <h2 className="text-6xl leading-tight w-1/6">
@@ -248,13 +271,12 @@ const OrdersTable = () => {
                                 <tr key={el.id}
                                     className={el.status === "onProcess" ? "bg-green-50" : el.status === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                                        <Link href={`/admin/users/${el.user.id}`}>
-                                            <div className="flex items-center cursor-pointer justify-center">
-                                                <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                    {el.user.name}
-                                                </p>
-                                            </div>
-                                        </Link>
+                                        <div className="flex items-center cursor-pointer justify-center"
+                                             onClick={() => showUser(el.id)}>
+                                            <p className="text-gray-900 whitespace-no-wrap text-center">
+                                                {el.user.name}
+                                            </p>
+                                        </div>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <Link href={`/admin/books/${el.book.id}`}>
