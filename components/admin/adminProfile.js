@@ -29,12 +29,10 @@ const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory
         setSelectedCategory({})
         setNewName("")
     }
-
     const finishDelete = () => {
         setShowDeleteModal(false)
         setSelectedCategory({})
     }
-
 
     return (
         <div className={"w-full text-center"}>
