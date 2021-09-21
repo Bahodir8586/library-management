@@ -17,8 +17,8 @@ export default function SignUp() {
         e.preventDefault();
         console.log(firstName, lastName,username, email, password,passwordConfirmation)
         axios.post(`https://systemm-library.herokuapp.com/api/auth/user/register`, {
-            name:`${firstName} ${lastName}`,
-            username: username,
+            fullName:`${firstName} ${lastName}`,
+            username,
             email,
             password,
             password_confirmation: passwordConfirmation

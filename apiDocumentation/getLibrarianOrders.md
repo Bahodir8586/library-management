@@ -1,4 +1,4 @@
-**Get Orders API for user**
+**Get Orders API for librarian**
 ----
     Returns json data.
 
@@ -6,7 +6,7 @@
 
 * **URL**
 
-  /api/user/orders/
+  /api/librarian/orders/
 
 * **Method**
 
@@ -35,12 +35,10 @@
   `{`<br/>
   `id: 4, ` </br>
   `book: {id:bookID, name:bookName},` </br>
-  `librarian: {id:librarianID, name:librarianName},`</br>
-  `status: "[denied|inDebt|finished|onProcess|waiting]",`</br>
-`givenDate: [status:{denied,waiting:null || inDebt,finished,onProcess:bookGivenDate ||}]`</br>
-`mustReturnDate: [status:{denied,waiting:null || inDebt,finished,onProcess:mustReturnDate ||}]`</br>
-`wantedDate: [wantedDate}]`</br>
-`returnedDate: [status:{denied,waiting,inDebt,onProcess:null || finished:returnedDate}]`</br>
+  `user: {id:userID, name:userName},`</br>
+  `status: "[denied|inDebt|finished|onProcess]",`</br>
+  `givenDate: [status:{denied:null || inDebt,finished,onProcess:bookGivenDate}]`</br>
+  `mustReturnDate: [status:{denied:null || inDebt,waiting,onProcess:mustReturnDate}]`</br> `returnedDate: [status:{denied,inDebt,onProcess:null || finished:returnedDate}]`</br>
 
   If no orders found return [ ]
 ----

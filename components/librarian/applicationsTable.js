@@ -71,6 +71,7 @@ const ApplicationsTable = () => {
     })
     const [searchText, setSearchText] = useState("")
     const [pageNumber, setPageNumber] = useState(1)
+
     const [haveNextPage, setHaveNextPage] = useState(true)
     const [selectedOrder, setSelectedOrder] = useState({})
     const [showRejectModal, setShowRejectModal] = useState(false)
@@ -87,6 +88,11 @@ const ApplicationsTable = () => {
 
     const search = () => {
         console.log(searchBy.value, searchText)
+        axios.get(`/librarian/applications?searchBy=${searchBy.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const acceptOrderHandler = (id) => {
@@ -111,7 +117,7 @@ const ApplicationsTable = () => {
     const rejectOrderHandler = (id) => {
         setShowRejectModal(false)
         console.log(id, message)
-        axios.patch(`/librarian/order/reject/${id}`, {message}).then(response => {
+        axios.post(`/librarian/order/reject/${id}`, {message}).then(response => {
             console.log(response)
             setSuccessText("Order successfully rejected")
             setShowSuccessModal(true)
@@ -136,7 +142,7 @@ const ApplicationsTable = () => {
                 show={showRejectModal}
                 title={"Reason for reject"}
                 confirmBtnCssClass="px-8 py-3 border border-red-600 bg-red-600 text-white rounded text-xl cursor-pointer hover:bg-red-700 transition duration-200"
-                confirmBtnText="Block"
+                confirmBtnText="Reject"
                 cancelBtnCssClass="px-6 py-3 border border-red-600 bg-white text-red-600 rounded text-xl cursor-pointer hover:bg-gray-100 transition duration-200"
                 onConfirm={() => {
                     rejectOrderHandler(selectedOrder.id)

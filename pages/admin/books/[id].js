@@ -9,10 +9,9 @@ import FailModal from "../../../components/modals/failModal";
 import Spinner from "../../../components/loaders/spinner/spinner";
 
 export async function getStaticPaths() {
-    const res = await fetch('https://systemm-library.herokuapp.com/api/admin/books', {
+    const res = await fetch('https://systemm-library.herokuapp.com/api/books', {
         headers: {
             "Content-type": "application/json",
-            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
         }
     })
     const json = await res.json()
@@ -24,26 +23,36 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+    try {
+        const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        const categories = await res.json()
+        const res2 = await fetch(`https://systemm-library.herokuapp.com/api/books/${params.id}`, {
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        const book = await res2.json()
+        return {
+            props: {
+                categories: [...categories],
+                book: {...book}
+            }
         }
-    })
-    const categories = await res.json()
-    const res2 = await fetch(`https://systemm-library.herokuapp.com/api/admin/books/${params.id}`, {
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
-        }
-    })
-    const book = await res2.json()
-    return {
-        props: {
-            categories: [...categories],
-            book: {...book}
+    } catch (e) {
+        console.log(e)
+        return {
+            props: {
+                categories: [],
+                book: {}
+            },
         }
     }
+
+
 }
 
 const Book = ({categories, book}) => {

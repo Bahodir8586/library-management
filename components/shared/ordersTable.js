@@ -10,6 +10,7 @@ import UserModal from "../modals/userModal";
 
 const OrdersTable = () => {
     const router = useRouter()
+    const role=router.asPath.split("/")[1]
     const [data, setData] = useState([
         {
             id: 1,
@@ -112,9 +113,11 @@ const OrdersTable = () => {
         value: "all",
         options: [
             {value: "all", name: "All"},
+            {value: "waiting", name: "Waiting"},
             {value: "onProcess", name: "On Process"},
             {value: "finished", name: "Finished"},
-            {value: "inDebt", name: "In Debt Orders"}
+            {value: "inDebt", name: "In Debt Orders"},
+            {value: "denied", name: "Denied Applications"}
         ]
     })
     const [searchText, setSearchText] = useState("")
@@ -137,6 +140,12 @@ const OrdersTable = () => {
 
     const search = () => {
         console.log(filter.value, searchBy.value, searchText)
+        axios.get(`/role/orders?searchBy=${searchText}&filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`).then(response=>{
+            console.log(response)
+            setHaveNextPage(response.data)
+        }).catch(error=>{
+            console.log(error)
+        })
     }
 
     const showLibrarian = (id) => {
@@ -218,7 +227,7 @@ const OrdersTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     Filter:
                                 </label>
-                                <select onChange={(e) => setFilter(changer, e.target.value)}
+                                <select onChange={(e) => setFilter(changer( e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {filter.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                       key={el.value}>{el.name}</option>)}

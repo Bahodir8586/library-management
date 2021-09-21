@@ -20,7 +20,7 @@
 
   `filter=[string|status]` <br/>
   `searchText=[string]` <br/>
-  `searchBy=[book|librarian]` <br/>
+  `searchBy=[user|librarian|book]`<br/>
   `page=[numeric|min:1]` <br/>
 
 * **Data Params**
@@ -35,12 +35,11 @@
   `{`<br/>
   `id: 4, ` </br>
   `book: {id:bookID, name:bookName},` </br>
+  `user: {id:userID, name:userName},` </br>
   `librarian: {id:librarianID, name:librarianName},`</br>
-  `status: "[denied|inDebt|finished|onProcess|waiting]",`</br>
-`givenDate: [status:{denied,waiting:null || inDebt,finished,onProcess:bookGivenDate ||}]`</br>
-`mustReturnDate: [status:{denied,waiting:null || inDebt,finished,onProcess:mustReturnDate ||}]`</br>
-`wantedDate: [wantedDate}]`</br>
-`returnedDate: [status:{denied,waiting,inDebt,onProcess:null || finished:returnedDate}]`</br>
+  `status: "[denied|inDebt|finished|onProcess|waiting]",`</br>`wantedDate: [wantedDate]`</br>
+  `givenDate: [status:{denied,waiting:null || inDebt,finished,onProcess:bookGivenDate}]`</br>` mustReturnDate: [status:{denied,waiting:null || finished,inDebt,onProcess:mustReturnDate}]`</br>
+  `returnedDate: [status:{denied,waiting,inDebt,onProcess:null || finished:returnedDate}]`</br>
 
   If no orders found return [ ]
 ----

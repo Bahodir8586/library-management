@@ -57,7 +57,7 @@ const BooksTable = ({books}) => {
 
     const search = () => {
         axios.get(
-            `/admin/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
+            `/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
                 console.log(response)
                 setHaveNextPage(isPaginated(response));

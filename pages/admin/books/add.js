@@ -9,15 +9,20 @@ import Spinner from "../../../components/loaders/spinner/spinner";
 import FailModal from "../../../components/modals/failModal";
 
 export async function getStaticProps() {
-    const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
-        headers:{
-            "Content-type":"application/json",
-            "Authorization":"Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
-        }
-    })
-    const data = await res.json()
-    console.log(data)
-    return {props: {categories:[...data]}}
+    try {
+        const res = await fetch("https://systemm-library.herokuapp.com/api/categories", {
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        const data = await res.json()
+        console.log(data)
+        return {props: {categories: [...data]}}
+    } catch (e) {
+        console.log(e)
+        return {props: {categories: []}}
+    }
+
 }
 
 const Add = ({categories}) => {
@@ -26,22 +31,22 @@ const Add = ({categories}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [successText, setSuccessText] = useState("")
-    const [showFailModal,setShowFailModal]=useState(false)
-    const [errorText, setErrorText]=useState("")
+    const [showFailModal, setShowFailModal] = useState(false)
+    const [errorText, setErrorText] = useState("")
 
     const addBook = (image, name, author, ISBN, publishedYear, description, count, selectedCategories) => {
-        if(!name||!author||!ISBN||!publishedYear ||!image){
+        if (!name || !author || !ISBN || !publishedYear || !image) {
             setShowFailModal(true)
             setErrorText("Please fill all required fields")
             return
         }
-        if(count<=0){
+        if (count <= 0) {
             setShowFailModal(true)
             setErrorText("Number of books must be greater than 0")
             return
         }
-        const today=new Date()
-        if(publishedYear>today.getFullYear()||publishedYear<1900){
+        const today = new Date()
+        if (publishedYear > today.getFullYear() || publishedYear < 1900) {
             setShowFailModal(true)
             setErrorText(`Published year should be between 1900 and ${today.getFullYear()}`)
             return
@@ -53,7 +58,7 @@ const Add = ({categories}) => {
         submitData.append("publishedYear", publishedYear);
         submitData.append("description", description);
         submitData.append("count", count);
-        submitData.append("count", JSON.stringify(selectedCategories));
+        submitData.append("categories", JSON.stringify(selectedCategories));
         submitData.append("image", image)
         setIsLoading(true)
         axios.post(`/admin/books`, submitData).then(response => {

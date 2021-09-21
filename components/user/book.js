@@ -44,7 +44,7 @@ const Book = ({name, image, author, publishedYear, description, categories, coun
                 <div className={"w-full px-4 py-6"}>
                     <div className={"mb-2"}>Author: <span className={"capitalize font-semibold text-xl"}>{author}</span></div>
                     <div className={"mb-2"}>Published Year:  <span className={"capitalize font-semibold text-xl"}>{publishedYear}</span></div>
-                    <div>Categories: {categories.length>0?categories.map(({id, name}) => <span className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "} key={id}>{name}</span>):<span className={"capitalize font-semibold text-xl text-red-600"}>No category</span>}</div>
+                    <div>Categories: {categories?.length>0?categories.map(({id, name}) => <span className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "} key={id}>{name}</span>):<span className={"capitalize font-semibold text-xl text-red-600"}>No category</span>}</div>
                 </div>
             </div>
             <p className={"text-sm px-12 mt-4"}>

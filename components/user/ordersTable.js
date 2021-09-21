@@ -104,6 +104,13 @@ const OrdersTable = () => {
             created_at: "05.09.2001"
         },
     ])
+    const [searchBy, setSearchBy] = useState({
+        value: "book",
+        options: [
+            {value: "book", name: "Book name"},
+            {value: "librarian", name: "Librarian name"},
+        ]
+    })
     const [filter, setFilter] = useState({
         value: "all",
         options: [
@@ -138,7 +145,7 @@ const OrdersTable = () => {
     const search = () => {
         console.log(filter.value, searchText, pageNumber)
         setIsLoading(true)
-        axios.get(`/user/orders?filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`)
+        axios.get(`/user/orders?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`)
             .then(response => {
                 console.log(response)
                 setData(response.data)

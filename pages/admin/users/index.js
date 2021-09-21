@@ -3,7 +3,7 @@ import Layout from "../../../components/layout";
 import UsersTable from "../../../components/shared/usersTable";
 import withAuth from "../../../HOCs/withAuth";
 
-const Students = () => {
+const Users = () => {
 	return (
 		<Layout>
 			<UsersTable/>
@@ -11,4 +11,4 @@ const Students = () => {
 	);
 };
 
-export default withAuth(Students);
+export default withAuth(Users);

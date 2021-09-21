@@ -3,13 +3,13 @@ import Layout from "../../../components/layout";
 import withAuth from "../../../HOCs/withAuth";
 import Book from "../../../components/user/book";
 import axios from "../../../utils/axios";
+import {useRouter} from "next/router";
 
 //TODO: get information there statically
 export async function getStaticPaths() {
-    const res = await fetch('https://systemm-library.herokuapp.com/api/admin/books', {
+    const res = await fetch('https://systemm-library.herokuapp.com/api/books', {
         headers: {
             "Content-type": "application/json",
-            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
         }
     })
     const json = await res.json()
@@ -21,26 +21,39 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-
-    const res = await fetch(`https://systemm-library.herokuapp.com/api/admin/books/${params.id}`, {
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer 8|zGQOjpIyrSaGNRREOtPfH5aZjcVcbqlYsRgAjjQG"
+    try {
+        const res = await fetch(`https://systemm-library.herokuapp.com/api/books/${params.id}`, {
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        console.log(res)
+        const book = await res.json()
+        console.log(book)
+        console.log("mfckr")
+        return {
+            props: {
+                book: {...book}
+            }
         }
-    })
-    const book = await res.json()
-    return {
-        props: {
-            book: {...book}
+    } catch (e) {
+        console.log(e)
+        return {
+            props: {
+                book: {}
+            }
         }
     }
+
 }
 
 const Books = ({book}) => {
-
-    const orderBook = (bookId, wantedDate, duration) => {
-        console.log(bookId, wantedDate, duration)
-        axios.post(`/user/order`, {bookId, wantedDate, duration}).then(response => {
+    const router=useRouter()
+    console.log(book)
+    const orderBook = (id, wantedDate, wantedDuration) => {
+        const bookId=id??router.asPath.split("/")[3]
+        console.log(bookId, wantedDate, wantedDuration)
+        axios.post(`/user/order`, {bookId, wantedDate, wantedDuration}).then(response => {
             console.log(response)
         }).catch(error => {
             console.log(error)
