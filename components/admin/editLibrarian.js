@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useRouter} from "next/router";
 
 const EditLibrarian = ({handleSubmit, data}) => {
 	const [username, setUsername] = useState(data.username)

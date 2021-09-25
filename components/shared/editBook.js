@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {useRouter} from "next/router";
 
 const EditBook = ({categories,book, submit}) => {
-    const router = useRouter()
     const [image, setImage] = useState(undefined)
     const [imgSrc, setImgSrc] = useState(book.imgSrc)
     const [name, setName] = useState(book.name);

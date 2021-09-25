@@ -90,6 +90,7 @@ const ApplicationsTable = () => {
         console.log(searchBy.value, searchText)
         axios.get(`/librarian/applications?searchBy=${searchBy.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
             console.log(response)
+            setHaveNextPage(response.data)
         }).catch(error => {
             console.log(error)
         })

@@ -40,9 +40,6 @@ const InputRange = ({ initValue , min, max, step, onChange }) => {
     useEffect(() => {
         const width = calculateWidthFromValue(value, step, min, max, truckWidth);
         x.set(width);
-        // console.log(
-        //     `value:${value}, step:${step}, min:${min}, max:${max}, truck:${truckWidth}, thumb:${thumbWidth}`
-        // );
     }, [value, step, min, max, truckWidth]);
 
     const handleDrag = (event, info) => {

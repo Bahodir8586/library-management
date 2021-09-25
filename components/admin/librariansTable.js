@@ -10,44 +10,7 @@ import {changer} from "../../utils/filterChangers";
 
 const LibrariansTable = () => {
     const router = useRouter()
-    const [data, setData] = useState([
-        {
-            id: 1,
-            image: "/url",
-            fullName: "Abdullayev Bahodir",
-            username: "Abdullayev123",
-            finishedOrders: 412,
-            allOrders: 419,
-            inDebtOrders: 1,
-        },
-        {
-            id: 2,
-            image: "/url",
-            fullName: "Nosirov Mirfayz",
-            username: "Nosirov446",
-            finishedOrders: 0,
-            allOrders: 19,
-            inDebtOrders: 6,
-        },
-        {
-            id: 3,
-            image: "/url",
-            fullName: "O'ralov Shahzod",
-            username: "ShahzodLibrarian",
-            finishedOrders: 93,
-            allOrders: 125,
-            inDebtOrders: 6,
-        },
-        {
-            id: 4,
-            image: "/url",
-            fullName: "Qobilov Xurshidbek",
-            username: "Kabilov",
-            finishedOrders: 18,
-            allOrders: 35,
-            inDebtOrders: 0,
-        }
-    ])
+    const [data, setData] = useState([])
     const [sort, setSort] = useState({
         value: "alphabet",
         options: [
