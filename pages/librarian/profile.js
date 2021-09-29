@@ -7,8 +7,8 @@ import FailModal from "../../components/modals/failModal";
 
 const Profile = () => {
 	const data = {
-		username: "Username",
-		fullName: "Full Name",
+		username: "",
+		fullName: "",
 		image:""
 	}
 	const [showSuccessModal, setShowSuccessModal] = useState(false)

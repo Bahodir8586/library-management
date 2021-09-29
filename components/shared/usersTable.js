@@ -54,7 +54,8 @@ const UsersTable = () => {
             setData(response.data.data)
         }).catch(error => {
             console.log(error)
-            //    TODO: do error handling there
+            setShowFailModal(true)
+            setErrorText("Sorry something went wrong please try again.")
         })
     }
 
