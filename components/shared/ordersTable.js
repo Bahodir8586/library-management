@@ -10,7 +10,7 @@ import UserModal from "../modals/userModal";
 
 const OrdersTable = () => {
     const router = useRouter()
-    const role=router.asPath.split("/")[1]
+    const role = router.asPath.split("/")[1]
     const [data, setData] = useState([])
     const [searchBy, setSearchBy] = useState({
         value: "book",
@@ -51,10 +51,11 @@ const OrdersTable = () => {
 
     const search = () => {
         console.log(filter.value, searchBy.value, searchText)
-        axios.get(`/role/orders?searchBy=${searchText}&filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`).then(response=>{
+        axios.get(`/role/orders?searchBy=${searchText}&filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
             console.log(response)
+            setData(response.data)
             setHaveNextPage(response.data)
-        }).catch(error=>{
+        }).catch(error => {
             console.log(error)
         })
     }
@@ -138,7 +139,7 @@ const OrdersTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     Filter:
                                 </label>
-                                <select onChange={(e) => setFilter(changer( e.target.value))}
+                                <select onChange={(e) => setFilter(changer(e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {filter.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                       key={el.value}>{el.name}</option>)}

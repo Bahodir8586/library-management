@@ -8,60 +8,7 @@ import SuccessModal from "../modals/successModal";
 import FailModal from "../modals/failModal";
 
 const ApplicationsTable = () => {
-    const [data, setData] = useState([
-        {
-            id: 1,
-            user: {
-                id: 1,
-                name: "Abdullayev123",
-            },
-            book: {
-                id: 13,
-                name: "Boy ota, kambag'al ota",
-            },
-            wantedDate: "22.08.2021",
-            duration: 14,
-        },
-        {
-            id: 2,
-            user: {
-                id: 1,
-                name: "Abdullayev123",
-            },
-            book: {
-                id: 125,
-                name: "Zukkolar va landovurlar",
-            },
-            wantedDate: "23.08.2021",
-            duration: 10,
-        },
-        {
-            id: 3,
-            user: {
-                id: 12,
-                name: "BookReader551",
-            },
-            book: {
-                id: 16,
-                name: "Molxona",
-            },
-            wantedDate: "25.08.2021",
-            duration: 20,
-        },
-        {
-            id: 4,
-            user: {
-                id: 7,
-                name: "AnonymousUser",
-            },
-            book: {
-                id: 46,
-                name: "1984",
-            },
-            wantedDate: "21.08.2021",
-            duration: 14,
-        },
-    ])
+    const [data, setData] = useState([])
     const [searchBy, setSearchBy] = useState({
         value: "book",
         options: [
