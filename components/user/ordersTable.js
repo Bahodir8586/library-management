@@ -12,98 +12,7 @@ import FailModal from "../modals/failModal";
 
 const OrdersTable = () => {
     const router = useRouter()
-    const [data, setData] = useState([
-        {
-            id: 1,
-            book: {
-                id: 13,
-                name: "Anna Karenina"
-            },
-            librarian: {
-                id: 1,
-                name: "Nosirov445"
-            },
-            wantedDate: "15.09.2021",
-            givenDate: null,
-            mustReturnDate: null,
-            returnedDate: null,
-            wantedDuration: "20",
-            status: "denied",
-            created_at: "14.09.2001"
-        },
-        {
-            id: 2,
-            book: {
-                id: 125,
-                name: "Urush va Tinchlik"
-            },
-            librarian: {
-                id: 2,
-                name: "Aliyeva01"
-            },
-            wantedDate: "05.09.2021",
-            givenDate: "06.09.2021",
-            mustReturnDate: "13.09.2021",
-            returnedDate: "10.09.2021",
-            wantedDuration: "7",
-            status: "finished",
-            created_at: "03.09.2001"
-        },
-        {
-            id: 3,
-            book: {
-                id: 13,
-                name: "Anna Karenina"
-            },
-            librarian: {
-                id: 1,
-                name: "Nosirov445"
-            },
-            wantedDate: "08.09.2021",
-            givenDate: "10.08.2021",
-            mustReturnDate: "25.08.2001",
-            returnedDate: null,
-            wantedDuration: "15",
-            status: "inDebt",
-            created_at: "07.09.2001"
-        },
-        {
-            id: 4,
-            book: {
-                id: 46,
-                name: "Sense and Sensibility"
-            },
-            librarian: {
-                id: 1,
-                name: "Nosirov445"
-            },
-            wantedDate: "08.09.2021",
-            givenDate: null,
-            mustReturnDate: null,
-            returnedDate: null,
-            wantedDuration: "10",
-            status: "waiting",
-            created_at: "08.09.2001"
-        },
-        {
-            id: 5,
-            book: {
-                id: 46,
-                name: "Harry Potter"
-            },
-            librarian: {
-                id: 1,
-                name: "Nosirov445"
-            },
-            wantedDate: "08.09.2021",
-            givenDate: "10.08.2021",
-            mustReturnDate: "22.08.2021",
-            returnedDate: null,
-            wantedDuration: "12",
-            status: "onProcess",
-            created_at: "05.09.2001"
-        },
-    ])
+    const [data, setData] = useState([])
     const [searchBy, setSearchBy] = useState({
         value: "book",
         options: [
@@ -217,6 +126,16 @@ const OrdersTable = () => {
                                 e.preventDefault();
                                 search()
                             }}>
+                            <div className=" relative w-1/4 px-4">
+                                <label className="text-gray-700 mr-3">
+                                    Search By:
+                                </label>
+                                <select onChange={(e) => setSearchBy(changer(filter, e.target.value))}
+                                        className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                    {searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
+                                                                      key={el.value}>{el.name}</option>)}
+                                </select>
+                            </div>
                             <div className=" relative w-1/3">
                                 <label className="text-gray-700 mr-3">
                                     Search:
