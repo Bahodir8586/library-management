@@ -130,7 +130,7 @@ const OrdersTable = () => {
                                 <label className="text-gray-700 mr-3">
                                     Search By:
                                 </label>
-                                <select onChange={(e) => setSearchBy(changer(filter, e.target.value))}
+                                <select onChange={(e) => setSearchBy(changer(searchBy, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
                                                                       key={el.value}>{el.name}</option>)}

@@ -161,7 +161,7 @@ const UserBooks = ({books}) => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
-                {data.map(
+                {data.length && data.map(
                     el => <Link key={el.id} href={`/user/books/${el.id}`}>
                         <div className={`overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto`}>
                             <a href="#" className="w-full block h-full">

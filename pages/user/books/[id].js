@@ -30,7 +30,6 @@ export async function getStaticProps({params}) {
         console.log(res)
         const book = await res.json()
         console.log(book)
-        console.log("mfckr")
         return {
             props: {
                 book: {...book}
