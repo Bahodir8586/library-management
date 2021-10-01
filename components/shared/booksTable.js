@@ -1,14 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Link from "next/link";
-import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
+import debounce from "lodash.debounce"
+
+import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import axios from "../../utils/axios";
+import {changer} from "../../utils/filterChangers";
 import WarningModal from "../modals/warningModal";
 import SuccessModal from "../modals/successModal";
-import InputRange from "./inputRange/inputRange";
 import FailModal from "../modals/failModal";
-import {changer} from "../../utils/filterChangers";
-import debounce from "lodash.debounce"
+import InputRange from "./inputRange/inputRange";
+
 
 const BooksTable = ({books}) => {
     console.log(books)

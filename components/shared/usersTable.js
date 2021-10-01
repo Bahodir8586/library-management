@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {useRouter} from "next/router";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
-import SweetAlert from "react-bootstrap-sweetalert";
 import {changer} from "../../utils/filterChangers";
-import UserModal from "../modals/userModal";
 import axios from "../../utils/axios";
-import {useRouter} from "next/router";
+import UserModal from "../modals/userModal";
 import WarningModal from "../modals/warningModal";
 import SuccessModal from "../modals/successModal";
 import FailModal from "../modals/failModal";

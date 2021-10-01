@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import axios from "../../utils/axios";
-import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {useRouter} from "next/router";
 import Link from "next/link";
-import InputRange from "../shared/inputRange/inputRange";
+
+import axios from "../../utils/axios";
+import {isPaginated, toNextPage, toPreviousPage} from "../../utils/pagination";
 import {changer} from "../../utils/filterChangers"
+import InputRange from "../shared/inputRange/inputRange";
 
 const UserBooks = ({books}) => {
     console.log(books)

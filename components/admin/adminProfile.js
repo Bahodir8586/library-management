@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import Image from "next/image"
-import WarningModal from "../modals/warningModal";
 import SweetAlert from "react-bootstrap-sweetalert";
+
+import WarningModal from "../modals/warningModal";
 
 const AdminProfile = ({name, categories, handleSubmit, addCategory, editCategory, deleteCategory}) => {
     const [username, setUsername] = useState(name)

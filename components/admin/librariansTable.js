@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
 import WarningModal from "../modals/warningModal";
+
 import axios from "../../utils/axios";
-import SuccessModal from "../modals/successModal";
-import Spinner from "../loaders/spinner/spinner";
-import FailModal from "../modals/failModal";
 import {changer} from "../../utils/filterChangers";
+import Spinner from "../loaders/spinner/spinner";
+import SuccessModal from "../modals/successModal";
+import FailModal from "../modals/failModal";
 
 const LibrariansTable = () => {
     const router = useRouter()

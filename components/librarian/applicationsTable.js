@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
+import SweetAlert from "react-bootstrap-sweetalert";
+
 import {toNextPage, toPreviousPage} from "../../utils/pagination";
 import {changer} from "../../utils/filterChangers";
 import axios from "../../utils/axios";
-import SweetAlert from "react-bootstrap-sweetalert";
 import SuccessModal from "../modals/successModal";
 import FailModal from "../modals/failModal";
 
