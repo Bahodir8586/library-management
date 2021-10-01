@@ -1,9 +1,10 @@
 import React from 'react';
-import Layout from "../../../components/layout";
-import withAuth from "../../../HOCs/withAuth";
-import Book from "../../../components/user/book";
-import axios from "../../../utils/axios";
 import {useRouter} from "next/router";
+
+import withAuth from "../../../HOCs/withAuth";
+import axios from "../../../utils/axios";
+import Layout from "../../../components/layout";
+import Book from "../../../components/user/book";
 
 //TODO: get information there statically
 export async function getStaticPaths() {
