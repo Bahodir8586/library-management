@@ -1,7 +1,8 @@
 import React from 'react';
+
+import withAuth from "../../../HOCs/withAuth";
 import Layout from "../../../components/layout";
 import LibrariansTable from "../../../components/admin/librariansTable";
-import withAuth from "../../../HOCs/withAuth";
 
 const Librarians = () => {
     return (

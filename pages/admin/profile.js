@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import Layout from "../../components/layout";
+
 import withAuth from "../../HOCs/withAuth";
-import AdminProfile from "../../components/admin/adminProfile";
 import axios from "../../utils/axios";
+import Layout from "../../components/layout";
+import AdminProfile from "../../components/admin/adminProfile";
 import SuccessModal from "../../components/modals/successModal";
 import FailModal from "../../components/modals/failModal";
 

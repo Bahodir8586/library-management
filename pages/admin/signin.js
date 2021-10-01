@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from "axios";
-import Signin from "../../components/shared/signin";
 import {useRouter} from "next/router";
+
 import withoutAuth from "../../HOCs/withoutAuth";
+import Signin from "../../components/shared/signin";
 
 const SignIn = () => {
     const router = useRouter()

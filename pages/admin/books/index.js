@@ -1,7 +1,8 @@
 import React from 'react';
+
+import withAuth from "../../../HOCs/withAuth";
 import Layout from "../../../components/layout";
 import BooksTable from "../../../components/shared/booksTable";
-import withAuth from "../../../HOCs/withAuth";
 
 export async function getStaticProps({params}) {
     try {
