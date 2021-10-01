@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import Link from "next/link"
-import axios from "axios";
 import {useRouter} from "next/router";
-import withoutAuth from "../HOCs/withoutAuth";
+import axios from "axios";
 import FacebookLogin from 'react-facebook-login';
 import {GoogleLogin} from 'react-google-login';
+
+import withoutAuth from "../HOCs/withoutAuth";
 
 const SignIn = () => {
     const router = useRouter()
