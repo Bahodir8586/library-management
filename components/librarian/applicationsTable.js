@@ -38,7 +38,8 @@ const ApplicationsTable = () => {
         console.log(searchBy.value, searchText)
         axios.get(`/librarian/applications?searchBy=${searchBy.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
             console.log(response)
-            setHaveNextPage(response.data)
+            setData(response.data.data)
+            setHaveNextPage(response.data.data)
         }).catch(error => {
             console.log(error)
         })
@@ -204,7 +205,7 @@ const ApplicationsTable = () => {
                                         <Link href={`/admin/users/${el.user.id}`}>
                                             <div className="flex items-center cursor-pointer justify-center">
                                                 <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                    {el.user.name}
+                                                    {el.user.fullName}
                                                 </p>
                                             </div>
                                         </Link>
@@ -225,7 +226,7 @@ const ApplicationsTable = () => {
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.duration} (days)
+                                            {el.wantedDuration} (days)
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">

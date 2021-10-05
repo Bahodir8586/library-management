@@ -19,7 +19,7 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Librarian name</div>
-                        <div className={"w-full font-medium"}>{librarian?.name}</div>
+                        <div className={"w-full font-medium"}>{librarian?.fullName}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book wanted date:</div>

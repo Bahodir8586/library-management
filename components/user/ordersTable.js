@@ -58,8 +58,8 @@ const OrdersTable = () => {
         axios.get(`/user/orders?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&page=${pageNumber}`)
             .then(response => {
                 console.log(response)
-                setData(response.data)
-                setHaveNextPage(isPaginated(response))
+                setData(response.data.data)
+                setHaveNextPage(isPaginated(response.data))
                 setIsLoading(false)
             }).catch(error => {
             console.log(error)
@@ -72,7 +72,7 @@ const OrdersTable = () => {
         //    TODO: handle book return function there
         console.log(id)
         setShowDetailedModal(false)
-        axios.patch(`/order/return/${id}`).then(response => {
+        axios.post(`/order/return/${id}`).then(response => {
             console.log(response)
             setShowSuccessModal(true)
             setSuccessText("Book successfully returned")
@@ -215,7 +215,7 @@ const OrdersTable = () => {
                                             <div className="flex items-center cursor-pointer justify-center"
                                                  onClick={() => showLibrarian(el.librarian.id)}>
                                                 <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                    {el.librarian.name}
+                                                    {el.librarian.fullName}
                                                 </p>
                                             </div>
                                         </td>

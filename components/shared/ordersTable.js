@@ -52,10 +52,10 @@ const OrdersTable = () => {
 
     const search = () => {
         console.log(filter.value, searchBy.value, searchText)
-        axios.get(`/role/orders?searchBy=${searchText}&filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
+        axios.get(`/${role}/orders?searchBy=${searchText}&filter=${filter.value}&searchText=${searchText}&page=${pageNumber}`).then(response => {
             console.log(response)
-            setData(response.data)
-            setHaveNextPage(response.data)
+            setData(response.data.data)
+            setHaveNextPage(response.data.data)
         }).catch(error => {
             console.log(error)
         })
@@ -196,7 +196,7 @@ const OrdersTable = () => {
                                         <div className="flex items-center cursor-pointer justify-center"
                                              onClick={() => showUser(el.id)}>
                                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                {el.user.name}
+                                                {el.user.fullName}
                                             </p>
                                         </div>
                                     </td>
@@ -213,13 +213,13 @@ const OrdersTable = () => {
                                         <div className="flex items-center cursor-pointer justify-center"
                                              onClick={() => showLibrarian(el.librarian.id)}>
                                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                {el.librarian.name}
+                                                {el.librarian?.name}
                                             </p>
                                         </div>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.givenDate}
+                                            {el.status !== "denied" ? el.givenDate : "This order is rejected"}
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
