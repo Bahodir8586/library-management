@@ -2,6 +2,7 @@ import React from 'react';
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
+    console.log(order)
     const {id, book, librarian, wantedDate, givenDate, mustReturnDate, returnedDate, status} = order
     return (
         <SweetAlert
@@ -28,24 +29,24 @@ const OrderDetailModal = ({show, onConfirm, order,returnBook, notUser}) => {
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book given date:</div>
                         <div
-                            className={`w-full font-medium ${!givenDate && "text-red-600 "}`}>{givenDate ? givenDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!givenDate && "text-red-600 "}`}>{givenDate ? givenDate : status?.message === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book should return date</div>
                         <div
-                            className={`w-full font-medium ${!mustReturnDate && "text-red-600 "}`}>{order.mustReturnDate ? mustReturnDate : status === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
+                            className={`w-full font-medium ${!mustReturnDate && "text-red-600 "}`}>{order.mustReturnDate ? mustReturnDate : status?.message === "denied" ? "This order is not accepted " : "Book is not given yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Book returned date</div>
                         <div
-                            className={`w-full font-medium ${!returnedDate && "text-red-600 "}`}>{returnedDate ? returnedDate : status === "denied" ? "This order is not accepted " : status === "waiting" ? "Book is not given yet" : "Book is not returned yet"}</div>
+                            className={`w-full font-medium ${!returnedDate && "text-red-600 "}`}>{returnedDate ? returnedDate : status?.message === "denied" ? "This order is not accepted " : status?.message === "waiting" ? "Book is not given yet" : "Book is not returned yet"}</div>
                     </div>
                     <div className={"flex text-left mb-2"}>
                         <div className={"w-full"}>Status</div>
-                        <div className={"w-full font-medium capitalize"}>{status}</div>
+                        <div className={"w-full font-medium capitalize"}>{status?.message}</div>
                     </div>
                 </div>
-                {status !== "finished" && status !== "denied" && status !== "waiting" &&!notUser &&
+                {status?.message !== "finished" && status?.message !== "denied" && status?.message !== "waiting" &&!notUser &&
                 <div className={"mt-4"}>
                     <button
                         className={"px-6 py-3 bg-green-600 text-white rounded text-xl cursor-pointer transition duration-200 hover:bg-green-700"} onClick={()=>returnBook(id)}>Return

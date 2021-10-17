@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LibrarianProfile = ({image, name, accepted, finished, rejected}) => {
+const LibrarianProfile = ({image, fullName, onProcess, finished, denied}) => {
     return (
 
         <div className="rounded-2xl w-full p-4 bg-white dark:bg-gray-800">
@@ -9,7 +9,7 @@ const LibrarianProfile = ({image, name, accepted, finished, rejected}) => {
                 <div className="h-28 w-full flex flex-col justify-between">
                     <div>
                         <p className="text-gray-800 dark:text-white text-xl font-medium">
-                            {name ?? "John Jackson"}
+                            {fullName ?? "John Jackson"}
                         </p>
                         <p className="text-gray-400 text-xs">
                             librarian
@@ -18,9 +18,9 @@ const LibrarianProfile = ({image, name, accepted, finished, rejected}) => {
                     <div className="rounded-lg dark:bg-white p-2 w-full">
                         <div className="flex items-center justify-between text-sm text-gray-400 dark:text-black">
                             <p className="bg-green-100 py-3 px-5 rounded flex flex-col">
-                                Accepted
+                                On Process
                                 <span className="text-black dark:text-indigo-500 font-bold">
-                            {accepted ?? 34}
+                            {onProcess ?? 34}
                         </span>
                             </p>
                             <p className="bg-yellow-100 py-3 px-5 rounded flex flex-col">
@@ -30,9 +30,9 @@ const LibrarianProfile = ({image, name, accepted, finished, rejected}) => {
                         </span>
                             </p>
                             <p className="bg-red-100 py-3 px-5 rounded flex flex-col">
-                                Rejected
+                                Denied
                                 <span className="text-black dark:text-indigo-500 font-bold">
-                            {rejected ?? 10}
+                            {denied ?? 10}
                         </span>
                             </p>
                         </div>

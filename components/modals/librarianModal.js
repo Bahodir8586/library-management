@@ -5,7 +5,7 @@ import Spinner from "../loaders/spinner/spinner";
 import LibrarianProfile from "../user/librarianProfile";
 
 const LibrarianModal = ({show, isLoading, isError, onConfirm, librarian}) => {
-    const {id, image, name, accepted, finished, rejected} = librarian
+    const {id, image, fullName, onProcess, finished, denied} = librarian
     return (
         <SweetAlert
             show={show}
@@ -17,8 +17,8 @@ const LibrarianModal = ({show, isLoading, isError, onConfirm, librarian}) => {
             {isLoading ? <Spinner/> :
                 isError ?
                     <div className={"text-red-600 font-medium"}>Something went wrong. Please try again later</div> :
-                    <LibrarianProfile image={image} name={name} accepted={accepted} finished={finished}
-                                      rejected={rejected}/>
+                    <LibrarianProfile image={image} fullName={fullName} onProcess={onProcess} finished={finished}
+                                      denied={denied}/>
             }
             {/*    TODO: show avatar and so on */}
         </SweetAlert>
