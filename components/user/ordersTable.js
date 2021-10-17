@@ -134,7 +134,7 @@ const OrdersTable = () => {
                                 <select onChange={(e) => setSearchBy(changer(searchBy, e.target.value))}
                                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
                                     {searchBy.options.map(el => <option className={"py-2 px-4"} value={el.value}
-                                                                      key={el.value}>{el.name}</option>)}
+                                                                        key={el.value}>{el.name}</option>)}
                                 </select>
                             </div>
                             <div className=" relative w-1/3">
@@ -198,10 +198,10 @@ const OrdersTable = () => {
                                 </thead>
                                 <tbody>
                                 {data.map(el =>
-                                    <tr key={el.id} className={el.status === "onProcess" ? "bg-green-50" :
-                                        el.status === "finished" ? "bg-blue-50" :
-                                            el.status === "denied" ? "bg-red-300" :
-                                                el.status === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
+                                    <tr key={el.id} className={el.status.message === "onProcess" ? "bg-green-50" :
+                                        el.status.message === "finished" ? "bg-blue-50" :
+                                            el.status.message === "denied" ? "bg-red-300" :
+                                                el.status.message === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <Link href={`/user/books/${el.book.id}`}>
                                                 <div className="flex items-center cursor-pointer justify-center">
@@ -213,15 +213,15 @@ const OrdersTable = () => {
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <div className="flex items-center cursor-pointer justify-center"
-                                                 onClick={() => showLibrarian(el.librarian.id)}>
+                                                 onClick={() => showLibrarian(el.librarian?.id)}>
                                                 <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                    {el.librarian.fullName}
+                                                    {el.librarian?.fullName}
                                                 </p>
                                             </div>
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                             <p className="text-gray-900 whitespace-no-wrap">
-                                                {el.created_at}
+                                                {el.created_at.split("T")[0]}
                                             </p>
                                         </td>
                                         <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
@@ -234,7 +234,7 @@ const OrdersTable = () => {
                                             setShowDetailedModal(true)
                                         }}
                                             className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center">
-                                            {el.status === "onProcess" ?
+                                            {el.status.message === "onProcess" ?
                                                 <span
                                                     className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
 															<span aria-hidden="true"
@@ -242,7 +242,7 @@ const OrdersTable = () => {
 															<span className="relative">
 																On Process
 															</span>
-													  </span> : el.status === "inDebt" ?
+													  </span> : el.status.message === "inDebt" ?
                                                     <span
                                                         className="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
 															<span aria-hidden="true"
@@ -250,7 +250,7 @@ const OrdersTable = () => {
 															<span className="relative">
 																In Debt
 															</span>
-													  </span> : el.status === "waiting" ?
+													  </span> : el.status.message === "waiting" ?
                                                         <span
                                                             className="relative inline-block px-3 py-1 font-semibold text-yellow-600 leading-tight">
 															<span aria-hidden="true"
@@ -258,7 +258,7 @@ const OrdersTable = () => {
 															<span className="relative">
 																Waiting
 															</span>
-													  </span> : el.status === "denied" ?
+													  </span> : el.status.message === "denied" ?
                                                             <span
                                                                 className="relative inline-block px-3 py-1 font-semibold text-pink-600 leading-tight">
 															<span aria-hidden="true"
