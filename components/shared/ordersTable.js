@@ -216,7 +216,7 @@ const OrdersTable = () => {
                                         <div className="flex items-center cursor-pointer justify-center"
                                              onClick={() => showLibrarian(el.librarian.id)}>
                                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                                                {el.librarian?.name}
+                                                {el.librarian?.fullName}
                                             </p>
                                         </div>
                                     </td>
