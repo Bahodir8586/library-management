@@ -191,7 +191,10 @@ const OrdersTable = () => {
                             <tbody>
                             {data.map(el =>
                                 <tr key={el.id}
-                                    className={el.status === "onProcess" ? "bg-green-50" : el.status === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
+                                    className={el.status.message === "onProcess" ? "bg-green-50" :
+                                        el.status.message === "finished" ? "bg-blue-50" :
+                                            el.status.message === "denied" ? "bg-red-300" :
+                                                el.status.message === "inDebt" ? "bg-red-50" : "bg-yellow-50"}>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <div className="flex items-center cursor-pointer justify-center"
                                              onClick={() => showUser(el.id)}>
@@ -219,12 +222,12 @@ const OrdersTable = () => {
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.status !== "denied" ? el.givenDate : "This order is rejected"}
+                                            {el.status.message !== "denied" ? el.givenDate : "This order is rejected"}
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {el.status === "finished" ? el.returnedDate : el.mustReturnDate}
+                                            {el.status.message === "finished" ? el.returnedDate : el.mustReturnDate}
                                         </p>
                                     </td>
                                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center flex justify-center"
@@ -232,7 +235,7 @@ const OrdersTable = () => {
                                             setSelectedOrder(el)
                                             setShowDetailedModal(true)
                                         }}>
-                                        {el.status === "onProcess" ?
+                                        {el.status.message === "onProcess" ?
                                             <span
                                                 className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
 															<span aria-hidden="true"
@@ -240,7 +243,7 @@ const OrdersTable = () => {
 															<span className="relative">
 																On Process
 															</span>
-													  </span> : el.status === "inDebt" ?
+													  </span> : el.status.message === "inDebt" ?
                                                 <span
                                                     className="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
 															<span aria-hidden="true"
@@ -248,11 +251,27 @@ const OrdersTable = () => {
 															<span className="relative">
 																In Debt
 															</span>
-													  </span> :
-                                                <span
-                                                    className="relative inline-block px-3 py-1 font-semibold text-yellow-600 leading-tight">
+													  </span> : el.status.message === "waiting" ?
+                                                    <span
+                                                        className="relative inline-block px-3 py-1 font-semibold text-yellow-600 leading-tight">
 															<span aria-hidden="true"
                                                                   className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"/>
+															<span className="relative">
+																Waiting
+															</span>
+													  </span> : el.status.message === "denied" ?
+                                                        <span
+                                                            className="relative inline-block px-3 py-1 font-semibold text-pink-600 leading-tight">
+															<span aria-hidden="true"
+                                                                  className="absolute inset-0 bg-pink-200 opacity-50 rounded-full"/>
+															<span className="relative">
+																Denied
+															</span>
+													  </span> :
+                                                        <span
+                                                            className="relative inline-block px-3 py-1 font-semibold text-blue-600 leading-tight">
+															<span aria-hidden="true"
+                                                                  className="absolute inset-0 bg-blue-200 opacity-50 rounded-full"/>
 															<span className="relative">
 																Finished
 															</span>
