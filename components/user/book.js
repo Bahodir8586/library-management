@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import SweetAlert from "react-bootstrap-sweetalert";
+import FailModal from "../modals/failModal";
 
 const Book = ({name, image, author, publishedYear, description, categories, count, orderBook}) => {
     const [showOrderModal, setShowOrderModal] = useState(false)
@@ -42,9 +43,14 @@ const Book = ({name, image, author, publishedYear, description, categories, coun
                     <img src={image} alt={name} className={"object-cover"}/>
                 </div>
                 <div className={"w-full px-4 py-6"}>
-                    <div className={"mb-2"}>Author: <span className={"capitalize font-semibold text-xl"}>{author}</span></div>
-                    <div className={"mb-2"}>Published Year:  <span className={"capitalize font-semibold text-xl"}>{publishedYear}</span></div>
-                    <div>Categories: {categories?.length>0?categories.map(({id, name}) => <span className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "} key={id}>{name}</span>):<span className={"capitalize font-semibold text-xl text-red-600"}>No category</span>}</div>
+                    <div className={"mb-2"}>Author: <span className={"capitalize font-semibold text-xl"}>{author}</span>
+                    </div>
+                    <div className={"mb-2"}>Published Year: <span
+                        className={"capitalize font-semibold text-xl"}>{publishedYear}</span></div>
+                    <div>Categories: {categories?.length > 0 ? categories.map(({id, name}) => <span
+                            className={"px-4 py-1 mx-1 text-base rounded-full text-white  bg-indigo-500 "}
+                            key={id}>{name}</span>) :
+                        <span className={"capitalize font-semibold text-xl text-red-600"}>No category</span>}</div>
                 </div>
             </div>
             <p className={"text-sm px-12 mt-4"}>
@@ -53,7 +59,7 @@ const Book = ({name, image, author, publishedYear, description, categories, coun
             <div className={"text-center mt-6"}>
                 <button
                     className={`flex-shrink-0 px-4 py-2 text-base font-semibold text-white rounded-lg shadow-md  focus:outline-none focus:ring-2 focus:ring-offset-2  ${count < 1 ? "focus:ring-green-500 bg-green-500 hover:bg-green-700 focus:ring-offset-green-200" : "focus:ring-red-500 bg-red-500 hover:bg-red-700 focus:ring-offset-red-200"}`}
-                    onClick={() => setShowOrderModal(true)} disabled={count > 1}>Order book
+                    onClick={() => setShowOrderModal(true)} disabled={!count || count < 1}>Order book
                 </button>
             </div>
         </div>

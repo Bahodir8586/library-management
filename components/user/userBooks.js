@@ -43,15 +43,16 @@ const UserBooks = ({books}) => {
     const [fromYear, setFromYear] = useState(undefined)
     const [toYear, setToYear] = useState(undefined)
 
-    useEffect(() => {
-        search()
-    }, [filter.value, searchBy.value, sort.value, pageNumber, onlyAvailable])
+    // useEffect(() => {
+    //     search()
+    // }, [filter.value, searchBy.value, sort.value, pageNumber, onlyAvailable])
 
     const search = (e) => {
         console.log(filter.value, searchText, searchBy.value, sort.value, fromYear, toYear, pageNumber)
         axios.get(
-            `/api/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&onlyAvailable=${onlyAvailable}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
+            `/books?filter=${filter.value}&searchText=${searchText}&searchBy=${searchBy.value}&sort=${sort.value}&onlyAvailable=${onlyAvailable}&fromYear=${fromYear}&toYear=${toYear}&page=${pageNumber}`)
             .then(response => {
+                console.log(response.data.data)
                 setHaveNextPage(isPaginated(response));
                 setData(response.data)
             }).catch(error => {
