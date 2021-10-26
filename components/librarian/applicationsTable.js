@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import SweetAlert from "react-bootstrap-sweetalert";
 
@@ -182,7 +182,7 @@ const ApplicationsTable = () => {
           <h2 className="text-6xl leading-tight w-1/6">Applications</h2>
           <div className="text-end w-3/4">
             <form
-              className="flex flex-col md:flex-row w-3/4 md:w-full md:space-x-3 space-y-3 md:space-y-0 justify-end items-end w-full"
+              className="flex flex-col md:flex-row md:w-full md:space-x-3 space-y-3 md:space-y-0 justify-end items-end w-full"
               onSubmit={(e) => {
                 e.preventDefault();
                 search();
@@ -273,7 +273,7 @@ const ApplicationsTable = () => {
                 {data.map((el) => (
                   <tr key={el.id} className={"bg-white"}>
                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                      <Link href={`/admin/users/${el.user.id}`}>
+                      <Link href={`/admin/users/${el.user.id}`} passHref={true}>
                         <div className="flex items-center cursor-pointer justify-center">
                           <p className="text-gray-900 whitespace-no-wrap text-center">
                             {el.user.fullName}
@@ -282,7 +282,7 @@ const ApplicationsTable = () => {
                       </Link>
                     </td>
                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                      <Link href={`/admin/books/${el.book.id}`}>
+                      <Link href={`/admin/books/${el.book.id}`} passHref={true}>
                         <div className="flex items-center cursor-pointer justify-center">
                           <p className="text-gray-900 whitespace-no-wrap text-center">
                             {el.book.name}
