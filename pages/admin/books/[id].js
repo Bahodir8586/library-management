@@ -52,8 +52,6 @@ export async function getStaticProps({params}) {
             },
         }
     }
-
-
 }
 
 const Book = ({categories, book}) => {

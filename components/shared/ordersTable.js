@@ -2,7 +2,11 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { toNextPage, toPreviousPage } from "../../utils/pagination";
+import {
+  toNextPage,
+  toPreviousPage,
+  isPaginated,
+} from "../../utils/pagination";
 import { changer } from "../../utils/filterChangers";
 import axios from "../../utils/axios";
 import OrderDetailModal from "../modals/orderDetailModal";
@@ -59,7 +63,7 @@ const OrdersTable = () => {
       .then((response) => {
         console.log(response);
         setData(response.data.data);
-        setHaveNextPage(response.data.data);
+        setHaveNextPage(isPaginated(response.data));
       })
       .catch((error) => {
         console.log(error);
@@ -293,7 +297,10 @@ const OrdersTable = () => {
                       </div>
                     </td>
                     <td className="px-5 py-3 border-b border-gray-200 text-sm text-center">
-                      <Link href={`/admin/books/${el.book.id}`} passHref={true}>
+                      <Link
+                        href={`/${role}/books/${el.book.id}`}
+                        passHref={true}
+                      >
                         <div className="flex items-center cursor-pointer justify-center">
                           <p className="text-gray-900 whitespace-no-wrap text-center">
                             {el.book.name}
