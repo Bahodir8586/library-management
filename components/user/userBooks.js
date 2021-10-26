@@ -12,10 +12,8 @@ import { changer } from "../../utils/filterChangers";
 import InputRange from "../shared/inputRange/inputRange";
 
 const UserBooks = ({ books }) => {
-  console.log(books);
   const router = useRouter();
   const [data, setData] = useState(books);
-  console.log(data);
   const [filter, setFilter] = useState({
     value: "all",
     options: [
@@ -45,8 +43,8 @@ const UserBooks = ({ books }) => {
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [haveNextPage, setHaveNextPage] = useState(true);
-  const [fromYear, setFromYear] = useState(undefined);
-  const [toYear, setToYear] = useState(undefined);
+  const [fromYear, setFromYear] = useState(1950);
+  const [toYear, setToYear] = useState(2020);
 
   useEffect(() => {
     search();
@@ -176,7 +174,7 @@ const UserBooks = ({ books }) => {
                 min={0}
                 max={121}
                 step={1}
-                initValue={110}
+                initValue={120}
                 onChange={(val) => {
                   setToYear(1900 + +val);
                 }}
